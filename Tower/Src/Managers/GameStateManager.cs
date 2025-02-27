@@ -4,15 +4,9 @@ namespace Tower.Src.Managers;
 
 public class GameStateManager
 {
-    public GameStateEnum CurrentState { get; private set; }
-    
-    public GameStateEnum? PreviousState { get; private set; }
+    public GameStateEnum CurrentState { get; private set; } = GameStateEnum.Planning;
 
-    public GameStateManager()
-    {
-        CurrentState = GameStateEnum.Planning;
-        PreviousState = null;
-    }
+    public GameStateEnum? PreviousState { get; private set; } = null;
 
     public void ChangeState(GameStateEnum newState)
     {

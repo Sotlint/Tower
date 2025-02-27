@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 using Tower.Src.Managers;
 using Tower.Src.Models.Abstractions;
 
-namespace Tower.Src.Scripts;
+namespace Tower.Src.LogicUpdaters;
 
 public static class MainUpdateLogic
 {
@@ -13,22 +13,27 @@ public static class MainUpdateLogic
         if (state is GameStateEnum.Playing)
         {
             WaveUpdateLogic.Update(gameTime, gameManager);
+            return;
         }
         if (state is GameStateEnum.Planning)
         {
             PlannedUpdateLogic.Update(gameTime, gameManager);
+            return;
         }
         if (state is GameStateEnum.Menu)
         {
+            return;
         }
         if (state is GameStateEnum.Paused)
         {
             //ignore
+            return;
         }
         if (state == GameStateEnum.GameOver)
         {
             Console.WriteLine("Game over!");
             gameManager.GameStateManager.ChangeState(GameStateEnum.Menu);
+            return;
         }
     }
 }

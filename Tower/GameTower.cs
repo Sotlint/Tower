@@ -1,9 +1,11 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Tower.Src.LogicUpdaters;
 using Tower.Src.Managers;
 using Tower.Src.Models;
-using Tower.Src.Scripts;
+using Tower.Src.Renderers;
+
 // ReSharper disable PossibleLossOfFraction
 
 namespace Tower;
@@ -44,7 +46,7 @@ public class GameTower : Game
 
     protected override void Draw(GameTime gameTime)
     {
-        GraphicsDevice.Clear(Color.CornflowerBlue);
+        MainRenderer.Render(_gameManager, _spriteBatch, _graphics);
         base.Draw(gameTime);
     }
 }
