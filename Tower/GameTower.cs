@@ -13,15 +13,7 @@ public class GameTower : Game
 {
     private GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
-    private  List<Vector2> _wayPoints = new()
-    {
-        new Vector2(0, 0),
-        new Vector2(100, 50),
-        new Vector2(200, 150)
-    };
-    private BasicEnemy _enemy = new BasicEnemy(100, 5, 50, EnemyTypeEnum.Basic);
-    private Citadel _citadel = new Citadel(0, 100, new Vector2(300, 300));
-    private PathManager _pathManager;
+    private GameManager _gameManager;
 
     public GameTower()
     {
@@ -32,7 +24,10 @@ public class GameTower : Game
 
     protected override void Initialize()
     {
-        _pathManager = new PathManager(_wayPoints, new Vector2(300, 300));
+
+        var gameManager = new GameManager();
+        gameManager.Init();
+        _gameManager = gameManager;
         // Add your initialization logic here
         base.Initialize();
 
@@ -46,12 +41,7 @@ public class GameTower : Game
 
     protected override void Update(GameTime gameTime)
     {
-        if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed ||
-            Keyboard.GetState().IsKeyDown(Keys.Escape))
-            Exit();
-
-        _enemy.FollowPath(_pathManager, _citadel);
-        Console.WriteLine($"Враг на позиции: {_enemy.Position}, Цитадель: {_citadel.Health} HP");
+      
         // Add your update logic here
         base.Update(gameTime);
     }

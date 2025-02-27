@@ -5,15 +5,11 @@ namespace Tower.Core.Managers;
 
 public class PathManager
 {
-    public Vector2 CitadelPosition { get; private set; }
+    public Vector2? CitadelPosition { get; private set; }
 
-    public PathManager(List<Vector2> waypoints, Vector2 citadelPosition)
-    {
-        CitadelPosition = citadelPosition;
-    }
-
-    public Vector2 GetNextWaypoint(int currentWaypointIndex)
-    {
-        return CitadelPosition;
-    }
+    public Vector2? GetCitadelPosition()
+        => CitadelPosition;
+    
+    public void SetCitadelPosition(Vector2 position)
+        => CitadelPosition = position;
 }
