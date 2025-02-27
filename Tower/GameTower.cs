@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Input;
 using Tower.Core.Managers;
 using Tower.Core.Models;
 using Tower.Core.Models.Abstractions;
+using Tower.Core.Scripts;
 
 namespace Tower;
 
@@ -41,7 +42,7 @@ public class GameTower : Game
 
     protected override void Update(GameTime gameTime)
     {
-      
+        MainUpdateLogic.Update(gameTime, _gameManager);
         // Add your update logic here
         base.Update(gameTime);
     }
