@@ -9,17 +9,17 @@ public class EnemyManager
 {
     public List<IEnemy> Enemies { get; set; }
 
-    public void AddEnemy(IEnemy tower)
-        => Enemies.Add(tower);
+    public void AddEnemy(IEnemy enemy)
+        => Enemies.Add(enemy);
 
-    public void RemoveEnemy(IEnemy tower)
-        => Enemies.Remove(tower);
+    public void RemoveEnemy(IEnemy enemy)
+        => Enemies.Remove(enemy);
 
-    public void UpdateEnemy(IEnemy tower)
+    public void UpdateEnemy(IEnemy enemy)
     {
-        if (!Enemies.Contains(tower)) return;
-        var index = Enemies.IndexOf(tower);
-        Enemies[index] = tower;
+        if (!Enemies.Contains(enemy)) return;
+        var index = Enemies.IndexOf(enemy);
+        Enemies[index] = enemy;
     }
 
     public IEnemy GetEnemy(Guid id)
