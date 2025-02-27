@@ -20,32 +20,26 @@ public class GameTower : Game
 
     protected override void Initialize()
     {
-
         var gameManager = new GameManager();
         gameManager.Init();
         _gameManager = gameManager;
-        // Add your initialization logic here
         base.Initialize();
-
     }
 
     protected override void LoadContent()
     {
         _spriteBatch = new SpriteBatch(GraphicsDevice);
-        //use this.Content to load your game content here
     }
 
     protected override void Update(GameTime gameTime)
     {
         MainUpdateLogic.Update(gameTime, _gameManager);
-        // Add your update logic here
         base.Update(gameTime);
     }
 
     protected override void Draw(GameTime gameTime)
     {
         GraphicsDevice.Clear(Color.CornflowerBlue);
-        // Add your drawing code here
         base.Draw(gameTime);
     }
 }
