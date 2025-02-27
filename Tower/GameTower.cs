@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 using Tower.Core.Managers;
-using Tower.Core.Models;
-using Tower.Core.Models.Abstractions;
 using Tower.Core.Scripts;
 
 namespace Tower;
