@@ -24,7 +24,6 @@
     </ItemGroup>
     <ItemGroup>
       <Folder Include="Src\Observers\" />
-      <Folder Include="Src\Scenes\" />
       <Folder Include="Src\UI\" />
     </ItemGroup>
     <Target Name="RestoreDotnetTools" BeforeTargets="Restore">
