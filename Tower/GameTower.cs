@@ -1,7 +1,10 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Diagnostics.CodeAnalysis;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Tower.Core.Managers;
-using Tower.Core.Scripts;
+using Tower.Src.Managers;
+using Tower.Src.Models;
+using Tower.Src.Scripts;
+// ReSharper disable PossibleLossOfFraction
 
 namespace Tower;
 
@@ -21,7 +24,9 @@ public class GameTower : Game
     protected override void Initialize()
     {
         var gameManager = new GameManager();
-        gameManager.Init();
+        var citadelPosition = new Vector2(GraphicsDevice.Viewport.Width / 2, GraphicsDevice.Viewport.Height / 2);
+        var citadel = new Citadel(0, 100, citadelPosition);
+        gameManager.Init(citadel);
         _gameManager = gameManager;
         base.Initialize();
     }
