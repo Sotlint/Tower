@@ -16,7 +16,7 @@ public class BaseTower : BaseBuilding, IBuilding, ITower
         Type = type;
     }
 
-    public override void Attack(List<BaseEnemy> enemies)
+    public override void Attack(List<IEnemy> enemies)
     {
         throw new System.NotImplementedException();
     }

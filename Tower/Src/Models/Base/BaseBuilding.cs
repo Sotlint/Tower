@@ -17,9 +17,11 @@ public abstract class BaseBuilding : IBuilding
         Cost = cost;
         Health = health;
         Position = position;
+        AttackPower = 100;
+        AttackRange = 50.0f;
     }
 
-    public abstract void Attack(List<BaseEnemy> enemies);
+    public abstract void Attack(List<IEnemy> enemies);
     public abstract void TakeDamage(int damage);
     public abstract bool IsDestroyed();
 }

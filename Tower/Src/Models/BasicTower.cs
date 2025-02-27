@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
@@ -14,7 +15,7 @@ public class BasicTower : BaseTower, IBuilding, ITower
         AttackPower = attackPower;
     }
 
-    public override void Attack(List<BaseEnemy> enemies)
+    public override void Attack(List<IEnemy> enemies)
     {
         var target = enemies
             .Where(e => Vector2.Distance(Position, e.Position) <= AttackRange)
@@ -22,7 +23,8 @@ public class BasicTower : BaseTower, IBuilding, ITower
 
         if (target != null)
         {
-            target.Health -= AttackPower;
+            target.TakeDamage(AttackPower);
+            Console.WriteLine($"Tower attacked enemy at {target.Position} with {AttackPower} damage.");
         }
     }
 

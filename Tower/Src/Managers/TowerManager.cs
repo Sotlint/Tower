@@ -24,4 +24,6 @@ public class TowerManager
 
     public ITower GetTower(Guid id)
     => Towers.Single(x=>x.Id == id);
+    
+    public List<ITower> GetTowers() => Towers;
 }

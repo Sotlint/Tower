@@ -19,6 +19,14 @@ public class EnemyManager
     public void RemoveEnemy(IEnemy enemy)
         => Enemies.Remove(enemy);
 
+    public void RemoveEnemy(List<IEnemy> enemies)
+    {
+        foreach (var enemy in enemies)
+        {
+            RemoveEnemy(enemy);
+        }
+    }
+
     public void UpdateEnemy(IEnemy enemy)
     {
         if (!Enemies.Contains(enemy)) return;
@@ -30,6 +38,12 @@ public class EnemyManager
         => Enemies.Single(x => x.Id == id);
 
     public List<IEnemy> GetEnemies() => Enemies;
+
+    public List<IEnemy> GetAliveEnemies()
+    {
+        RemoveEnemy(Enemies.Where(x => x.IsDefeated()).ToList());
+        return Enemies;
+    }
 
     public void SpawnEnemy(int count)
         => AddEnemy(EnemyFactory.CreateEnemy(EnemyTypeEnum.Basic, count));

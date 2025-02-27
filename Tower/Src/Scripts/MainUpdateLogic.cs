@@ -23,10 +23,12 @@ public static class MainUpdateLogic
         }
         if (state is GameStateEnum.Paused)
         {
+            //ignore
         }
-        if (state is GameStateEnum.GameOver)
+        if (state == GameStateEnum.GameOver)
         {
             Console.WriteLine("Game over!");
+            gameManager.GameStateManager.ChangeState(GameStateEnum.Menu);
         }
     }
 }

@@ -1,6 +1,8 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
+using Tower.Src.Models.Abstractions;
 using Tower.Src.Models.Base;
 
 namespace Tower.Src.Models;
@@ -18,7 +20,7 @@ public class Citadel : BaseBuilding
 
     public override bool IsDestroyed() => Health <= 0;
 
-    public override void Attack(List<BaseEnemy> enemies)
+    public override void Attack(List<IEnemy> enemies)
     {
         var target = enemies
             .Where(e => Vector2.Distance(Position, e.Position) <= AttackRange)
@@ -26,7 +28,8 @@ public class Citadel : BaseBuilding
 
         if (target != null)
         {
-            target.Health -= AttackPower;
+            target.TakeDamage(AttackPower);
+            Console.WriteLine($"Цитадель атакует врага {target.Position} with {AttackPower} damage.");
         }
     }
 }

@@ -13,9 +13,8 @@ public class BasicEnemy : BaseEnemy, IEnemy
     }
 
     public override void TakeDamage(int damage)
-    {
-        Health -= damage;
-    }
+    => Health -= damage;
+    
 
     public override bool IsDefeated() => Health <= 0;
 
@@ -33,6 +32,12 @@ public class BasicEnemy : BaseEnemy, IEnemy
 
     public override void Update(Citadel citadel)
     {
+        if (IsDefeated())
+        {
+            Console.WriteLine($"Враг {Id} убит!");
+            return;
+        }
+        
         Move(citadel.Position);
         Console.WriteLine($"Враг {Id} движется в направлении {Position}");
         if (Vector2.Distance(Position, citadel.Position) < 5f)
