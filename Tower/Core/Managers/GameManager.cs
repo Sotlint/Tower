@@ -7,7 +7,7 @@ public class GameManager
     public PathManager PathManager { get; private set; }
     public EnemyManager EnemyManager { get; private set; }
     public DifficultyManager DifficultyManager { get; private set; }
-    public int Score { get; private set; }
+    private int Score { get; set; }
 
     public void UpdateScore(int points)
     {
