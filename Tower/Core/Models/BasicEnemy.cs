@@ -22,7 +22,8 @@ public class BasicEnemy : BaseEnemy , IEnemy
     {
         var direction = targetPosition - Position;
 
-        if (direction.Length() > 0) // Проверка, чтобы не делить на 0
+        // Проверка, чтобы не делить на 0
+        if (direction.Length() > 0) 
         {
             direction = Vector2.Normalize(direction);
             Position += direction * Speed;
@@ -31,18 +32,14 @@ public class BasicEnemy : BaseEnemy , IEnemy
 
     public override void FollowPath(PathManager pathManager, Citadel citadel)
     {
-        if (pathManager.HasReachedCitadel(CurrentWaypointIndex))
-        {
-            AttackCitadel(citadel);
-            return;
-        }
-
+      
         var target = pathManager.GetNextWaypoint(CurrentWaypointIndex);
         Move(target);
 
         if (Vector2.Distance(Position, target) < 5f)
         {
             CurrentWaypointIndex++;
+            AttackCitadel(citadel);
         }
     }
 
