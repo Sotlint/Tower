@@ -1,3 +1,4 @@
+using System;
 using Microsoft.Xna.Framework;
 using Tower.Core.Managers;
 using Tower.Core.Models.Abstractions;
@@ -6,6 +7,7 @@ namespace Tower.Core.Models.Base;
 
 public abstract class BaseEnemy : IEnemy
 {
+    public Guid Id { get; init; }
     public int CurrentWaypointIndex { get; set; }
     public Vector2 Position { get; set; }
 
@@ -17,6 +19,7 @@ public abstract class BaseEnemy : IEnemy
 
     protected BaseEnemy(int health, int speed, int reward, EnemyTypeEnum type)
     {
+        Id = Guid.NewGuid();
         CurrentWaypointIndex = 0;
         Health = health;
         Speed = speed;
@@ -30,4 +33,5 @@ public abstract class BaseEnemy : IEnemy
     public abstract void Move(Vector2 targetPosition);
 
     public abstract void FollowPath(PathManager pathManager, Citadel citadel);
+
 }

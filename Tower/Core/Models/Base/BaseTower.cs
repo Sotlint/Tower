@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Tower.Core.Models.Abstractions;
@@ -6,10 +7,12 @@ namespace Tower.Core.Models.Base;
 
 public class BaseTower : BaseBuilding, IBuilding, ITower
 {
+    public Guid Id { get; }
     public TowerTypeEnum Type { get; set; }
 
     public BaseTower(int cost, int health, Vector2 position, TowerTypeEnum type) : base(cost, health, position)
     {
+        Id = Guid.NewGuid();
         Type = type;
     }
 
@@ -27,4 +30,6 @@ public class BaseTower : BaseBuilding, IBuilding, ITower
     {
         throw new System.NotImplementedException();
     }
+
+ 
 }

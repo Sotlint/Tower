@@ -23,7 +23,6 @@
         <PackageReference Include="MonoGame.Content.Builder.Task" Version="3.8.1.303"/>
     </ItemGroup>
     <ItemGroup>
-      <Folder Include="Core\Commands\" />
       <Folder Include="Core\Observers\" />
       <Folder Include="Core\Scenes\" />
       <Folder Include="Core\UI\" />
