@@ -1,13 +1,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
+using Tower.Core.Models.Abstractions;
 using Tower.Core.Models.Base;
 
 namespace Tower.Core.Models;
 
-public class Tower : BaseBuilding
+public class BasicTower : BaseTower, IBuilding, ITower
 {
-    public Tower(int cost, int health, int attackPower, Vector2 position) : base(cost, health, position)
+    public BasicTower(int cost, int health, int attackPower, Vector2 position, TowerTypeEnum type) : base(cost, health,
+        position, type)
     {
         AttackPower = attackPower;
     }
@@ -20,7 +22,7 @@ public class Tower : BaseBuilding
 
         if (target != null)
         {
-            target.Health-= AttackPower;
+            target.Health -= AttackPower;
         }
     }
 

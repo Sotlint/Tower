@@ -23,10 +23,10 @@ public class Citadel : BaseBuilding
         var target = enemies
             .Where(e => Vector2.Distance(Position, e.Position) <= AttackRange)
             .MinBy(e => Vector2.Distance(Position, e.Position));
-        
+
         if (target != null)
         {
-            target.Health-= AttackPower;
+            target.Health -= AttackPower;
         }
     }
 }

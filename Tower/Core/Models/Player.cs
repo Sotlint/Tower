@@ -4,7 +4,9 @@ namespace Tower.Core.Models;
 
 public class Player : BasePlayer
 {
-    public Player(int initialMoney, int initialHealth) : base(initialMoney, initialHealth) { }
+    public Player(int initialMoney, int initialHealth) : base(initialMoney, initialHealth)
+    {
+    }
 
     public override void EarnMoney(int amount)
     {
@@ -18,6 +20,7 @@ public class Player : BasePlayer
             Money -= amount;
             return true;
         }
+
         return false;
     }
 

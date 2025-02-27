@@ -1,12 +1,15 @@
 using Microsoft.Xna.Framework;
 using Tower.Core.Managers;
+using Tower.Core.Models.Abstractions;
 using Tower.Core.Models.Base;
 
 namespace Tower.Core.Models;
 
-public class BasicEnemy : BaseEnemy
+public class BasicEnemy : BaseEnemy , IEnemy
 {
-    public BasicEnemy(int health, int speed, int reward) : base(health, speed, reward) { }
+    public BasicEnemy(int health, int speed, int reward, EnemyTypeEnum type) : base(health, speed, reward, type)
+    {
+    }
 
     public override void TakeDamage(int damage)
     {
@@ -14,11 +17,11 @@ public class BasicEnemy : BaseEnemy
     }
 
     public override bool IsDefeated() => Health <= 0;
-    
+
     public override void Move(Vector2 targetPosition)
     {
         var direction = targetPosition - Position;
-    
+
         if (direction.Length() > 0) // Проверка, чтобы не делить на 0
         {
             direction = Vector2.Normalize(direction);
@@ -42,7 +45,7 @@ public class BasicEnemy : BaseEnemy
             CurrentWaypointIndex++;
         }
     }
-    
+
     private void AttackCitadel(Citadel citadel)
     {
         citadel.TakeDamage(10);

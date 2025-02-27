@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Tower.Core.Managers;
 using Tower.Core.Models;
+using Tower.Core.Models.Abstractions;
 
 namespace Tower;
 
@@ -18,7 +19,7 @@ public class GameTower : Game
         new Vector2(100, 50),
         new Vector2(200, 150)
     };
-    private BasicEnemy _enemy = new BasicEnemy(100, 5, 50);
+    private BasicEnemy _enemy = new BasicEnemy(100, 5, 50, EnemyTypeEnum.Basic);
     private Citadel _citadel = new Citadel(0, 100, new Vector2(300, 300));
     private PathManager _pathManager;
 
