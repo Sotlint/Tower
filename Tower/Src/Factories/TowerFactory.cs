@@ -1,9 +1,9 @@
 using System;
 using System.Numerics;
-using Tower.Src.Models;
-using Tower.Src.Models.Abstractions;
+using Tower.Models;
+using Tower.Models.Abstractions;
 
-namespace Tower.Src.Factories;
+namespace Tower.Factories;
 
 public static class TowerFactory
 {

@@ -1,9 +1,9 @@
 using System;
 using Microsoft.Xna.Framework;
-using Tower.Src.Managers;
-using Tower.Src.Models.Abstractions;
+using Tower.Managers;
+using Tower.Models.Abstractions;
 
-namespace Tower.Src.LogicUpdaters;
+namespace Tower.LogicUpdaters;
 
 public static class PlannedUpdateLogic
 {

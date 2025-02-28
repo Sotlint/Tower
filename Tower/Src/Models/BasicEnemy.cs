@@ -1,10 +1,9 @@
 using System;
 using Microsoft.Xna.Framework;
-using Tower.Src.Managers;
-using Tower.Src.Models.Abstractions;
-using Tower.Src.Models.Base;
+using Tower.Models.Abstractions;
+using Tower.Models.Base;
 
-namespace Tower.Src.Models;
+namespace Tower.Models;
 
 public class BasicEnemy : BaseEnemy, IEnemy
 {

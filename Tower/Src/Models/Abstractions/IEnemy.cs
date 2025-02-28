@@ -1,7 +1,7 @@
 using System;
 using Microsoft.Xna.Framework;
 
-namespace Tower.Src.Models.Abstractions;
+namespace Tower.Models.Abstractions;
 
 public interface IEnemy
 {

@@ -1,6 +1,6 @@
-using Tower.Src.Models;
+using Tower.Models;
 
-namespace Tower.Src.Managers;
+namespace Tower.Managers;
 
 public class GameManager
 {

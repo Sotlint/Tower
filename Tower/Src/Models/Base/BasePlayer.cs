@@ -1,4 +1,4 @@
-namespace Tower.Src.Models.Base;
+namespace Tower.Models.Base;
 
 public abstract class BasePlayer
 {

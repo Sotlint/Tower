@@ -1,9 +1,9 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Tower.Src.Managers;
-using Tower.Src.Models.Abstractions;
+using Tower.Managers;
+using Tower.Models.Abstractions;
 
-namespace Tower.Src.Renderers;
+namespace Tower.Renderers;
 
 public static class MainRenderer
 {

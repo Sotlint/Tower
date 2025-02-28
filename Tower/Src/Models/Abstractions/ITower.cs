@@ -1,6 +1,6 @@
 using System;
 
-namespace Tower.Src.Models.Abstractions;
+namespace Tower.Models.Abstractions;
 
 public interface ITower
 {

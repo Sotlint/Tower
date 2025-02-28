@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Tower.Src.Factories;
-using Tower.Src.Models.Abstractions;
+using Tower.Factories;
+using Tower.Models.Abstractions;
 
-namespace Tower.Src.Managers;
+namespace Tower.Managers;
 
 public class EnemyManager
 {

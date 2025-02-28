@@ -1,10 +1,10 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Tower.Src.LogicUpdaters;
-using Tower.Src.Managers;
-using Tower.Src.Models;
-using Tower.Src.Renderers;
+using Tower.LogicUpdaters;
+using Tower.Managers;
+using Tower.Models;
+using Tower.Renderers;
 
 // ReSharper disable PossibleLossOfFraction
 

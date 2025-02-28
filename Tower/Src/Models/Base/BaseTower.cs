@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using Tower.Src.Models.Abstractions;
+using Tower.Models.Abstractions;
 
-namespace Tower.Src.Models.Base;
+namespace Tower.Models.Base;
 
 public class BaseTower : BaseBuilding, IBuilding, ITower
 {

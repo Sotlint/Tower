@@ -1,6 +1,6 @@
-using Tower.Src.Models.Abstractions;
+using Tower.Models.Abstractions;
 
-namespace Tower.Src.Managers;
+namespace Tower.Managers;
 
 public class GameStateManager
 {

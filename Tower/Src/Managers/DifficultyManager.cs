@@ -1,4 +1,4 @@
-namespace Tower.Src.Managers;
+namespace Tower.Managers;
 
 public class DifficultyManager
 {
