@@ -12,12 +12,13 @@ public static class WaveUpdateLogic
         var towers = gameManager.TowerManager.GetTowers();
         var enemies = gameManager.EnemyManager.GetAliveEnemies();
         var citadel = gameManager.CitadelManager.GetCitadel();
-        citadel.Attack(enemies);
+        citadel.Update();
+        citadel.Update(enemies);
         foreach (var tower in towers)
         {
-            
+            tower.Update();
+            tower.Update(enemies);
         }
-        
         var aliveEnemies = gameManager.EnemyManager.GetAliveEnemies();
         foreach (var aliveEnemy in aliveEnemies)
         {

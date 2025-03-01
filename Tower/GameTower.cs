@@ -26,9 +26,7 @@ public class GameTower : Game
     protected override void Initialize()
     {
         var gameManager = new GameManager();
-        var citadelPosition = new Vector2(GraphicsDevice.Viewport.Width / 2, GraphicsDevice.Viewport.Height / 2);
-        var citadel = new Citadel(0, 100, citadelPosition);
-        gameManager.Init(citadel);
+        gameManager.Init(_graphics.GraphicsDevice);
         _gameManager = gameManager;
         base.Initialize();
     }

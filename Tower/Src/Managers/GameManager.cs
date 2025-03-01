@@ -1,3 +1,5 @@
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Tower.Models;
 
 namespace Tower.Managers;
@@ -18,15 +20,17 @@ public class GameManager
         Score += points;
     }
 
-    public void Init(Citadel citadel)
+    public void Init(GraphicsDevice graphicsDevice)
     {
         Score = 0;
         TowerManager = new TowerManager();
         GameStateManager = new GameStateManager();
-        CitadelManager = new CitadelManager(citadel);
         EnemyManager = new EnemyManager();
         DifficultyManager = new DifficultyManager();
         SpriteManager = new SpriteManager();
         Player = new Player(100);
+        var citadelPosition = new Vector2(graphicsDevice.Viewport.Width / 2, graphicsDevice.Viewport.Height / 2);
+        var citadel = new Citadel(0, 100, citadelPosition, SpriteManager.CiradelSprite);
+        CitadelManager = new CitadelManager(citadel);
     }
 }

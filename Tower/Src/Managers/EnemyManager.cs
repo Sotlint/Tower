@@ -45,6 +45,6 @@ public class EnemyManager
         return Enemies.Where(x=>!x.IsDefeated()).ToList();
     }
 
-    public void SpawnEnemy(int count, Texture2D sprite)
-        => AddEnemy(EnemyFactory.CreateEnemy(EnemyTypeEnum.Basic, count, sprite));
+    public void SpawnEnemy(int count, SpriteManager spriteManager)
+        => AddEnemy(EnemyFactory.CreateEnemy(EnemyTypeEnum.Basic, count, spriteManager));
 }

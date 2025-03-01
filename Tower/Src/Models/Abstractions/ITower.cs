@@ -1,8 +1,12 @@
 using System;
+using System.Collections.Generic;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Tower.Models.Abstractions;
 
-public interface ITower
+public interface ITower : IBuilding
 {
-    Guid Id { get; }
+
+
+    public void Update(List<IEnemy> enemies);
 }

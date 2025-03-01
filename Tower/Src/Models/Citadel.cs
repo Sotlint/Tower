@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Tower.Models.Abstractions;
 using Tower.Models.Base;
 
@@ -9,7 +10,7 @@ namespace Tower.Models;
 
 public class Citadel : BaseBuilding
 {
-    public Citadel(int cost, int health, Vector2 position) : base(cost, health, position)
+    public Citadel(int cost, int health, Vector2 position, Texture2D sprite) : base(cost, health, position, sprite)
     {
     }
 
@@ -31,5 +32,14 @@ public class Citadel : BaseBuilding
             target.TakeDamage(AttackPower);
             Console.WriteLine($"Цитадель атакует врага {target.Position} with {AttackPower} damage.");
         }
+    }
+
+    public override void Update(List<IEnemy> enemies)
+    {
+        Attack(enemies);
+    }
+
+    public override void Update()
+    {
     }
 }
