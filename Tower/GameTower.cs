@@ -35,6 +35,7 @@ public class GameTower : Game
 
     protected override void LoadContent()
     {
+        _gameManager.SpriteManager.LoadSprites(Content);
         _spriteBatch = new SpriteBatch(GraphicsDevice);
     }
 

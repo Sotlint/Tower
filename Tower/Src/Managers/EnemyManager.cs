@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.Xna.Framework.Graphics;
 using Tower.Factories;
 using Tower.Models.Abstractions;
 
@@ -45,6 +46,6 @@ public class EnemyManager
         return Enemies;
     }
 
-    public void SpawnEnemy(int count)
-        => AddEnemy(EnemyFactory.CreateEnemy(EnemyTypeEnum.Basic, count));
+    public void SpawnEnemy(int count, Texture2D sprite)
+        => AddEnemy(EnemyFactory.CreateEnemy(EnemyTypeEnum.Basic, count, sprite));
 }

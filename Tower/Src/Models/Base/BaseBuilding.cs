@@ -18,7 +18,7 @@ public abstract class BaseBuilding : IBuilding
         Health = health;
         Position = position;
         AttackPower = 100;
-        AttackRange = 50.0f;
+        AttackRange = 200.0f;
     }
 
     public abstract void Attack(List<IEnemy> enemies);

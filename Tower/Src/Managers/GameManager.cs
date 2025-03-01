@@ -10,6 +10,7 @@ public class GameManager
     public CitadelManager CitadelManager { get; private set; }
     public EnemyManager EnemyManager { get; private set; }
     public DifficultyManager DifficultyManager { get; private set; }
+    public SpriteManager SpriteManager { get; private set; }
     private int Score { get; set; }
 
     public void UpdateScore(int points)
@@ -25,6 +26,7 @@ public class GameManager
         CitadelManager = new CitadelManager(citadel);
         EnemyManager = new EnemyManager();
         DifficultyManager = new DifficultyManager();
+        SpriteManager = new SpriteManager();
         Player = new Player(100);
     }
 }

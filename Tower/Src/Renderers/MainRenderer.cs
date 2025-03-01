@@ -10,9 +10,14 @@ public static class MainRenderer
     public static void Render(GameManager gameManager, SpriteBatch spriteBatch, GraphicsDeviceManager graphics)
     {
         var state = gameManager.GameStateManager.CurrentState;
+        graphics.GraphicsDevice.Clear(Color.White);
         if (state is GameStateEnum.Playing)
         {
-            graphics.GraphicsDevice.Clear(Color.WhiteSmoke);
+            var enemies = gameManager.EnemyManager.GetEnemies();
+            foreach (var enemy in enemies)
+            {
+                enemy.Draw(spriteBatch);
+            }
             return;
         }
         if (state is GameStateEnum.Planning)
