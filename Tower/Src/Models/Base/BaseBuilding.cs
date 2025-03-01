@@ -16,7 +16,7 @@ public abstract class BaseBuilding : IBuilding
     public int Cost { get; set; }
     public int Health { get; set; }
 
-    protected BaseBuilding(int cost, int health, Vector2 position, Texture2D sprite)
+    protected BaseBuilding(int cost, int health, Vector2 position)
     {
         Id = Guid.NewGuid();
         Cost = cost;
@@ -24,7 +24,6 @@ public abstract class BaseBuilding : IBuilding
         Position = position;
         AttackPower = 100;
         AttackRange = 200.0f;
-        Sprite = sprite;
     }
 
     public abstract void Attack(List<IEnemy> enemies);
@@ -34,4 +33,6 @@ public abstract class BaseBuilding : IBuilding
     public abstract void Update(List<IEnemy> enemies);
     
     public abstract void Update();
+
+    public abstract void Draw(SpriteBatch spriteBatch);
 }

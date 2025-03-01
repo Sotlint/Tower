@@ -30,7 +30,7 @@ public class GameManager
         SpriteManager = new SpriteManager();
         Player = new Player(100);
         var citadelPosition = new Vector2(graphicsDevice.Viewport.Width / 2, graphicsDevice.Viewport.Height / 2);
-        var citadel = new Citadel(0, 100, citadelPosition, SpriteManager.CiradelSprite);
+        var citadel = new Citadel(0, 100, citadelPosition);
         CitadelManager = new CitadelManager(citadel);
     }
 }

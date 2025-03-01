@@ -10,7 +10,7 @@ namespace Tower.Models;
 
 public class Citadel : BaseBuilding
 {
-    public Citadel(int cost, int health, Vector2 position, Texture2D sprite) : base(cost, health, position, sprite)
+    public Citadel(int cost, int health, Vector2 position) : base(cost, health, position)
     {
     }
 
@@ -41,5 +41,29 @@ public class Citadel : BaseBuilding
 
     public override void Update()
     {
+    }
+
+    public override void Draw(SpriteBatch spriteBatch)
+    {
+        spriteBatch.Begin();
+        var rotation = 0f;
+        var scale = 0.1f;          
+        spriteBatch.Draw(
+            Sprite,                 // текстура
+            Position,               // позиция
+            null,      // исходный прямоугольник (null = вся текстура)
+            Color.White,            // цвет (без изменений)
+            rotation,               // поворот
+            Vector2.Zero,      // точка привязки (верхний левый угол)
+            scale,                  // масштаб
+            SpriteEffects.None,     // эффекты (например, зеркальное отражение)
+            0f             // слой (глубина)
+        );
+        spriteBatch.End();
+    }
+
+    public void SetSprite(Texture2D sprite)
+    {
+        Sprite = sprite;
     }
 }

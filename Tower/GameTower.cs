@@ -35,6 +35,7 @@ public class GameTower : Game
     {
         _gameManager.SpriteManager.LoadSprites(Content);
         _spriteBatch = new SpriteBatch(GraphicsDevice);
+        _gameManager.CitadelManager.GetCitadel().SetSprite(_gameManager.SpriteManager.CiradelSprite);
     }
 
     protected override void Update(GameTime gameTime)

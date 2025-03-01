@@ -13,6 +13,7 @@ public static class MainRenderer
         graphics.GraphicsDevice.Clear(Color.White);
         if (state is GameStateEnum.Playing)
         {
+            gameManager.CitadelManager.GetCitadel().Draw(spriteBatch);
             var enemies = gameManager.EnemyManager.GetEnemies();
             foreach (var enemy in enemies)
             {
