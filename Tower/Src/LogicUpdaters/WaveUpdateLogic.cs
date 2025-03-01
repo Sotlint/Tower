@@ -10,7 +10,7 @@ public static class WaveUpdateLogic
     public static void Update(GameTime gameTime, GameManager gameManager)
     {
         var towers = gameManager.TowerManager.GetTowers();
-        var enemies = gameManager.EnemyManager.GetEnemies();
+        var enemies = gameManager.EnemyManager.GetAliveEnemies();
         var citadel = gameManager.CitadelManager.GetCitadel();
         citadel.Attack(enemies);
         foreach (var tower in towers)

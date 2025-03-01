@@ -42,8 +42,7 @@ public class EnemyManager
 
     public List<IEnemy> GetAliveEnemies()
     {
-        RemoveEnemy(Enemies.Where(x => x.IsDefeated()).ToList());
-        return Enemies;
+        return Enemies.Where(x=>!x.IsDefeated()).ToList();
     }
 
     public void SpawnEnemy(int count, Texture2D sprite)
