@@ -1,4 +1,4 @@
-namespace Tower.Models.Abstractions;
+namespace Tower.Models.Abstractions.Enums;
 
 public enum GameStateEnum
 {

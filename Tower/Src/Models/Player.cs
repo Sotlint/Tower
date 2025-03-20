@@ -1,19 +1,19 @@
-using Tower.Models.Base;
-
 namespace Tower.Models;
 
-public class Player : BasePlayer
+public class Player
 {
-    public Player(int initialMoney) : base(initialMoney)
+    public int Money { get; private set; }
+    
+    public Player(int initialMoney)
     {
     }
 
-    public override void EarnMoney(int amount)
+    public void EarnMoney(int amount)
     {
         Money += amount;
     }
 
-    public override bool SpendMoney(int amount)
+    public  bool SpendMoney(int amount)
     {
         if (Money >= amount)
         {

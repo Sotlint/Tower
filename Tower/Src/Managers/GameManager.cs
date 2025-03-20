@@ -1,6 +1,9 @@
+using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Tower.Factories;
 using Tower.Models;
+using Tower.Models.Abstractions.Enums;
 
 namespace Tower.Managers;
 
@@ -30,7 +33,13 @@ public class GameManager
         SpriteManager = new SpriteManager();
         Player = new Player(100);
         var citadelPosition = new Vector2(graphicsDevice.Viewport.Width / 2, graphicsDevice.Viewport.Height / 2);
-        var citadel = new Citadel(0, 100, citadelPosition);
+        var citadel = new Citadel(Guid.NewGuid(), citadelPosition, 100, 10, 200f);
         CitadelManager = new CitadelManager(citadel);
+    }
+
+    public void TestConfig(Vector2 citadelPos)
+    {
+        var testTower = TowerFactory.CreateTower(TowerTypeEnum.Basic, citadelPos + new Vector2(-50, -50), SpriteManager);
+        TowerManager.AddTower(testTower);
     }
 }

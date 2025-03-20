@@ -1,23 +1,45 @@
 using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Tower.Managers;
 using Tower.Models.Abstractions;
-using Tower.Models.Base;
+using Tower.Models.Abstractions.Base;
+using Tower.Models.Abstractions.Enums;
 
 namespace Tower.Models;
 
-public class BasicEnemy : BaseEnemy, IEnemy
+public class BasicEnemy : IEnemy
 {
-    public BasicEnemy(int health, int speed, int reward, EnemyTypeEnum type, Texture2D sprite) : base(health, speed, reward, type, sprite)
+    public BasicEnemy(Texture2D sprite, Guid id, Vector2 position, int health, int speed, int attackPower,
+        float attackRange, EnemyTypeEnum type)
     {
+        Sprite = sprite;
+        Id = id;
+        Position = position;
+        Health = health;
+        Speed = speed;
+        AttackPower = attackPower;
+        AttackRange = attackRange;
+        Type = type;
     }
 
-    public override void TakeDamage(int damage)
+    public Texture2D Sprite { get; private set; }
+    public EnemyTypeEnum Type { get; private set; }
+    public Guid Id { get; private set; }
+    public Vector2 Position { get; private set; }
+    public int Health { get; private set; }
+    public int Speed { get; private set; }
+    public int AttackPower { get; private set; }
+    public float AttackRange { get; private set; }
+
+
+    public void TakeDamage(int damage)
         => Health -= damage;
 
-    public override bool IsDefeated() => Health <= 0;
+    public bool IsDie() => Health <= 0;
 
-    public override void Move(Vector2 targetPosition)
+    public void Move(Vector2 targetPosition)
     {
         var direction = targetPosition - Position;
 
@@ -29,39 +51,45 @@ public class BasicEnemy : BaseEnemy, IEnemy
         }
     }
 
-    public override void Update(Citadel citadel)
+    public void Update(GameManager gameManager)
     {
+        if (IsDie()) 
+            return;
+        
+        var citadel = gameManager.CitadelManager.GetCitadel();
         Move(citadel.Position);
         Console.WriteLine($"Враг {Id} движется в направлении {Position}");
-        if (Vector2.Distance(Position, citadel.Position) < 5f)
+        if (Vector2.Distance(Position, citadel.Position) <= AttackRange)
         {
-            CurrentWaypointIndex++;
-            AttackCitadel(citadel);
+            Attack(new List<ICanDie>() { citadel });
             Console.WriteLine($"Враг {Id} ударил цитадель. У цитадели осталось {citadel.Health}");
         }
     }
-    
-    public override void Draw(SpriteBatch spriteBatch)
+
+    public void Draw(SpriteBatch spriteBatch)
     {
         spriteBatch.Begin();
         var rotation = 0f;
-        var scale = 0.05f;          // 20% от оригинального размера
+        var scale = 0.05f;
         spriteBatch.Draw(
-            Sprite,                 // текстура
-            Position,               // позиция
-            null,      // исходный прямоугольник (null = вся текстура)
-            Color.White,            // цвет (без изменений)
-            rotation,               // поворот
-            Vector2.Zero,      // точка привязки (верхний левый угол)
-            scale,                  // масштаб
-            SpriteEffects.None,     // эффекты (например, зеркальное отражение)
-            0f             // слой (глубина)
+            Sprite, // текстура
+            Position, // позиция
+            null, // исходный прямоугольник (null = вся текстура)
+            Color.White, // цвет (без изменений)
+            rotation, // поворот
+            Vector2.Zero, // точка привязки (верхний левый угол)
+            scale, // масштаб
+            SpriteEffects.None, // эффекты (например, зеркальное отражение)
+            0f // слой (глубина)
         );
         spriteBatch.End();
     }
 
-    private void AttackCitadel(Citadel citadel)
+    public void Attack(ICollection<ICanDie> targets)
     {
-        citadel.TakeDamage(10);
+        foreach (var target in targets)
+        {
+            target.TakeDamage(AttackPower);
+        }
     }
 }

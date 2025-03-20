@@ -1,9 +1,10 @@
 using System;
 using System.Collections.Generic;
-using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework;
 using Tower.Managers;
 using Tower.Models;
 using Tower.Models.Abstractions;
+using Tower.Models.Abstractions.Enums;
 
 namespace Tower.Factories;
 
@@ -25,7 +26,8 @@ public static class EnemyFactory
         var enemies = new List<IEnemy>();
         for (var i = 0; i < count; i++)
         {
-            enemies.Add(new BasicEnemy(100, 5, 10, EnemyTypeEnum.Basic, spriteManager.BaseEnemySprite));
+            enemies.Add(new BasicEnemy(spriteManager.BaseEnemySprite, Guid.NewGuid(), new Vector2(10, 10), 20, 10, 10,
+                10, EnemyTypeEnum.Basic));
         }
 
         return enemies;

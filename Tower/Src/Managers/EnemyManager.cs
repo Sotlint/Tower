@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.Xna.Framework.Graphics;
 using Tower.Factories;
 using Tower.Models.Abstractions;
+using Tower.Models.Abstractions.Enums;
 
 namespace Tower.Managers;
 
@@ -42,7 +42,7 @@ public class EnemyManager
 
     public List<IEnemy> GetAliveEnemies()
     {
-        return Enemies.Where(x=>!x.IsDefeated()).ToList();
+        return Enemies.Where(x=>!x.IsDie()).ToList();
     }
 
     public void SpawnEnemy(int count, SpriteManager spriteManager)

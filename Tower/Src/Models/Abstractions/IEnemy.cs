@@ -1,23 +1,9 @@
-using System;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+using Tower.Models.Abstractions.Base;
+using Tower.Models.Abstractions.Enums;
 
 namespace Tower.Models.Abstractions;
 
-public interface IEnemy
+public interface IEnemy : IMovable, ICanAttack, ICanDie, IHaveGameLogic, IHaveDrawLogic, IHaveIdentity
 {
-    Texture2D Sprite { get; }
-    Guid Id { get;}
-    
-    Vector2 Position { get; }
-    
-    int Health { get; }
-
-    public void TakeDamage(int damage);
-    
-    public void Update(Citadel citadel);
-
-    public void Draw(SpriteBatch spriteBatch);
-    
-    public bool IsDefeated();
+    EnemyTypeEnum Type { get; }
 }

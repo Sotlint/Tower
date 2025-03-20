@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Tower.Managers;
 using Tower.Models.Abstractions;
+using Tower.Models.Abstractions.Enums;
 
 namespace Tower.Renderers;
 
@@ -13,6 +14,11 @@ public static class MainRenderer
         graphics.GraphicsDevice.Clear(Color.White);
         if (state is GameStateEnum.Playing)
         {
+            foreach (var tower in gameManager.TowerManager.GetTowers())
+            {
+                tower.Draw(spriteBatch);
+            }
+            
             gameManager.CitadelManager.GetCitadel().Draw(spriteBatch);
             var enemies = gameManager.EnemyManager.GetEnemies();
             foreach (var enemy in enemies)

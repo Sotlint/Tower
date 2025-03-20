@@ -1,15 +1,7 @@
-using System;
-using Microsoft.Xna.Framework.Graphics;
+using Tower.Models.Abstractions.Base;
 
 namespace Tower.Models.Abstractions;
 
-public interface IBuilding
+public interface IBuilding : ICanAttack, ICanDie, IHaveGameLogic, IHaveDrawLogic, IHavePosition, IHaveIdentity
 {
-    Guid Id { get; }
-
-    Texture2D Sprite { get; }
-
-    public void Update();
-
-    public void Draw(SpriteBatch spriteBatch);
 }

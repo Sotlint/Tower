@@ -1,8 +1,9 @@
 using System;
-using System.Numerics;
+using Microsoft.Xna.Framework;
 using Tower.Managers;
 using Tower.Models;
 using Tower.Models.Abstractions;
+using Tower.Models.Abstractions.Enums;
 
 namespace Tower.Factories;
 
@@ -20,5 +21,5 @@ public static class TowerFactory
 
 
     private static ITower CreateBasicTower(Vector2 position, SpriteManager spriteManager) =>
-        new BasicTower(100, 5, 10, position, TowerTypeEnum.Basic, spriteManager.TowerSprite);
+        new BasicTower(Guid.NewGuid(), spriteManager.TowerSprite, position, TowerTypeEnum.Basic, 100, 10, 200);
 }

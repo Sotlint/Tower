@@ -1,12 +1,8 @@
-using System;
-using System.Collections.Generic;
-using Microsoft.Xna.Framework.Graphics;
+using Tower.Models.Abstractions.Enums;
 
 namespace Tower.Models.Abstractions;
 
 public interface ITower : IBuilding
 {
-
-
-    public void Update(List<IEnemy> enemies);
+    TowerTypeEnum Type { get; }
 }
