@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Tower.Core.Abstractions;
+using Tower.Core.Abstractions.Enums;
 using Tower.Factories;
-using Tower.Models.Abstractions;
-using Tower.Models.Abstractions.Enums;
 
 namespace Tower.Managers;
 

@@ -1,7 +1,7 @@
 using Microsoft.Xna.Framework;
 using Tower.Managers;
 
-namespace Tower.Models.Abstractions.Base;
+namespace Tower.Core.Abstractions.Base;
 
 public interface IHaveGameLogic
 {

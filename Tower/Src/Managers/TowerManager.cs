@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Tower.Models.Abstractions;
+using Tower.Core.Abstractions;
 
 namespace Tower.Managers;
 

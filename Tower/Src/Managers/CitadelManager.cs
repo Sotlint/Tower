@@ -1,5 +1,5 @@
 using Microsoft.Xna.Framework;
-using Tower.Models;
+using Tower.Core;
 
 namespace Tower.Managers;
 

@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Tower.LogicUpdaters;
 using Tower.Managers;
-using Tower.Models;
 using Tower.Renderers;
 
 // ReSharper disable PossibleLossOfFraction

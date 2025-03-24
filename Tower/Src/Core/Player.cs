@@ -1,9 +1,9 @@
-namespace Tower.Models;
+namespace Tower.Core;
 
 public class Player
 {
     public int Money { get; private set; }
-    
+
     public Player(int initialMoney)
     {
     }
@@ -13,7 +13,7 @@ public class Player
         Money += amount;
     }
 
-    public  bool SpendMoney(int amount)
+    public bool SpendMoney(int amount)
     {
         if (Money >= amount)
         {

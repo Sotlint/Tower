@@ -1,8 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Tower.Core.Abstractions.Enums;
 using Tower.Managers;
-using Tower.Models.Abstractions;
-using Tower.Models.Abstractions.Enums;
 
 namespace Tower.Renderers;
 

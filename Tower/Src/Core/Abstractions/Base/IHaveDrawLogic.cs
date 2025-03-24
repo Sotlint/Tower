@@ -1,10 +1,9 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Tower.Models.Abstractions.Base;
+namespace Tower.Core.Abstractions.Base;
 
-public interface IHaveDrawLogic
+public interface IHaveDrawLogic : IHaveSprite
 {
-    Texture2D Sprite { get; }
     void Draw(SpriteBatch spriteBatch, GameTime gameTime);
 }

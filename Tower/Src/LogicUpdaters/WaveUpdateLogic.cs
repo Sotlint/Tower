@@ -1,8 +1,7 @@
 using System;
 using Microsoft.Xna.Framework;
+using Tower.Core.Abstractions.Enums;
 using Tower.Managers;
-using Tower.Models.Abstractions;
-using Tower.Models.Abstractions.Enums;
 
 namespace Tower.LogicUpdaters;
 

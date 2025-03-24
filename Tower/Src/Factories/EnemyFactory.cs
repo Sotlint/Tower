@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using Tower.Core;
+using Tower.Core.Abstractions;
+using Tower.Core.Abstractions.Enums;
 using Tower.Managers;
-using Tower.Models;
-using Tower.Models.Abstractions;
-using Tower.Models.Abstractions.Enums;
 
 namespace Tower.Factories;
 

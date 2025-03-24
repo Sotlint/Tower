@@ -1,6 +1,6 @@
-using Tower.Models.Abstractions.Base;
+using Tower.Core.Abstractions.Base;
 
-namespace Tower.Models.Abstractions;
+namespace Tower.Core.Abstractions;
 
 public interface IBuilding : ICanAttack, ICanDie, IHaveGameLogic, IHaveDrawLogic, IHavePosition, IHaveIdentity
 {

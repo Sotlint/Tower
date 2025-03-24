@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Tower.Models.Abstractions.Base;
+namespace Tower.Core.Abstractions.Base;
 
 public interface ICanAttack
 {

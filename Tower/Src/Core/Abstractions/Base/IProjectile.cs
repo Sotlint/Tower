@@ -1,4 +1,4 @@
-namespace Tower.Models.Abstractions.Base;
+namespace Tower.Core.Abstractions.Base;
 
 public interface IProjectile : IMovable, ICanAttack, IHaveDrawLogic, IHaveGameLogic
 {

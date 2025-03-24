@@ -1,9 +1,9 @@
 using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Tower.Core;
+using Tower.Core.Abstractions.Enums;
 using Tower.Factories;
-using Tower.Models;
-using Tower.Models.Abstractions.Enums;
 
 namespace Tower.Managers;
 

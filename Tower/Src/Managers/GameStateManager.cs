@@ -1,5 +1,4 @@
-using Tower.Models.Abstractions;
-using Tower.Models.Abstractions.Enums;
+using Tower.Core.Abstractions.Enums;
 
 namespace Tower.Managers;
 
