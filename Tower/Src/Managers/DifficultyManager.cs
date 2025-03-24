@@ -11,5 +11,5 @@ public class DifficultyManager
         => DifficultyLevel;
 
     public int GetEnemyCount()
-        => DifficultyLevel * 5;
+        => DifficultyLevel ;
 }

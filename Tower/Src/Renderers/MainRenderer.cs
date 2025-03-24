@@ -8,7 +8,7 @@ namespace Tower.Renderers;
 
 public static class MainRenderer
 {
-    public static void Render(GameManager gameManager, SpriteBatch spriteBatch, GraphicsDeviceManager graphics)
+    public static void Render(GameManager gameManager, SpriteBatch spriteBatch, GraphicsDeviceManager graphics, GameTime gameTime)
     {
         var state = gameManager.GameStateManager.CurrentState;
         graphics.GraphicsDevice.Clear(Color.White);
@@ -16,14 +16,14 @@ public static class MainRenderer
         {
             foreach (var tower in gameManager.TowerManager.GetTowers())
             {
-                tower.Draw(spriteBatch);
+                tower.Draw(spriteBatch, gameTime);
             }
             
-            gameManager.CitadelManager.GetCitadel().Draw(spriteBatch);
+            gameManager.CitadelManager.GetCitadel().Draw(spriteBatch, gameTime);
             var enemies = gameManager.EnemyManager.GetEnemies();
             foreach (var enemy in enemies)
             {
-                enemy.Draw(spriteBatch);
+                enemy.Draw(spriteBatch, gameTime);
             }
             return;
         }

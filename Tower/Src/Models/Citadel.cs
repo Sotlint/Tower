@@ -11,13 +11,15 @@ namespace Tower.Models;
 
 public class Citadel : IBuilding
 {
-    public Citadel(Guid id, Vector2 position, int health, int attackPower, float attackRange)
+    public Citadel(Guid id, Vector2 position, int health, int attackPower, float attackRange, TimeSpan attackDelay)
     {
         Id = id;
         Position = position;
         Health = health;
         AttackPower = attackPower;
         AttackRange = attackRange;
+        TimeSinceLastAttack = TimeSpan.Zero;
+        AttackDelay = attackDelay;
     }
 
     public Guid Id { get; private set; }
@@ -26,8 +28,10 @@ public class Citadel : IBuilding
     public int Health { get; private set; }
     public int AttackPower { get; private set; }
     public float AttackRange { get; private set; }
+    public TimeSpan AttackDelay { get; private set; }
+    public TimeSpan TimeSinceLastAttack { get; private set; }
 
-    public void Attack(ICollection<ICanDie> targets)
+    public void Attack(IEnumerable<ICanDie> targets)
     {
         throw new NotImplementedException();
     }
@@ -40,7 +44,7 @@ public class Citadel : IBuilding
     public bool IsDie()
         => Health <= 0;
 
-    public void Draw(SpriteBatch spriteBatch)
+    public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
     {
         spriteBatch.Begin();
         var rotation = 0f;
@@ -69,7 +73,7 @@ public class Citadel : IBuilding
         throw new NotImplementedException();
     }
 
-    public void Update(GameManager gameManager)
+    public void Update(GameManager gameManager, GameTime gameTime)
     {
         if (IsDie())
         {

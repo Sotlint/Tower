@@ -21,5 +21,6 @@ public static class TowerFactory
 
 
     private static ITower CreateBasicTower(Vector2 position, SpriteManager spriteManager) =>
-        new BasicTower(Guid.NewGuid(), spriteManager.TowerSprite, position, TowerTypeEnum.Basic, 100, 10, 200);
+        new BasicTower(Guid.NewGuid(), spriteManager.TowerSprite, position, TowerTypeEnum.Basic, 100, 10, 200,
+            TimeSpan.FromMilliseconds(100));
 }

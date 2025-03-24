@@ -12,7 +12,7 @@ namespace Tower.Models;
 public class BasicEnemy : IEnemy
 {
     public BasicEnemy(Texture2D sprite, Guid id, Vector2 position, int health, int speed, int attackPower,
-        float attackRange, EnemyTypeEnum type)
+        float attackRange, EnemyTypeEnum type, TimeSpan attackDelay)
     {
         Sprite = sprite;
         Id = id;
@@ -22,6 +22,8 @@ public class BasicEnemy : IEnemy
         AttackPower = attackPower;
         AttackRange = attackRange;
         Type = type;
+        TimeSinceLastAttack = TimeSpan.Zero;
+        AttackDelay = attackDelay;
     }
 
     public Texture2D Sprite { get; private set; }
@@ -32,7 +34,9 @@ public class BasicEnemy : IEnemy
     public int Speed { get; private set; }
     public int AttackPower { get; private set; }
     public float AttackRange { get; private set; }
+    public TimeSpan AttackDelay { get; private set;}
 
+    public TimeSpan TimeSinceLastAttack { get; private set; }
 
     public void TakeDamage(int damage)
         => Health -= damage;
@@ -51,22 +55,31 @@ public class BasicEnemy : IEnemy
         }
     }
 
-    public void Update(GameManager gameManager)
+    public void Update(GameManager gameManager, GameTime gameTime)
     {
+        var citadel = gameManager.CitadelManager.GetCitadel();
+        
         if (IsDie()) 
             return;
         
-        var citadel = gameManager.CitadelManager.GetCitadel();
-        Move(citadel.Position);
-        Console.WriteLine($"Враг {Id} движется в направлении {Position}");
         if (Vector2.Distance(Position, citadel.Position) <= AttackRange)
         {
+            if (TimeSinceLastAttack < AttackDelay) 
+                return;
+            
             Attack(new List<ICanDie>() { citadel });
             Console.WriteLine($"Враг {Id} ударил цитадель. У цитадели осталось {citadel.Health}");
+            TimeSinceLastAttack = TimeSpan.Zero;
+            
+            return;
         }
+
+        Move(citadel.Position);
+        Console.WriteLine($"Враг {Id} движется в направлении {Position}");
+        TimeSinceLastAttack += gameTime.ElapsedGameTime;
     }
 
-    public void Draw(SpriteBatch spriteBatch)
+    public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
     {
         spriteBatch.Begin();
         var rotation = 0f;
@@ -85,7 +98,7 @@ public class BasicEnemy : IEnemy
         spriteBatch.End();
     }
 
-    public void Attack(ICollection<ICanDie> targets)
+    public void Attack(IEnumerable<ICanDie> targets)
     {
         foreach (var target in targets)
         {

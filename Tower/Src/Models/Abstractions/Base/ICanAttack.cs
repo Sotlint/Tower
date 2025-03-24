@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace Tower.Models.Abstractions.Base;
@@ -6,6 +7,7 @@ public interface ICanAttack
 {
     int AttackPower { get; }
     float AttackRange { get; }
-
-    void Attack(ICollection<ICanDie> targets);
+    TimeSpan AttackDelay { get; }
+    void Attack(IEnumerable<ICanDie> targets);
+    TimeSpan TimeSinceLastAttack { get; }
 }

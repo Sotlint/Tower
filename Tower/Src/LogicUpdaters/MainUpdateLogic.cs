@@ -1,7 +1,6 @@
 using System;
 using Microsoft.Xna.Framework;
 using Tower.Managers;
-using Tower.Models.Abstractions;
 using Tower.Models.Abstractions.Enums;
 
 namespace Tower.LogicUpdaters;
@@ -34,7 +33,6 @@ public static class MainUpdateLogic
         {
             Console.WriteLine("Game over!");
             gameManager.GameStateManager.ChangeState(GameStateEnum.Menu);
-            return;
         }
     }
 }

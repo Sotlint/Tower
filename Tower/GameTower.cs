@@ -47,7 +47,7 @@ public class GameTower : Game
 
     protected override void Draw(GameTime gameTime)
     {
-        MainRenderer.Render(_gameManager, _spriteBatch, _graphics);
+        MainRenderer.Render(_gameManager, _spriteBatch, _graphics, gameTime);
         base.Draw(gameTime);
     }
 }
