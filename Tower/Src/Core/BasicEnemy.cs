@@ -97,7 +97,7 @@ public class BasicEnemy : IEnemy
             Vector2.Zero, // точка привязки (верхний левый угол)
             SpriteScale, // масштаб
             SpriteEffects.None, // эффекты (например, зеркальное отражение)
-            0f // слой (глубина)
+            1f // слой (глубина)
         );
         spriteBatch.End();
     }

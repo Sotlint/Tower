@@ -19,7 +19,7 @@ public static class MainRenderer
             }
             
             gameManager.CitadelManager.GetCitadel().Draw(spriteBatch, gameTime);
-            var enemies = gameManager.EnemyManager.GetEnemies();
+            var enemies = gameManager.EnemyManager.GetAliveEnemies();
             foreach (var enemy in enemies)
             {
                 enemy.Draw(spriteBatch, gameTime);
