@@ -8,6 +8,7 @@ using Tower.Core.Abstractions.Base;
 using Tower.Core.Abstractions.Enums;
 using Tower.Core.Helpers;
 using Tower.Managers;
+using Tower.Renderers;
 
 namespace Tower.Core;
 
@@ -98,6 +99,12 @@ public class BasicEnemy : IEnemy
             SpriteScale, // масштаб
             SpriteEffects.None, // эффекты (например, зеркальное отражение)
             1f // слой (глубина)
+        );
+        HealthBarRenderer.Draw(
+            spriteBatch,
+            Position,
+            Health,
+            100
         );
         spriteBatch.End();
     }

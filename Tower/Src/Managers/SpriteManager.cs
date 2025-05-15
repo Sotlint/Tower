@@ -3,6 +3,10 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Tower.Managers;
 
+/// <summary>
+/// Отвечает за загрузку и хранение текстур спрайтов, используемых в игре.
+/// Предоставляет свойства для доступа к основным спрайтам: врагов, цитадели, башни и стены.
+/// </summary>
 public class SpriteManager
 {
     public Texture2D BaseEnemySprite { get; set; }

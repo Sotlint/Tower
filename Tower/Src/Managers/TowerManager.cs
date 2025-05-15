@@ -1,3 +1,4 @@
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -5,6 +6,9 @@ using Tower.Core.Abstractions;
 
 namespace Tower.Managers;
 
+/// <summary>
+/// Менеджер башен, предоставляющий методы для добавления, удаления, обновления и получения башен.
+/// </summary>
 public class TowerManager
 {
     private List<ITower> Towers { get; set; } = new();

@@ -7,6 +7,11 @@ using Tower.Factories;
 
 namespace Tower.Managers;
 
+/// <summary>
+/// Менеджер врагов, отвечающий за управление коллекцией врагов в игре.
+/// Позволяет добавлять, удалять, обновлять и получать врагов, а также создавать новых врагов
+///  с помощью фабрики <seealso cref="EnemyFactory"/>.
+/// </summary>
 public class EnemyManager
 {
     private List<IEnemy> Enemies { get; set; } = new();
@@ -42,7 +47,7 @@ public class EnemyManager
 
     public List<IEnemy> GetAliveEnemies()
     {
-        return Enemies.Where(x=>!x.IsDie()).ToList();
+        return Enemies.Where(x => !x.IsDie()).ToList();
     }
 
     public void SpawnEnemy(int count, SpriteManager spriteManager)

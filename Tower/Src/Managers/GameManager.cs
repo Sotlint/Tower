@@ -1,3 +1,4 @@
+
 using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -7,6 +8,10 @@ using Tower.Factories;
 
 namespace Tower.Managers;
 
+/// <summary>
+/// Управление основными системами и состоянием игры, включая игрока, башни, врагов, цитадель, сложность и спрайты.
+/// Ответственность за инициализацию и координацию основных менеджеров и отслеживание счета игрока.
+/// </summary>
 public class GameManager
 {
     public Player Player { get; private set; }
