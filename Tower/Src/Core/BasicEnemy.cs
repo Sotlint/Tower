@@ -8,19 +8,19 @@ using Tower.Core.Abstractions.Base;
 using Tower.Core.Abstractions.Enums;
 using Tower.Core.Helpers;
 using Tower.Managers;
-using Tower.Renderers;
 
 namespace Tower.Core;
 
 public class BasicEnemy : IEnemy
 {
     public BasicEnemy(Texture2D sprite, Guid id, Vector2 position, int health, int speed, int attackPower,
-        float attackRange, EnemyTypeEnum type, TimeSpan attackDelay)
+        float attackRange, EnemyTypeEnum type, TimeSpan attackDelay, HealthBar healthBar)
     {
         Sprite = sprite;
         Id = id;
         Position = position;
         Health = health;
+        MaxHealth = health;
         Speed = speed;
         AttackPower = attackPower;
         AttackRange = attackRange;
@@ -28,6 +28,7 @@ public class BasicEnemy : IEnemy
         TimeSinceLastAttack = TimeSpan.Zero;
         AttackDelay = attackDelay;
         SpriteScale = this.GetSpriteScale();
+        HealthBar = healthBar;
     }
 
     public float SpriteScale { get; init; }
@@ -36,12 +37,14 @@ public class BasicEnemy : IEnemy
     public Guid Id { get; private set; }
     public Vector2 Position { get; private set; }
 
+    public int MaxHealth { get; init; }
     public int Health { get; private set; }
     public int Speed { get; private set; }
     public int AttackPower { get; private set; }
     public float AttackRange { get; private set; }
     public TimeSpan AttackDelay { get; private set; }
 
+    public HealthBar HealthBar { get; set; }
     public TimeSpan TimeSinceLastAttack { get; private set; }
 
     public void TakeDamage(int damage)
@@ -100,11 +103,10 @@ public class BasicEnemy : IEnemy
             SpriteEffects.None, // эффекты (например, зеркальное отражение)
             1f // слой (глубина)
         );
-        HealthBarRenderer.Draw(
+        HealthBar.Draw(
             spriteBatch,
-            Position,
-            Health,
-            100
+            gameTime,
+            this
         );
         spriteBatch.End();
     }

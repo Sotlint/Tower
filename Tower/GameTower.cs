@@ -32,9 +32,9 @@ public class GameTower : Game
 
     protected override void LoadContent()
     {
-        _gameManager.SpriteManager.LoadSprites(Content);
+        _gameManager.SpriteManager.LoadSprites(Content, GraphicsDevice);
         _spriteBatch = new SpriteBatch(GraphicsDevice);
-        _gameManager.CitadelManager.GetCitadel().SetSprite(_gameManager.SpriteManager.CiradelSprite);
+        _gameManager.CitadelManager.GetCitadel().SetSprite(_gameManager.SpriteManager.CitadelSprite);
         _gameManager.TestConfig(_gameManager.CitadelManager.GetCitadel().Position);
     }
 

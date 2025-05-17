@@ -1,4 +1,3 @@
-
 using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -37,14 +36,19 @@ public class GameManager
         DifficultyManager = new DifficultyManager();
         SpriteManager = new SpriteManager();
         Player = new Player(100);
+        
+        var citadelHealBarSprite = new Texture2D(graphicsDevice, 1, 1);
+        citadelHealBarSprite.SetData(new[] { Color.White });
         var citadelPosition = new Vector2(graphicsDevice.Viewport.Width / 2, graphicsDevice.Viewport.Height / 2);
-        var citadel = new Citadel(Guid.NewGuid(), citadelPosition, 100, 10, 200f, TimeSpan.Zero);
+        var citadel = new Citadel(Guid.NewGuid(), citadelPosition, 100, 10, 200f, TimeSpan.Zero,
+            new HealthBar(citadelHealBarSprite));
         CitadelManager = new CitadelManager(citadel);
     }
 
     public void TestConfig(Vector2 citadelPos)
     {
-        var testTower = TowerFactory.CreateTower(TowerTypeEnum.Basic, citadelPos + new Vector2(-50, -50), SpriteManager);
+        var testTower =
+            TowerFactory.CreateTower(TowerTypeEnum.Basic, citadelPos + new Vector2(-50, -50), SpriteManager);
         TowerManager.AddTower(testTower);
     }
 }

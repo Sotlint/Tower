@@ -9,7 +9,7 @@ namespace Tower.Managers;
 /// </summary>
 public class GameStateManager
 {
-    public GameStateEnum CurrentState { get; private set; } = GameStateEnum.Menu;
+    public GameStateEnum CurrentState { get; private set; } = GameStateEnum.Playing;
 
     public GameStateEnum? PreviousState { get; private set; } = null;
 
