@@ -8,22 +8,56 @@ namespace Tower.Managers;
 /// Отвечает за загрузку и хранение текстур спрайтов, используемых в игре.
 /// Предоставляет свойства для доступа к основным спрайтам: врагов, цитадели, башни и стены.
 /// </summary>
-public class SpriteManager
+public static class SpriteManager
 {
-    public Texture2D BaseEnemySprite { get; set; }
-    public Texture2D CitadelSprite { get; set; }
-    public Texture2D TowerSprite { get; set; }
-    public Texture2D WallSprite { get; set; }
-    public Texture2D HealthBarSprite { get; set; }
+    public static Texture2D BaseEnemySprite { get; set; }
+    public static Texture2D CitadelSprite { get; set; }
+    public static Texture2D TowerSprite { get; set; }
+    public static Texture2D WallSprite { get; set; }
+    public static Texture2D HealthBarSprite { get; set; }
 
-    public void LoadSprites(ContentManager contentManager, GraphicsDevice graphicsDevice)
+    public static Texture2D OrbProjectileSprite { get; set; }
+
+    public static void LoadSprites(ContentManager contentManager, GraphicsDevice graphicsDevice)
     {
         BaseEnemySprite = contentManager.Load<Texture2D>("monster");
         CitadelSprite = contentManager.Load<Texture2D>("citadel");
         TowerSprite = contentManager.Load<Texture2D>("tower");
         WallSprite = contentManager.Load<Texture2D>("wall");
-        
+
         HealthBarSprite = new Texture2D(graphicsDevice, 1, 1);
         HealthBarSprite.SetData(new[] { Color.White });
+        
+        OrbProjectileSprite = CreateCircularTexture(graphicsDevice, 8, Color.Blue);
+    }
+
+
+    private static Texture2D CreateCircularTexture(GraphicsDevice graphicsDevice, int radius, Color color)
+    {
+        var diameter = radius * 2;
+        var texture = new Texture2D(graphicsDevice, diameter, diameter);
+        var data = new Color[diameter * diameter];
+
+        for (var y = 0; y < diameter; y++)
+        {
+            for (var x = 0; x < diameter; x++)
+            {
+                var dx = x - radius;
+                var dy = y - radius;
+                float distanceSquared = dx * dx + dy * dy;
+
+                if (distanceSquared <= radius * radius)
+                {
+                    data[y * diameter + x] = color;
+                }
+                else
+                {
+                    data[y * diameter + x] = Color.Transparent;
+                }
+            }
+        }
+
+        texture.SetData(data);
+        return texture;
     }
 }

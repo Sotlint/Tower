@@ -7,12 +7,11 @@ namespace Tower.LogicUpdaters;
 
 public static class PlannedUpdateLogic
 {
-    public static void Update(GameTime gameTime, GameManager gameManager)
+    public static void Update(GameTime gameTime)
     {
-        gameManager.EnemyManager.SpawnEnemy(
-            gameManager.DifficultyManager.GetEnemyCount(),
-            gameManager.SpriteManager);
-        Console.WriteLine($"Создано новые враги {gameManager.DifficultyManager.GetEnemyCount()}");
-        gameManager.GameStateManager.ChangeState(GameStateEnum.Playing);
+        GameManager.EnemyManager.SpawnEnemy(
+            GameManager.DifficultyManager.GetEnemyCount());
+        Console.WriteLine($"Создано новые враги {GameManager.DifficultyManager.GetEnemyCount()}");
+        GameManager.GameStateManager.ChangeState(GameStateEnum.Playing);
     }
 }

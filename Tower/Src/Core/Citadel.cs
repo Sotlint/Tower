@@ -83,11 +83,11 @@ public class Citadel : IBuilding
         throw new NotImplementedException();
     }
 
-    public void Update(GameManager gameManager, GameTime gameTime)
+    public void Update( GameTime gameTime)
     {
         if (IsDie())
         {
-            gameManager.GameStateManager.ChangeState(GameStateEnum.GameOver);
+            GameManager.GameStateManager.ChangeState(GameStateEnum.GameOver);
         }
     }
 

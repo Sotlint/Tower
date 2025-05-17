@@ -13,7 +13,6 @@ public class GameTower : Game
 {
     private GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
-    private GameManager _gameManager;
 
     public GameTower()
     {
@@ -24,29 +23,27 @@ public class GameTower : Game
 
     protected override void Initialize()
     {
-        var gameManager = new GameManager();
-        gameManager.Init(_graphics.GraphicsDevice);
-        _gameManager = gameManager;
+        GameManager.Init(_graphics.GraphicsDevice);
         base.Initialize();
     }
 
     protected override void LoadContent()
     {
-        _gameManager.SpriteManager.LoadSprites(Content, GraphicsDevice);
+        SpriteManager.LoadSprites(Content, GraphicsDevice);
         _spriteBatch = new SpriteBatch(GraphicsDevice);
-        _gameManager.CitadelManager.GetCitadel().SetSprite(_gameManager.SpriteManager.CitadelSprite);
-        _gameManager.TestConfig(_gameManager.CitadelManager.GetCitadel().Position);
+        GameManager.CitadelManager.GetCitadel().SetSprite(SpriteManager.CitadelSprite);
+        GameManager.TestConfig(GameManager.CitadelManager.GetCitadel().Position);
     }
 
     protected override void Update(GameTime gameTime)
     {
-        MainUpdateLogic.Update(gameTime, _gameManager);
+        MainUpdateLogic.Update(gameTime);
         base.Update(gameTime);
     }
 
     protected override void Draw(GameTime gameTime)
     {
-        MainRenderer.Render(_gameManager, _spriteBatch, _graphics, gameTime);
+        MainRenderer.Render(_spriteBatch, _graphics, gameTime);
         base.Draw(gameTime);
     }
 }

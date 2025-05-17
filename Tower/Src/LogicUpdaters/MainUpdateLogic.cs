@@ -7,17 +7,17 @@ namespace Tower.LogicUpdaters;
 
 public static class MainUpdateLogic
 {
-    public static void Update(GameTime gameTime, GameManager gameManager)
+    public static void Update(GameTime gameTime)
     {
-        var state = gameManager.GameStateManager.CurrentState;
+        var state = GameManager.GameStateManager.CurrentState;
         if (state is GameStateEnum.Playing)
         {
-            WaveUpdateLogic.Update(gameTime, gameManager);
+            WaveUpdateLogic.Update(gameTime);
             return;
         }
         if (state is GameStateEnum.Planning)
         {
-            PlannedUpdateLogic.Update(gameTime, gameManager);
+            PlannedUpdateLogic.Update(gameTime);
             return;
         }
         if (state is GameStateEnum.Menu)
@@ -32,7 +32,7 @@ public static class MainUpdateLogic
         if (state == GameStateEnum.GameOver)
         {
             Console.WriteLine("Game over!");
-            gameManager.GameStateManager.ChangeState(GameStateEnum.Menu);
+            GameManager.GameStateManager.ChangeState(GameStateEnum.Menu);
         }
     }
 }

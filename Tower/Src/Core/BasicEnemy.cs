@@ -64,14 +64,14 @@ public class BasicEnemy : IEnemy
         }
     }
 
-    public void Update(GameManager gameManager, GameTime gameTime)
+    public void Update(GameTime gameTime)
     {
-        var citadel = gameManager.CitadelManager.GetCitadel();
+        var citadel = GameManager.CitadelManager.GetCitadel();
 
         if (IsDie())
             return;
 
-        ResolveCollision(gameManager);
+        ResolveCollision();
         if (Vector2.Distance(Position, citadel.Position) <= AttackRange)
         {
             if (TimeSinceLastAttack < AttackDelay)
@@ -119,9 +119,9 @@ public class BasicEnemy : IEnemy
         }
     }
 
-    public void ResolveCollision(GameManager gameManager)
+    public void ResolveCollision()
     {
-        var enemies = gameManager.EnemyManager.GetAliveEnemies().Where(x => x.Id != this.Id);
+        var enemies = GameManager.EnemyManager.GetAliveEnemies().Where(x => x.Id != this.Id);
         var thisBounds = GetBounds();
 
         foreach (var enemy in enemies)

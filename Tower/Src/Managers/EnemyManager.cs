@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Tower.Core.Abstractions;
@@ -33,16 +32,6 @@ public class EnemyManager
         }
     }
 
-    public void UpdateEnemy(IEnemy enemy)
-    {
-        if (!Enemies.Contains(enemy)) return;
-        var index = Enemies.IndexOf(enemy);
-        Enemies[index] = enemy;
-    }
-
-    public IEnemy GetEnemy(Guid id)
-        => Enemies.Single(x => x.Id == id);
-
     public List<IEnemy> GetEnemies() => Enemies;
 
     public List<IEnemy> GetAliveEnemies()
@@ -50,6 +39,6 @@ public class EnemyManager
         return Enemies.Where(x => !x.IsDie()).ToList();
     }
 
-    public void SpawnEnemy(int count, SpriteManager spriteManager)
-        => AddEnemy(EnemyFactory.CreateEnemy(EnemyTypeEnum.Basic, count, spriteManager));
+    public void SpawnEnemy(int count)
+        => AddEnemy(EnemyFactory.CreateEnemy(EnemyTypeEnum.Basic, count));
 }

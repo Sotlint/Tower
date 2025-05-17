@@ -5,5 +5,5 @@ namespace Tower.Core.Abstractions.Base;
 
 public interface IHaveGameLogic
 {
-    void Update(GameManager gameManager, GameTime gameTime);
+    void Update(GameTime gameTime);
 }

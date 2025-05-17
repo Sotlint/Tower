@@ -7,34 +7,36 @@ namespace Tower.LogicUpdaters;
 
 public static class WaveUpdateLogic
 {
-    public static void Update(GameTime gameTime, GameManager gameManager)
+    public static void Update(GameTime gameTime)
     {
-        var towers = gameManager.TowerManager.GetTowers();
-        
+        var towers = GameManager.TowerManager.GetTowers();
+
         // действия цитадели
-        var citadel = gameManager.CitadelManager.GetCitadel();
-        citadel.Update(gameManager, gameTime);
-        
+        var citadel = GameManager.CitadelManager.GetCitadel();
+        citadel.Update(gameTime);
+
         //действия башен
         foreach (var tower in towers)
         {
-            tower.Update(gameManager, gameTime);
+            tower.Update(gameTime);
         }
+        
+        GameManager.ProjectileManager.UpdateProjectiles(gameTime);
 
         //действия врагов
-        var enemies = gameManager.EnemyManager.GetEnemies();
+        var enemies = GameManager.EnemyManager.GetEnemies();
         foreach (var enemy in enemies)
         {
-            enemy.Update(gameManager, gameTime);
+            enemy.Update(gameTime);
         }
 
         //проврека окончания волны
-        if (gameManager.EnemyManager.GetAliveEnemies().Count == 0)
+        if (GameManager.EnemyManager.GetAliveEnemies().Count == 0)
         {
             Console.WriteLine("Волна завершена!");
             Console.WriteLine("Сложность увеличена!");
-            gameManager.DifficultyManager.IncreaseDifficulty();
-            gameManager.GameStateManager.ChangeState(GameStateEnum.Planning);
+            GameManager.DifficultyManager.IncreaseDifficulty();
+            GameManager.GameStateManager.ChangeState(GameStateEnum.Planning);
         }
     }
 }

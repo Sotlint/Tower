@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Tower.Core;
 using Tower.Core.Abstractions;
 using Tower.Core.Abstractions.Enums;
@@ -10,10 +11,10 @@ namespace Tower.Factories;
 
 public static class EnemyFactory
 {
-    public static List<IEnemy> CreateEnemy(EnemyTypeEnum type, int count, SpriteManager spriteManager)
+    public static List<IEnemy> CreateEnemy(EnemyTypeEnum type, int count)
         => type switch
         {
-            EnemyTypeEnum.Basic => CreateBasicEnemy(count, spriteManager),
+            EnemyTypeEnum.Basic => CreateBasicEnemy(count, SpriteManager.BaseEnemySprite),
             EnemyTypeEnum.Fast => throw new NotImplementedException(),
             EnemyTypeEnum.Armored => throw new NotImplementedException(),
             EnemyTypeEnum.Boss => throw new NotImplementedException(),
@@ -21,14 +22,14 @@ public static class EnemyFactory
         };
 
 
-    private static List<IEnemy> CreateBasicEnemy(int count, SpriteManager spriteManager)
+    private static List<IEnemy> CreateBasicEnemy(int count, Texture2D sprite)
     {
         var enemies = new List<IEnemy>();
         for (var i = 0; i < count; i++)
         {
-            enemies.Add(new BasicEnemy(spriteManager.BaseEnemySprite, Guid.NewGuid(), new Vector2(10, 10), 20, 10, 10,
+            enemies.Add(new BasicEnemy(sprite, Guid.NewGuid(), new Vector2(10, 10), 20, 10, 10,
                 100, EnemyTypeEnum.Basic, TimeSpan.FromMilliseconds(100),
-                new HealthBar(spriteManager.HealthBarSprite)));
+                new HealthBar(SpriteManager.HealthBarSprite)));
         }
 
         return enemies;

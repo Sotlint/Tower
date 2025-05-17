@@ -7,6 +7,7 @@ using Tower.Core.Abstractions;
 using Tower.Core.Abstractions.Base;
 using Tower.Core.Abstractions.Enums;
 using Tower.Core.Helpers;
+using Tower.Factories;
 using Tower.Managers;
 
 namespace Tower.Core;
@@ -55,34 +56,40 @@ public class BasicTower : ITower
             SpriteEffects.None, // эффекты (например, зеркальное отражение)
             0f // слой (глубина)
         );
+
         spriteBatch.End();
     }
 
-    public void Update(GameManager gameManager, GameTime gameTime)
+    public void Update(GameTime gameTime)
     {
         TimeSinceLastAttack += gameTime.ElapsedGameTime;
         if (TimeSinceLastAttack < AttackDelay)
             return;
 
-        var target = gameManager.EnemyManager.GetAliveEnemies()
+        var target = GameManager.EnemyManager.GetAliveEnemies()
             .Where(e => Vector2.Distance(Position, e.Position) <= AttackRange)
             .MinBy(e => Vector2.Distance(Position, e.Position));
 
-        Attack(new List<ICanDie> { target });
+        if (target != null)
+        {
+            Attack(new List<ICanDie>(new[] { target }));
+        }
+
         TimeSinceLastAttack = TimeSpan.Zero;
     }
 
-    public void Attack(IEnumerable<ICanDie> targets)
+    public void Attack(IEnumerable<ICanDie> target)
     {
-        foreach (var target in targets)
+        var canDie = target.ToList();
+        if (canDie.Any())
         {
-            target?.TakeDamage(AttackPower);
+            GameManager.ProjectileManager.AddProjectile(
+                ProjectileFactory.CreateProjectile(ProjectileTypeEnum.Orb, Position, (IEnemy)canDie.First()));
         }
     }
 
     public void TakeDamage(int damage)
         => Health -= damage;
-
 
     public bool IsDie()
         => Health <= 0;

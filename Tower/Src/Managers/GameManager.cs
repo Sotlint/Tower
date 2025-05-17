@@ -11,30 +11,31 @@ namespace Tower.Managers;
 /// Управление основными системами и состоянием игры, включая игрока, башни, врагов, цитадель, сложность и спрайты.
 /// Ответственность за инициализацию и координацию основных менеджеров и отслеживание счета игрока.
 /// </summary>
-public class GameManager
+public static class GameManager
 {
-    public Player Player { get; private set; }
-    public GameStateManager GameStateManager { get; private set; }
-    public TowerManager TowerManager { get; private set; }
-    public CitadelManager CitadelManager { get; private set; }
-    public EnemyManager EnemyManager { get; private set; }
-    public DifficultyManager DifficultyManager { get; private set; }
-    public SpriteManager SpriteManager { get; private set; }
-    private int Score { get; set; }
+    public static Player Player { get; private set; }
+    public static GameStateManager GameStateManager { get; private set; }
+    public static TowerManager TowerManager { get; private set; }
+    public static CitadelManager CitadelManager { get; private set; }
+    public static EnemyManager EnemyManager { get; private set; }
+    public static DifficultyManager DifficultyManager { get; private set; }
+    
+    public static ProjectileManager ProjectileManager { get; private set; }
+    private static int Score { get; set; }
 
-    public void UpdateScore(int points)
+    public static void UpdateScore(int points)
     {
         Score += points;
     }
 
-    public void Init(GraphicsDevice graphicsDevice)
+    public static void Init(GraphicsDevice graphicsDevice)
     {
         Score = 0;
         TowerManager = new TowerManager();
         GameStateManager = new GameStateManager();
         EnemyManager = new EnemyManager();
         DifficultyManager = new DifficultyManager();
-        SpriteManager = new SpriteManager();
+        ProjectileManager = new ProjectileManager();
         Player = new Player(100);
         
         var citadelHealBarSprite = new Texture2D(graphicsDevice, 1, 1);
@@ -45,10 +46,10 @@ public class GameManager
         CitadelManager = new CitadelManager(citadel);
     }
 
-    public void TestConfig(Vector2 citadelPos)
+    public static void TestConfig(Vector2 citadelPos)
     {
         var testTower =
-            TowerFactory.CreateTower(TowerTypeEnum.Basic, citadelPos + new Vector2(-50, -50), SpriteManager);
+            TowerFactory.CreateTower(TowerTypeEnum.Basic, citadelPos + new Vector2(-50, -50));
         TowerManager.AddTower(testTower);
     }
 }
