@@ -18,8 +18,6 @@ public static class WaveUpdateLogic
         //проврека окончания волны
         if (GameManager.EnemyManager.GetEnemies().Count == 0)
         {
-            Console.WriteLine("Волна завершена!");
-            Console.WriteLine("Сложность увеличена!");
             GameManager.DifficultyManager.IncreaseDifficulty();
             GameManager.GameStateManager.ChangeState(GameStateEnum.Planning);
         }
