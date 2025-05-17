@@ -9,8 +9,6 @@ public static class WaveUpdateLogic
 {
     public static void Update(GameTime gameTime)
     {
-        var towers = GameManager.TowerManager.GetTowers();
-
         // действия
         GameManager.CitadelManager.UpdateCitadel(gameTime);
         GameManager.TowerManager.UpdateTowers(gameTime);

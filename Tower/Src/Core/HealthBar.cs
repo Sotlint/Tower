@@ -43,7 +43,7 @@ public class HealthBar
             color: frontColor
         );
     }
-    
+
     public void Draw(SpriteBatch spriteBatch, GameTime gameTime, IBuilding building)
     {
         if (building.Health <= 0)

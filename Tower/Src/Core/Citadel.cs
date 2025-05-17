@@ -26,7 +26,7 @@ public class Citadel : IBuilding
         MaxHealth = health;
         HealthBar = healthBar;
     }
-
+    private HealthBar HealthBar { get; init; }
     public Guid Id { get; private set; }
     public float SpriteScale { get; init; }
     public Texture2D Sprite { get; private set; }
@@ -37,8 +37,6 @@ public class Citadel : IBuilding
     public float AttackRange { get; private set; }
     public TimeSpan AttackDelay { get; private set; }
     public TimeSpan TimeSinceLastAttack { get; private set; }
-
-    public HealthBar HealthBar { get; init; }
 
     public void Attack(IEnumerable<ICanDie> targets)
     {

@@ -10,13 +10,12 @@ namespace Tower.Managers;
 /// </summary>
 public static class SpriteManager
 {
-    public static Texture2D BaseEnemySprite { get; set; }
-    public static Texture2D CitadelSprite { get; set; }
-    public static Texture2D TowerSprite { get; set; }
-    public static Texture2D WallSprite { get; set; }
-    public static Texture2D HealthBarSprite { get; set; }
-
-    public static Texture2D OrbProjectileSprite { get; set; }
+    public static Texture2D BaseEnemySprite { get; private set; }
+    public static Texture2D CitadelSprite { get; private set; }
+    public static Texture2D TowerSprite { get; private set; }
+    public static Texture2D WallSprite { get; private set; }
+    public static Texture2D HealthBarSprite { get; private set; }
+    public static Texture2D OrbProjectileSprite { get; private set; }
 
     public static void LoadSprites(ContentManager contentManager, GraphicsDevice graphicsDevice)
     {
@@ -24,10 +23,8 @@ public static class SpriteManager
         CitadelSprite = contentManager.Load<Texture2D>("citadel");
         TowerSprite = contentManager.Load<Texture2D>("tower");
         WallSprite = contentManager.Load<Texture2D>("wall");
-
         HealthBarSprite = new Texture2D(graphicsDevice, 1, 1);
         HealthBarSprite.SetData(new[] { Color.White });
-        
         OrbProjectileSprite = CreateCircularTexture(graphicsDevice, 8, Color.Blue);
     }
 

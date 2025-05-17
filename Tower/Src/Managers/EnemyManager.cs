@@ -17,13 +17,10 @@ public class EnemyManager
 {
     private List<IEnemy> Enemies { get; set; } = new();
 
-    public void AddEnemy(List<IEnemy> enemy)
+    private void AddEnemy(List<IEnemy> enemy)
         => Enemies.AddRange(enemy);
 
-    public void AddEnemy(IEnemy enemy)
-        => Enemies.Add(enemy);
-
-    public void RemoveEnemy(IEnemy enemy)
+    private void RemoveEnemy(IEnemy enemy)
         => Enemies.Remove(enemy);
     
     public void UpdateEnemies(GameTime gameTime)

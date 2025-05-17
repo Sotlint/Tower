@@ -19,7 +19,6 @@ public static class GameManager
     public static CitadelManager CitadelManager { get; private set; }
     public static EnemyManager EnemyManager { get; private set; }
     public static DifficultyManager DifficultyManager { get; private set; }
-    
     public static ProjectileManager ProjectileManager { get; private set; }
     private static int Score { get; set; }
 

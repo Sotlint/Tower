@@ -11,7 +11,6 @@ public static class PlannedUpdateLogic
     {
         GameManager.EnemyManager.SpawnEnemy(
             GameManager.DifficultyManager.GetEnemyCount());
-        Console.WriteLine($"Создано новые враги {GameManager.DifficultyManager.GetEnemyCount()}");
         GameManager.GameStateManager.ChangeState(GameStateEnum.Playing);
     }
 }

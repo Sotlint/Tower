@@ -28,7 +28,7 @@ public static class EnemyFactory
         for (var i = 0; i < count; i++)
         {
             enemies.Add(new BasicEnemy(sprite, Guid.NewGuid(), new Vector2(10, 10), 50, 5, 10,
-                10, EnemyTypeEnum.Basic, TimeSpan.FromSeconds(1),
+                20, EnemyTypeEnum.Basic, TimeSpan.FromMilliseconds(10),
                 new HealthBar(SpriteManager.HealthBarSprite)));
         }
 

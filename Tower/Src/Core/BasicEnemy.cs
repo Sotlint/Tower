@@ -43,8 +43,7 @@ public class BasicEnemy : IEnemy
     public int AttackPower { get; private set; }
     public float AttackRange { get; private set; }
     public TimeSpan AttackDelay { get; private set; }
-
-    public HealthBar HealthBar { get; set; }
+    private HealthBar HealthBar { get; init; }
     public TimeSpan TimeSinceLastAttack { get; private set; }
 
     public void TakeDamage(int damage)

@@ -19,9 +19,6 @@ public class CitadelManager
     public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         => Citadel.Draw(spriteBatch, gameTime);
 
-    public Vector2? GetCitadelPosition()
-        => Citadel.Position;
-
     public Citadel GetCitadel()
         => Citadel;
 }
