@@ -23,11 +23,16 @@ public static class SpriteManager
         CitadelSprite = contentManager.Load<Texture2D>("citadel");
         TowerSprite = contentManager.Load<Texture2D>("tower");
         WallSprite = contentManager.Load<Texture2D>("wall");
-        HealthBarSprite = new Texture2D(graphicsDevice, 1, 1);
-        HealthBarSprite.SetData(new[] { Color.White });
+        HealthBarSprite = CreateHealthBarTexture(graphicsDevice);
         OrbProjectileSprite = CreateCircularTexture(graphicsDevice, 8, Color.Blue);
     }
 
+    private static Texture2D CreateHealthBarTexture(GraphicsDevice graphicsDevice)
+    {
+        var texture = new Texture2D(graphicsDevice, 1, 1);
+        texture.SetData(new[] { Color.White });
+        return texture;
+    }
 
     private static Texture2D CreateCircularTexture(GraphicsDevice graphicsDevice, int radius, Color color)
     {
