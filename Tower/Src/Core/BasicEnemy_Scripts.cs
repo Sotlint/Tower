@@ -31,11 +31,12 @@ public partial class BasicEnemy : IEnemy
     public void Update(GameTime gameTime)
     {
         var citadel = GameManager.CitadelManager.GetCitadel();
-
+        
+        ResolveCollision();
+        
         if (IsDie())
             return;
-
-        ResolveCollision();
+        
         if (Vector2.Distance(Position, citadel.Position) <= AttackRange)
         {
             TimeSinceLastAttack += gameTime.ElapsedGameTime;
@@ -47,8 +48,9 @@ public partial class BasicEnemy : IEnemy
 
             return;
         }
-
+        
         Move(citadel.Position);
+        
         TimeSinceLastAttack += gameTime.ElapsedGameTime;
     }
 
@@ -84,14 +86,47 @@ public partial class BasicEnemy : IEnemy
 
     public void ResolveCollision()
     {
-        var enemies = GameManager.EnemyManager.GetEnemies().Where(x => x.Id != Id);
-        var thisBounds = GetBounds();
+        Bounds = GetBounds();
+        ResolveEnemyCollision();
+        ResolveBuildingsCollision();
+    }
 
+    private void ResolveBuildingsCollision()
+    {
+        var towers = GameManager.TowerManager.GetTowers().Select(x=>(IBuilding)x).ToList();
+        var citadel = (IBuilding)GameManager.CitadelManager.GetCitadel();
+
+        foreach (var building in towers.Concat(new List<IBuilding>() { citadel }))
+        {
+            if (Bounds.Intersects(building.Bounds))
+            {
+                var moveDirection = Position - building.Position;
+                if (moveDirection == Vector2.Zero)
+                {
+                    moveDirection = new Vector2(
+                        (float)(0.5 - Random.Shared.NextDouble()),
+                        (float)(0.5 - Random.Shared.NextDouble())
+                    );
+                }
+                
+                moveDirection = Vector2.Normalize(moveDirection);
+                var overlap = (Bounds.Width / 2f + building.Bounds.Width / 2f) -
+                              Vector2.Distance(Position, building.Position);
+                Position += moveDirection * (overlap / 2);
+
+                SetPosition(moveDirection * (overlap / 2));
+            }
+        }
+    }
+    
+    private void ResolveEnemyCollision()
+    {
+        var enemies = GameManager.EnemyManager.GetEnemies().Where(x => x.Id != Id).ToList();
         foreach (var enemy in enemies)
         {
-            var enemyBounds = enemy.GetBounds();
+            var enemyBounds = enemy.Bounds;
             // Проверяем пересечение
-            if (thisBounds.Intersects(enemyBounds))
+            if (Bounds.Intersects(enemyBounds))
             {
                 // Вычисляем направление, чтобы раздвинуть врагов
                 var moveDirection = Position - enemy.Position;
@@ -106,7 +141,7 @@ public partial class BasicEnemy : IEnemy
 
                 moveDirection = Vector2.Normalize(moveDirection);
                 // Сдвигаем врагов в разные стороны
-                var overlap = (thisBounds.Width / 2f + enemyBounds.Width / 2f) -
+                var overlap = (Bounds.Width / 2f + enemyBounds.Width / 2f) -
                               Vector2.Distance(Position, enemy.Position);
                 Position += moveDirection * (overlap / 2);
 

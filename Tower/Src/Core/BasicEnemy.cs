@@ -25,6 +25,7 @@ public partial class BasicEnemy : IEnemy
         AttackDelay = attackDelay;
         SpriteScale = this.GetSpriteScale();
         HealthBar = healthBar;
+        Bounds = GetBounds();
     }
 
     public float SpriteScale { get; init; }
@@ -40,4 +41,5 @@ public partial class BasicEnemy : IEnemy
     public TimeSpan AttackDelay { get; private set; }
     private HealthBar HealthBar { get; init; }
     public TimeSpan TimeSinceLastAttack { get; private set; }
+    public Rectangle Bounds { get; private set; }
 }

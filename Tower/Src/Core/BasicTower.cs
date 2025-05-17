@@ -1,14 +1,9 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Tower.Core.Abstractions;
-using Tower.Core.Abstractions.Base;
 using Tower.Core.Abstractions.Enums;
 using Tower.Core.Helpers;
-using Tower.Factories;
-using Tower.Managers;
 
 namespace Tower.Core;
 
@@ -28,6 +23,7 @@ public partial class BasicTower : ITower
         TimeSinceLastAttack = TimeSpan.Zero;
         AttackDelay = attackDelay;
         SpriteScale = this.GetSpriteScale();
+        Bounds = GetBounds();
     }
 
     public Guid Id { get; private set; }
@@ -41,4 +37,5 @@ public partial class BasicTower : ITower
     public float AttackRange { get; private set; }
     public TimeSpan AttackDelay { get; private set; }
     public TimeSpan TimeSinceLastAttack { get; private set; }
+    public Rectangle Bounds { get; private set;}
 }

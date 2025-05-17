@@ -6,7 +6,6 @@ using Microsoft.Xna.Framework.Graphics;
 using Tower.Core.Abstractions;
 using Tower.Core.Abstractions.Base;
 using Tower.Core.Abstractions.Enums;
-using Tower.Core.Helpers;
 using Tower.Factories;
 using Tower.Managers;
 
@@ -68,4 +67,22 @@ public partial class BasicTower : ITower
 
     public void SetPosition(Vector2 direction)
         => Position = direction;
+
+    public void ResolveCollision()
+    {
+        throw new NotImplementedException();
+    }
+
+    public Rectangle GetBounds()
+    {
+        var width = (int)(Sprite.Width * SpriteScale);
+        var height = (int)(Sprite.Height * SpriteScale);
+
+        return new Rectangle(
+            (int)(Position.X - width / 2), // Центрирование по X
+            (int)(Position.Y - height / 2), // Центрирование по Y
+            width,
+            height
+        );
+    }
 }

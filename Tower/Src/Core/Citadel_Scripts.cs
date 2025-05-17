@@ -47,6 +47,7 @@ public partial class Citadel : IBuilding
     public void SetSprite(Texture2D sprite)
     {
         Sprite = sprite;
+        Bounds = GetBounds();
     }
 
     public void Attack(ICanDie target)
@@ -64,4 +65,22 @@ public partial class Citadel : IBuilding
 
     public void SetPosition(Vector2 direction)
         => Position = direction;
+
+    public void ResolveCollision()
+    {
+        throw new NotImplementedException();
+    }
+
+    public Rectangle GetBounds()
+    {
+        var width = (int)(Sprite.Width * SpriteScale);
+        var height = (int)(Sprite.Height * SpriteScale);
+
+        return new Rectangle(
+            (int)(Position.X - width / 2), // Центрирование по X
+            (int)(Position.Y - height / 2), // Центрирование по Y
+            width,
+            height
+        );
+    }
 }

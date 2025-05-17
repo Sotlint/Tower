@@ -33,4 +33,5 @@ public partial class Citadel : IBuilding
     public float AttackRange { get; private set; }
     public TimeSpan AttackDelay { get; private set; }
     public TimeSpan TimeSinceLastAttack { get; private set; }
+    public Rectangle Bounds { get; private set; }
 }
