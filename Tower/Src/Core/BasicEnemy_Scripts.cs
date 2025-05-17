@@ -38,18 +38,17 @@ public partial class BasicEnemy : IEnemy
         ResolveCollision();
         if (Vector2.Distance(Position, citadel.Position) <= AttackRange)
         {
+            TimeSinceLastAttack += gameTime.ElapsedGameTime;
             if (TimeSinceLastAttack < AttackDelay)
                 return;
 
             Attack(new List<ICanDie>() { citadel });
-            Console.WriteLine($"Враг {Id} ударил цитадель. У цитадели осталось {citadel.Health}");
             TimeSinceLastAttack = TimeSpan.Zero;
 
             return;
         }
 
         Move(citadel.Position);
-        Console.WriteLine($"Враг {Id} движется в направлении {Position}");
         TimeSinceLastAttack += gameTime.ElapsedGameTime;
     }
 
