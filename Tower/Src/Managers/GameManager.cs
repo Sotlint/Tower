@@ -20,6 +20,7 @@ public static class GameManager
     public static EnemyManager EnemyManager { get; private set; }
     public static DifficultyManager DifficultyManager { get; private set; }
     public static ProjectileManager ProjectileManager { get; private set; }
+    public static InputManager InputManager { get; private set; }
     private static int Score { get; set; }
 
     public static void UpdateScore(int points)
@@ -33,6 +34,7 @@ public static class GameManager
         TowerManager = new TowerManager();
         GameStateManager = new GameStateManager();
         EnemyManager = new EnemyManager();
+        InputManager = new InputManager();
         DifficultyManager = new DifficultyManager();
         ProjectileManager = new ProjectileManager();
         Player = new Player(100);

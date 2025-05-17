@@ -10,6 +10,7 @@ public static class MainUpdateLogic
     public static void Update(GameTime gameTime)
     {
         var state = GameManager.GameStateManager.CurrentState;
+        GameManager.InputManager.Update(gameTime);
         if (state is GameStateEnum.Playing)
         {
             WaveUpdateLogic.Update(gameTime);
