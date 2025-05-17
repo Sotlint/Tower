@@ -12,7 +12,8 @@ namespace Tower.Core;
 
 public class Citadel : IBuilding
 {
-    public Citadel(Guid id, Vector2 position, int health, int attackPower, float attackRange, TimeSpan attackDelay)
+    public Citadel(Guid id, Vector2 position, int health, int attackPower, float attackRange, TimeSpan attackDelay,
+        HealthBar healthBar)
     {
         Id = id;
         Position = position;
@@ -23,6 +24,7 @@ public class Citadel : IBuilding
         AttackDelay = attackDelay;
         SpriteScale = this.GetSpriteScale();
         MaxHealth = health;
+        HealthBar = healthBar;
     }
 
     public Guid Id { get; private set; }
@@ -35,6 +37,8 @@ public class Citadel : IBuilding
     public float AttackRange { get; private set; }
     public TimeSpan AttackDelay { get; private set; }
     public TimeSpan TimeSinceLastAttack { get; private set; }
+
+    public HealthBar HealthBar { get; init; }
 
     public void Attack(IEnumerable<ICanDie> targets)
     {
@@ -65,6 +69,7 @@ public class Citadel : IBuilding
             SpriteEffects.None, // эффекты (например, зеркальное отражение)
             0f // слой (глубина)
         );
+        HealthBar.Draw(spriteBatch, gameTime, this);
         spriteBatch.End();
     }
 
@@ -85,7 +90,7 @@ public class Citadel : IBuilding
             gameManager.GameStateManager.ChangeState(GameStateEnum.GameOver);
         }
     }
-    
+
     public void SetPosition(Vector2 direction)
         => Position = direction;
 }

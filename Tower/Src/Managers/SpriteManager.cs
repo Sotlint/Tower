@@ -22,7 +22,8 @@ public class SpriteManager
         CitadelSprite = contentManager.Load<Texture2D>("citadel");
         TowerSprite = contentManager.Load<Texture2D>("tower");
         WallSprite = contentManager.Load<Texture2D>("wall");
+        
         HealthBarSprite = new Texture2D(graphicsDevice, 1, 1);
-        HealthBarSprite.SetData(new Color[] { Color.White });
+        HealthBarSprite.SetData(new[] { Color.White });
     }
 }

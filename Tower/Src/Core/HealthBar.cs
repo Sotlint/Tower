@@ -28,7 +28,33 @@ public class HealthBar
         var backColor = Color.DarkRed;
         var frontColor = Color.LimeGreen;
 
-        var barPosition = enemy.Position + new Vector2(-20F, -20);
+        var barPosition = enemy.Position + new Vector2(0, -20);
+
+        spriteBatch.Draw(
+            texture: Sprite,
+            destinationRectangle: new Rectangle((int)barPosition.X, (int)barPosition.Y, (int)40, (int)10),
+            color: backColor
+        );
+
+        spriteBatch.Draw(
+            texture: Sprite,
+            destinationRectangle: new Rectangle((int)barPosition.X, (int)barPosition.Y, (int)(40 * healthPercent),
+                (int)10),
+            color: frontColor
+        );
+    }
+    
+    public void Draw(SpriteBatch spriteBatch, GameTime gameTime, IBuilding building)
+    {
+        if (building.Health <= 0)
+            return;
+
+        var healthPercent = MathHelper.Clamp((float)building.Health / building.MaxHealth, 0, 1);
+
+        var backColor = Color.DarkRed;
+        var frontColor = Color.LimeGreen;
+
+        var barPosition = building.Position + new Vector2(0, -20);
 
         spriteBatch.Draw(
             texture: Sprite,
