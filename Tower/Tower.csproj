@@ -26,6 +26,20 @@
       <Folder Include="Src\Observers\" />
       <Folder Include="Src\UI\" />
     </ItemGroup>
+    <ItemGroup>
+      <Compile Update="Src\Core\BasicEnemy_Scripts.cs">
+        <DependentUpon>BasicEnemy.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Src\Core\BasicTower_Scripts.cs">
+        <DependentUpon>BasicTower.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Src\Core\Citadel_Scripts.cs">
+        <DependentUpon>Citadel.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Src\Core\OrbProjectile_Scripts.cs">
+        <DependentUpon>OrbProjectile.cs</DependentUpon>
+      </Compile>
+    </ItemGroup>
     <Target Name="RestoreDotnetTools" BeforeTargets="Restore">
         <Message Text="Restoring dotnet tools" Importance="High"/>
         <Exec Command="dotnet tool restore"/>
