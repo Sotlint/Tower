@@ -10,7 +10,7 @@ using Tower.Managers;
 
 namespace Tower.Core;
 
-public class Citadel : IBuilding
+public partial class Citadel : IBuilding
 {
     public Citadel(Guid id, Vector2 position, int health, int attackPower, float attackRange, TimeSpan attackDelay,
         HealthBar healthBar)

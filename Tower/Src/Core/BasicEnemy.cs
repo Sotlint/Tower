@@ -11,7 +11,7 @@ using Tower.Managers;
 
 namespace Tower.Core;
 
-public class BasicEnemy : IEnemy
+public partial class BasicEnemy : IEnemy
 {
     public BasicEnemy(Texture2D sprite, Guid id, Vector2 position, int health, int speed, int attackPower,
         float attackRange, EnemyTypeEnum type, TimeSpan attackDelay, HealthBar healthBar)

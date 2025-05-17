@@ -7,7 +7,7 @@ using Tower.Core.Abstractions.Base;
 
 namespace Tower.Core;
 
-public class OrbProjectile : IProjectile
+public partial class OrbProjectile : IProjectile
 {
     public OrbProjectile(Vector2 position, int attackPower, float attackRange, TimeSpan attackDelay, int speed,
         float spriteScale, Texture2D sprite, IEnemy target)

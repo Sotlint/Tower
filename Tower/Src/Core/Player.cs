@@ -1,6 +1,6 @@
 namespace Tower.Core;
 
-public class Player
+public partial class Player
 {
     public int Money { get; private set; }
 

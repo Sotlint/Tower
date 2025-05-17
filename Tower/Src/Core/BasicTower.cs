@@ -12,7 +12,7 @@ using Tower.Managers;
 
 namespace Tower.Core;
 
-public class BasicTower : ITower
+public partial class BasicTower : ITower
 {
     public BasicTower(Guid id, Texture2D sprite, Vector2 position, TowerTypeEnum type, int health, int attackPower,
         float attackRange, TimeSpan attackDelay)
