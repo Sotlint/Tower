@@ -6,7 +6,7 @@ namespace Tower.Core;
 
 public class HealthBar
 {
-    public Texture2D Sprite { get; set; }
+    private Texture2D Sprite { get; set; }
 
     private HealthBar()
     {
