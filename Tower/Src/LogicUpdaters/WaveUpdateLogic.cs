@@ -11,27 +11,14 @@ public static class WaveUpdateLogic
     {
         var towers = GameManager.TowerManager.GetTowers();
 
-        // действия цитадели
-        var citadel = GameManager.CitadelManager.GetCitadel();
-        citadel.Update(gameTime);
-
-        //действия башен
-        foreach (var tower in towers)
-        {
-            tower.Update(gameTime);
-        }
-        
+        // действия
+        GameManager.CitadelManager.UpdateCitadel(gameTime);
+        GameManager.TowerManager.UpdateTowers(gameTime);
         GameManager.ProjectileManager.UpdateProjectiles(gameTime);
-
-        //действия врагов
-        var enemies = GameManager.EnemyManager.GetEnemies();
-        foreach (var enemy in enemies)
-        {
-            enemy.Update(gameTime);
-        }
+        GameManager.EnemyManager.UpdateEnemies(gameTime);
 
         //проврека окончания волны
-        if (GameManager.EnemyManager.GetAliveEnemies().Count == 0)
+        if (GameManager.EnemyManager.GetEnemies().Count == 0)
         {
             Console.WriteLine("Волна завершена!");
             Console.WriteLine("Сложность увеличена!");

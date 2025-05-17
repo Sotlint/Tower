@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Tower.Core.Abstractions;
 using Tower.Core.Abstractions.Enums;
 using Tower.Factories;
@@ -23,21 +25,31 @@ public class EnemyManager
 
     public void RemoveEnemy(IEnemy enemy)
         => Enemies.Remove(enemy);
-
-    public void RemoveEnemy(List<IEnemy> enemies)
+    
+    public void UpdateEnemies(GameTime gameTime)
     {
-        foreach (var enemy in enemies)
+        for (var i = Enemies.Count - 1; i >= 0; i--)
         {
-            RemoveEnemy(enemy);
+            if (Enemies[i].IsDie())
+            {
+                RemoveEnemy(Enemies[i]);
+            }
+            else
+            {
+                Enemies[i].Update(gameTime);
+            }
+        }
+    }
+
+    public void DrawEnemies(SpriteBatch spriteBatch, GameTime gameTime)
+    {
+        foreach (var projectile in Enemies)
+        {
+            projectile.Draw(spriteBatch, gameTime);
         }
     }
 
     public List<IEnemy> GetEnemies() => Enemies;
-
-    public List<IEnemy> GetAliveEnemies()
-    {
-        return Enemies.Where(x => !x.IsDie()).ToList();
-    }
 
     public void SpawnEnemy(int count)
         => AddEnemy(EnemyFactory.CreateEnemy(EnemyTypeEnum.Basic, count));

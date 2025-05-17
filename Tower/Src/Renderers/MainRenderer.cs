@@ -13,19 +13,10 @@ public static class MainRenderer
         graphics.GraphicsDevice.Clear(Color.White);
         if (state is GameStateEnum.Playing)
         {
-            foreach (var tower in GameManager.TowerManager.GetTowers())
-            {
-                tower.Draw(spriteBatch, gameTime);
-            }
-
+            GameManager.TowerManager.DrawTowers(spriteBatch, gameTime);
             GameManager.ProjectileManager.DrawProjectiles(spriteBatch, gameTime);
-            GameManager.CitadelManager.GetCitadel().Draw(spriteBatch, gameTime);
-            var enemies = GameManager.EnemyManager.GetAliveEnemies();
-            foreach (var enemy in enemies)
-            {
-                enemy.Draw(spriteBatch, gameTime);
-            }
-
+            GameManager.CitadelManager.Draw(spriteBatch, gameTime);
+            GameManager.EnemyManager.DrawEnemies(spriteBatch, gameTime);
             return;
         }
 

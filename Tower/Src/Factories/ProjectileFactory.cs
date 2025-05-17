@@ -20,6 +20,6 @@ public static class ProjectileFactory
         };
 
     private static IProjectile CreateOrb(Vector2 position, Texture2D sprite, IEnemy target)
-        => new OrbProjectile(position, 10, 10, TimeSpan.FromSeconds(1), 20, 1,
+        => new OrbProjectile(position, 10, 10, TimeSpan.FromSeconds(1), 10, 1,
             sprite, target);
 }

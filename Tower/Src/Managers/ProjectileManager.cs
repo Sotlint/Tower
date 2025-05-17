@@ -21,7 +21,7 @@ public class ProjectileManager
     {
         for (var i = Projectiles.Count - 1; i >= 0; i--)
         {
-            if (Projectiles[i].Target.IsDie())
+            if (Projectiles[i].Target.IsDie() || Projectiles[i].IsAttacked)
             {
                 RemoveProjectile(Projectiles[i]);
             }

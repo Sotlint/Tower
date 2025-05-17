@@ -21,9 +21,11 @@ public class OrbProjectile : IProjectile
         SpriteScale = spriteScale;
         Sprite = sprite;
         Target = target;
+        IsAttacked = false;
     }
 
     public IEnemy Target { get; init; }
+    public bool IsAttacked { get; private set; }
     public Vector2 Position { get; private set; }
     public int AttackPower { get; init; }
     public float AttackRange { get; init; }
@@ -54,8 +56,9 @@ public class OrbProjectile : IProjectile
     {
         foreach (var target in targets)
         {
-            target?.TakeDamage(AttackPower);
+                target?.TakeDamage(AttackPower);
         }
+        IsAttacked = true;
     }
 
     public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
@@ -80,7 +83,7 @@ public class OrbProjectile : IProjectile
 
     public void Update(GameTime gameTime)
     {
-        if (!Target.IsDie())
+        if (!Target.IsDie() && !IsAttacked)
         {
             if (Vector2.Distance(Position, Target.Position) <= AttackRange)
             {

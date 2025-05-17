@@ -121,7 +121,7 @@ public class BasicEnemy : IEnemy
 
     public void ResolveCollision()
     {
-        var enemies = GameManager.EnemyManager.GetAliveEnemies().Where(x => x.Id != this.Id);
+        var enemies = GameManager.EnemyManager.GetEnemies().Where(x => x.Id != Id);
         var thisBounds = GetBounds();
 
         foreach (var enemy in enemies)

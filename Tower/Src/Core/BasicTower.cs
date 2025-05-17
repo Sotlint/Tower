@@ -66,7 +66,7 @@ public class BasicTower : ITower
         if (TimeSinceLastAttack < AttackDelay)
             return;
 
-        var target = GameManager.EnemyManager.GetAliveEnemies()
+        var target = GameManager.EnemyManager.GetEnemies()
             .Where(e => Vector2.Distance(Position, e.Position) <= AttackRange)
             .MinBy(e => Vector2.Distance(Position, e.Position));
 
