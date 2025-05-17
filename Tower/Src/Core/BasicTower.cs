@@ -21,6 +21,7 @@ public class BasicTower : ITower
         Position = position;
         Type = type;
         Health = health;
+        MaxHealth = health;
         AttackPower = attackPower;
         AttackRange = attackRange;
         TimeSinceLastAttack = TimeSpan.Zero;
@@ -33,6 +34,7 @@ public class BasicTower : ITower
     public Texture2D Sprite { get; private set; }
     public Vector2 Position { get; private set; }
     public TowerTypeEnum Type { get; private set; }
+    public int MaxHealth { get; init; }
     public int Health { get; private set; }
     public int AttackPower { get; private set; }
     public float AttackRange { get; private set; }

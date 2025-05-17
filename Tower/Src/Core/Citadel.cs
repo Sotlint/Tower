@@ -22,12 +22,14 @@ public class Citadel : IBuilding
         TimeSinceLastAttack = TimeSpan.Zero;
         AttackDelay = attackDelay;
         SpriteScale = this.GetSpriteScale();
+        MaxHealth = health;
     }
 
     public Guid Id { get; private set; }
     public float SpriteScale { get; init; }
     public Texture2D Sprite { get; private set; }
     public Vector2 Position { get; private set; }
+    public int MaxHealth { get; init; }
     public int Health { get; private set; }
     public int AttackPower { get; private set; }
     public float AttackRange { get; private set; }
