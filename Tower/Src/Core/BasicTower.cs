@@ -23,7 +23,7 @@ public partial class BasicTower : ITower
         TimeSinceLastAttack = TimeSpan.Zero;
         AttackDelay = attackDelay;
         SpriteScale = this.GetSpriteScale();
-        Bounds = GetBounds();
+        UpdateBounds();
     }
 
     public Guid Id { get; private set; }

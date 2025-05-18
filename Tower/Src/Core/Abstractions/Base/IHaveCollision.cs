@@ -6,5 +6,5 @@ public interface IHaveCollision
 {
     void ResolveCollision();
     Rectangle Bounds { get; }
-    Rectangle GetBounds();
+    void UpdateBounds();
 }

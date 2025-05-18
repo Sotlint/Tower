@@ -21,6 +21,7 @@ public partial class Citadel : IBuilding
         SpriteScale = this.GetSpriteScale();
         MaxHealth = health;
         HealthBar = healthBar;
+        UpdateBounds();
     }
     private HealthBar HealthBar { get; init; }
     public Guid Id { get; private set; }

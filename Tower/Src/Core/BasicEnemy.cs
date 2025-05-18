@@ -25,8 +25,8 @@ public partial class BasicEnemy : IEnemy
         AttackDelay = attackDelay;
         SpriteScale = this.GetSpriteScale();
         HealthBar = healthBar;
-        Bounds = GetBounds();
         Reward = 10;
+        UpdateBounds();
     }
 
     public float SpriteScale { get; init; }

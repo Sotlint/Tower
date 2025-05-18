@@ -30,13 +30,13 @@ public partial class BasicEnemy : IEnemy
 
     public void Update(GameTime gameTime)
     {
-        var citadel = GameManager.CitadelManager.GetCitadel();
-        
+        UpdateBounds();
         ResolveCollision();
         
         if (IsDie())
             return;
         
+        var citadel = GameManager.CitadelManager.GetCitadel();
         if (Vector2.Distance(Position, citadel.Position) <= AttackRange)
         {
             TimeSinceLastAttack += gameTime.ElapsedGameTime;
@@ -50,24 +50,13 @@ public partial class BasicEnemy : IEnemy
         }
         
         Move(citadel.Position);
-        
         TimeSinceLastAttack += gameTime.ElapsedGameTime;
     }
 
     public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
     {
         spriteBatch.Begin();
-        spriteBatch.Draw(
-            Sprite, // текстура
-            Position, // позиция
-            null, // исходный прямоугольник (null = вся текстура)
-            Color.White, // цвет (без изменений)
-            0f, // поворот
-            Vector2.Zero, // точка привязки (верхний левый угол)
-            SpriteScale, // масштаб
-            SpriteEffects.None, // эффекты (например, зеркальное отражение)
-            1f // слой (глубина)
-        );
+        spriteBatch.Draw(Sprite, Bounds, Color.White);
         HealthBar.Draw(
             spriteBatch,
             gameTime,
@@ -86,7 +75,6 @@ public partial class BasicEnemy : IEnemy
 
     public void ResolveCollision()
     {
-        Bounds = GetBounds();
         ResolveEnemyCollision();
         ResolveBuildingsCollision();
     }
@@ -150,12 +138,12 @@ public partial class BasicEnemy : IEnemy
         }
     }
 
-    public Rectangle GetBounds()
+    public void UpdateBounds()
     {
-        var width = (int)(Sprite.Width * SpriteScale);
-        var height = (int)(Sprite.Height * SpriteScale);
+        var width = 20;
+        var height = 20;
 
-        return new Rectangle(
+        Bounds = new Rectangle(
             (int)(Position.X - width / 2), // Центрирование по X
             (int)(Position.Y - height / 2), // Центрирование по Y
             width,
