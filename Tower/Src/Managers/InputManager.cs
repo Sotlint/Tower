@@ -12,6 +12,8 @@ public class InputManager
     private MouseState _previousMouseState;
     public Vector2 MousePosition { get; private set; }
     public MouseState CurrentMouseState => _currentMouseState;
+    
+    public bool IsDebugMode = false;
 
     public bool LeftClick =>
         _previousMouseState.LeftButton == ButtonState.Released &&
@@ -34,6 +36,16 @@ public class InputManager
         if (_currentKeyboardState.IsKeyDown(Keys.Escape) && _previousKeyboardState.IsKeyUp(Keys.Escape))
         {
             OnEscapePressed();
+        }
+        
+        //дебаг ctrl + D
+        if (_currentKeyboardState.IsKeyDown(Keys.D) && _currentKeyboardState.IsKeyDown(Keys.LeftControl))
+        {
+            IsDebugMode = true;
+        }
+        else
+        {
+            IsDebugMode = false;
         }
     }
 

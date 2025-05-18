@@ -33,10 +33,10 @@ public partial class BasicEnemy : IEnemy
     {
         UpdateBounds();
         ResolveCollision();
-        
+
         if (IsDie())
             return;
-        
+
         var citadel = GameManager.CitadelManager.GetCitadel();
         if (Vector2.Distance(Position, citadel.Position) <= AttackRange)
         {
@@ -49,23 +49,27 @@ public partial class BasicEnemy : IEnemy
 
             return;
         }
-        
+
         Move(citadel.Position);
-        
+
         TimeSinceLastAttack += gameTime.ElapsedGameTime;
     }
 
     public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
     {
         spriteBatch.Begin();
-        DebugBorderDrawer.DrawDebug(spriteBatch, Bounds);
+        if (GameManager.InputManager.IsDebugMode)
+        {
+            DebugBorderDrawer.DrawDebug(spriteBatch, Bounds, AttackRange, Position);
+        }
+
         spriteBatch.Draw(
             Sprite, // текстура
             Position, // позиция
             null, // исходный прямоугольник (null = вся текстура)
             Color.White, // цвет (без изменений)
             0f, // поворот
-            new Vector2(Sprite.Width/2, Sprite.Height/2), // точка привязки (верхний левый угол)
+            new Vector2(Sprite.Width / 2, Sprite.Height / 2), // точка привязки (верхний левый угол)
             SpriteScale, // масштаб
             SpriteEffects.None, // эффекты (например, зеркальное отражение)
             1f // слой (глубина)
@@ -94,7 +98,7 @@ public partial class BasicEnemy : IEnemy
 
     private void ResolveBuildingsCollision()
     {
-        var towers = GameManager.TowerManager.GetTowers().Select(x=>(IBuilding)x).ToList();
+        var towers = GameManager.TowerManager.GetTowers().Select(x => (IBuilding)x).ToList();
         var citadel = (IBuilding)GameManager.CitadelManager.GetCitadel();
 
         foreach (var building in towers.Concat(new List<IBuilding>() { citadel }))
@@ -109,7 +113,7 @@ public partial class BasicEnemy : IEnemy
                         (float)(0.5 - Random.Shared.NextDouble())
                     );
                 }
-                
+
                 moveDirection = Vector2.Normalize(moveDirection);
                 var overlap = (Bounds.Width / 2f + building.Bounds.Width / 2f) -
                               Vector2.Distance(Position, building.Position);
@@ -119,7 +123,7 @@ public partial class BasicEnemy : IEnemy
             }
         }
     }
-    
+
     private void ResolveEnemyCollision()
     {
         var enemies = GameManager.EnemyManager.GetEnemies().Where(x => x.Id != Id).ToList();
@@ -157,8 +161,8 @@ public partial class BasicEnemy : IEnemy
         var height = (int)(Sprite.Height * SpriteScale);
 
         Bounds = new Rectangle(
-            (int)(Position.X - width/2 ), // Центрирование по X
-            (int)(Position.Y - height/2 ), // Центрирование по Y
+            (int)(Position.X - width / 2), // Центрирование по X
+            (int)(Position.Y - height / 2), // Центрирование по Y
             width,
             height
         );

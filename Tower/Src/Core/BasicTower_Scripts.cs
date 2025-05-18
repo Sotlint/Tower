@@ -17,7 +17,10 @@ public partial class BasicTower : ITower
     public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
     {
         spriteBatch.Begin();
-        DebugBorderDrawer.DrawDebug(spriteBatch, Bounds);
+        if (GameManager.InputManager.IsDebugMode)
+        {
+            DebugBorderDrawer.DrawDebug(spriteBatch, Bounds, AttackRange, Position);
+        }
         spriteBatch.Draw(
             Sprite, // текстура
             Position, // позиция

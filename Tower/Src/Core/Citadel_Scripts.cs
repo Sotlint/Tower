@@ -29,7 +29,10 @@ public partial class Citadel : IBuilding
     {
         spriteBatch.Begin();
         var scale = 0.1f;
-        DebugBorderDrawer.DrawDebug(spriteBatch, Bounds);
+        if (GameManager.InputManager.IsDebugMode)
+        {
+            DebugBorderDrawer.DrawDebug(spriteBatch, Bounds, AttackRange, Position);
+        }
         spriteBatch.Draw(
             Sprite, // текстура
             Position, // позиция
