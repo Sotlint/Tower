@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Tower.Core.Abstractions;
 using Tower.Core.Helpers;
+using Tower.Managers;
 
 namespace Tower.Core;
 
@@ -18,6 +19,7 @@ public partial class Citadel : IBuilding
         AttackRange = attackRange;
         TimeSinceLastAttack = TimeSpan.Zero;
         AttackDelay = attackDelay;
+        Sprite = SpriteManager.CitadelSprite;
         SpriteScale = this.GetSpriteScale();
         MaxHealth = health;
         HealthBar = healthBar;

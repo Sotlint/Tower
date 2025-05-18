@@ -17,6 +17,7 @@ public static class SpriteManager
     public static Texture2D HealthBarSprite { get; private set; }
     public static Texture2D OrbProjectileSprite { get; private set; }
     public static Texture2D ButtonBackgroundTexture { get; private set; }
+    public static Texture2D GreenDebugPen { get; private set; }
 
     public static void LoadSprites(ContentManager contentManager, GraphicsDevice graphicsDevice)
     {
@@ -27,8 +28,15 @@ public static class SpriteManager
         HealthBarSprite = CreateHealthBarTexture(graphicsDevice);
         OrbProjectileSprite = CreateCircularTexture(graphicsDevice, 8, Color.Blue);
         ButtonBackgroundTexture = CreateButtonBackgroundTexture(graphicsDevice);
+        GreenDebugPen = CreateGreenDebugPenTexture(graphicsDevice);
     }
 
+    private static Texture2D CreateGreenDebugPenTexture(GraphicsDevice graphicsDevice)
+    {
+        var pixel = new Texture2D(graphicsDevice, 1, 1);
+        pixel.SetData(new[] { Color.Green });
+        return pixel;
+    }
 
     private static Texture2D CreateButtonBackgroundTexture(GraphicsDevice graphicsDevice)
     {

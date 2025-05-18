@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Tower.Core.Abstractions;
 using Tower.Core.Abstractions.Base;
 using Tower.Core.Abstractions.Enums;
+using Tower.Core.Helpers;
 using Tower.Managers;
 
 namespace Tower.Core;
@@ -27,16 +28,21 @@ public partial class Citadel : IBuilding
     public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
     {
         spriteBatch.Begin();
-        var rotation = 0f;
         var scale = 0.1f;
-        spriteBatch.Draw(Sprite, Bounds, Color.White);
+        DebugBorderDrawer.DrawDebug(spriteBatch, Bounds);
+        spriteBatch.Draw(
+            Sprite, // текстура
+            Position, // позиция
+            null, // исходный прямоугольник (null = вся текстура)
+            Color.White, // цвет (без изменений)
+            0f, // поворот
+            new Vector2(Sprite.Width/2, Sprite.Height/2), // точка привязки (верхний левый угол)
+            scale, // масштаб
+            SpriteEffects.None, // эффекты (например, зеркальное отражение)
+            1f // слой (глубина)
+        );
         HealthBar.Draw(spriteBatch, gameTime, this);
         spriteBatch.End();
-    }
-
-    public void SetSprite(Texture2D sprite)
-    {
-        Sprite = sprite;
     }
 
     public void Attack(ICanDie target)
@@ -62,8 +68,8 @@ public partial class Citadel : IBuilding
 
     public void UpdateBounds()
     {
-        var width = (int)64;
-        var height = (int)64;
+        var width = (int)(Sprite.Width * 0.1f);
+        var height = (int)(Sprite.Height * 0.1f);
 
         Bounds = new Rectangle(
             (int)(Position.X - width / 2), // Центрирование по X

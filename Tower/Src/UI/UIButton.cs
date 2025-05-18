@@ -28,10 +28,8 @@ public class UIButton<T>
     public void Draw(SpriteBatch spriteBatch)
     {
         spriteBatch.Begin();
-        
         spriteBatch.Draw(BackgroundTexture, Bounds, Color.White);
         spriteBatch.Draw(IconTexture, Bounds, Color.White);
-
         spriteBatch.End();
     }
 }

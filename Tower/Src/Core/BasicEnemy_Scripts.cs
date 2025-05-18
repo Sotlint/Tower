@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Tower.Core.Abstractions;
 using Tower.Core.Abstractions.Base;
+using Tower.Core.Helpers;
 using Tower.Managers;
 
 namespace Tower.Core;
@@ -50,13 +51,25 @@ public partial class BasicEnemy : IEnemy
         }
         
         Move(citadel.Position);
+        
         TimeSinceLastAttack += gameTime.ElapsedGameTime;
     }
 
     public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
     {
         spriteBatch.Begin();
-        spriteBatch.Draw(Sprite, Bounds, Color.White);
+        DebugBorderDrawer.DrawDebug(spriteBatch, Bounds);
+        spriteBatch.Draw(
+            Sprite, // текстура
+            Position, // позиция
+            null, // исходный прямоугольник (null = вся текстура)
+            Color.White, // цвет (без изменений)
+            0f, // поворот
+            new Vector2(Sprite.Width/2, Sprite.Height/2), // точка привязки (верхний левый угол)
+            SpriteScale, // масштаб
+            SpriteEffects.None, // эффекты (например, зеркальное отражение)
+            1f // слой (глубина)
+        );
         HealthBar.Draw(
             spriteBatch,
             gameTime,
@@ -140,12 +153,12 @@ public partial class BasicEnemy : IEnemy
 
     public void UpdateBounds()
     {
-        var width = 20;
-        var height = 20;
+        var width = (int)(Sprite.Width * SpriteScale);
+        var height = (int)(Sprite.Height * SpriteScale);
 
         Bounds = new Rectangle(
-            (int)(Position.X - width / 2), // Центрирование по X
-            (int)(Position.Y - height / 2), // Центрирование по Y
+            (int)(Position.X - width/2 ), // Центрирование по X
+            (int)(Position.Y - height/2 ), // Центрирование по Y
             width,
             height
         );
