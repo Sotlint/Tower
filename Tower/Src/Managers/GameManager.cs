@@ -44,7 +44,7 @@ public static class GameManager
         var citadelHealBarSprite = new Texture2D(graphicsDevice, 1, 1);
         citadelHealBarSprite.SetData(new[] { Color.White });
         var citadelPosition = new Vector2(graphicsDevice.Viewport.Width / 2, graphicsDevice.Viewport.Height / 2);
-        var citadel = new Citadel(Guid.NewGuid(), citadelPosition, 100, 10, 200f, TimeSpan.Zero,
+        var citadel = new Citadel(Guid.NewGuid(), citadelPosition, 1000, 0, 0, TimeSpan.Zero,
             new HealthBar(citadelHealBarSprite));
         CitadelManager = new CitadelManager(citadel);
     }
