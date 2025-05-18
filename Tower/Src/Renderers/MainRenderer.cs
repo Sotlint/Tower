@@ -22,7 +22,9 @@ public static class MainRenderer
 
         if (state is GameStateEnum.Planning)
         {
-            graphics.GraphicsDevice.Clear(Color.Green);
+            GameManager.TowerManager.DrawTowers(spriteBatch, gameTime);
+            GameManager.CitadelManager.Draw(spriteBatch, gameTime);
+            GameManager.UIManager.TowerSelectionMenu.Draw(spriteBatch);
             return;
         }
 

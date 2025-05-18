@@ -21,6 +21,7 @@ public static class GameManager
     public static DifficultyManager DifficultyManager { get; private set; }
     public static ProjectileManager ProjectileManager { get; private set; }
     public static InputManager InputManager { get; private set; }
+    public static UIManager UIManager { get; private set; }
     private static int Score { get; set; }
 
     public static void UpdateScore(int points)
@@ -37,6 +38,7 @@ public static class GameManager
         InputManager = new InputManager();
         DifficultyManager = new DifficultyManager();
         ProjectileManager = new ProjectileManager();
+        UIManager = new UIManager();
         Player = new Player(100);
         
         var citadelHealBarSprite = new Texture2D(graphicsDevice, 1, 1);

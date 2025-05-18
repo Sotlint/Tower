@@ -1,4 +1,3 @@
-using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Tower.Core.Abstractions.Enums;
@@ -7,17 +6,32 @@ namespace Tower.Managers;
 
 public class InputManager
 {
-    private KeyboardState currentKeyboardState;
-    private KeyboardState previousKeyboardState;
+    private KeyboardState _currentKeyboardState;
+    private KeyboardState _previousKeyboardState;
+    private MouseState _currentMouseState;
+    private MouseState _previousMouseState;
+    public Vector2 MousePosition { get; private set; }
+    public MouseState CurrentMouseState => _currentMouseState;
+
+    public bool LeftClick =>
+        _previousMouseState.LeftButton == ButtonState.Released &&
+        _currentMouseState.LeftButton == ButtonState.Pressed;
+
+    public bool RightClick =>
+        _previousMouseState.RightButton == ButtonState.Released;
 
     public void Update(GameTime gameTime)
     {
+        _previousMouseState = _currentMouseState;
+        _currentMouseState = Mouse.GetState();
+        MousePosition = _currentMouseState.Position.ToVector2();
+
         // Получаем текущее состояние клавиатуры
-        previousKeyboardState = currentKeyboardState;
-        currentKeyboardState = Keyboard.GetState();
+        _previousKeyboardState = _currentKeyboardState;
+        _currentKeyboardState = Keyboard.GetState();
 
         // Проверяем, была ли нажата клавиша ESC
-        if (currentKeyboardState.IsKeyDown(Keys.Escape) && previousKeyboardState.IsKeyUp(Keys.Escape))
+        if (_currentKeyboardState.IsKeyDown(Keys.Escape) && _previousKeyboardState.IsKeyUp(Keys.Escape))
         {
             OnEscapePressed();
         }

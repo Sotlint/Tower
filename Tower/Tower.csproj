@@ -24,7 +24,6 @@
     </ItemGroup>
     <ItemGroup>
       <Folder Include="Src\Observers\" />
-      <Folder Include="Src\UI\" />
     </ItemGroup>
     <ItemGroup>
       <Compile Update="Src\Core\BasicEnemy_Scripts.cs">

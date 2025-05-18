@@ -15,23 +15,24 @@ public class GameTower : Game
 
     public GameTower()
     {
-        _graphics = new GraphicsDeviceManager(this);
         Content.RootDirectory = "Content";
         IsMouseVisible = true;
+        _graphics = new GraphicsDeviceManager(this);
+       
     }
 
     protected override void Initialize()
     {
+        _spriteBatch = new SpriteBatch(GraphicsDevice);
+        SpriteManager.LoadSprites(Content, GraphicsDevice);
         GameManager.Init(_graphics.GraphicsDevice);
+        GameManager.CitadelManager.GetCitadel().SetSprite(SpriteManager.CitadelSprite);
+        GameManager.TestConfig(GameManager.CitadelManager.GetCitadel().Position);
         base.Initialize();
     }
 
     protected override void LoadContent()
     {
-        SpriteManager.LoadSprites(Content, GraphicsDevice);
-        _spriteBatch = new SpriteBatch(GraphicsDevice);
-        GameManager.CitadelManager.GetCitadel().SetSprite(SpriteManager.CitadelSprite);
-        GameManager.TestConfig(GameManager.CitadelManager.GetCitadel().Position);
     }
 
     protected override void Update(GameTime gameTime)

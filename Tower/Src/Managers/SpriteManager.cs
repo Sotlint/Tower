@@ -16,6 +16,7 @@ public static class SpriteManager
     public static Texture2D WallSprite { get; private set; }
     public static Texture2D HealthBarSprite { get; private set; }
     public static Texture2D OrbProjectileSprite { get; private set; }
+    public static Texture2D ButtonBackgroundTexture { get; private set; }
 
     public static void LoadSprites(ContentManager contentManager, GraphicsDevice graphicsDevice)
     {
@@ -25,6 +26,22 @@ public static class SpriteManager
         WallSprite = contentManager.Load<Texture2D>("wall");
         HealthBarSprite = CreateHealthBarTexture(graphicsDevice);
         OrbProjectileSprite = CreateCircularTexture(graphicsDevice, 8, Color.Blue);
+        ButtonBackgroundTexture = CreateButtonBackgroundTexture(graphicsDevice);
+    }
+
+
+    private static Texture2D CreateButtonBackgroundTexture(GraphicsDevice graphicsDevice)
+    {
+        var texture = new Texture2D(graphicsDevice, 64, 64);
+        var data = new Color[64 * 64];
+
+        for (var i = 0; i < data.Length; i++)
+        {
+            data[i] = new Color(200, 200, 200);
+        }
+
+        texture.SetData(data);
+        return texture;
     }
 
     private static Texture2D CreateHealthBarTexture(GraphicsDevice graphicsDevice)
