@@ -29,6 +29,7 @@ public class EnemyManager
             if (Enemies[i].IsDie())
             {
                 RemoveEnemy(Enemies[i]);
+                GameManager.Player.EarnMoney(Enemies[i].Reward);
             }
             else
             {

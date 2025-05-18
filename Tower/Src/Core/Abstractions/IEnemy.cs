@@ -6,4 +6,5 @@ namespace Tower.Core.Abstractions;
 public interface IEnemy : IMovable, ICanAttack, ICanDie, IHaveGameLogic, IHaveDrawLogic, IHaveIdentity, IHaveCollision
 {
     EnemyTypeEnum Type { get; }
+    int Reward { get; }
 }

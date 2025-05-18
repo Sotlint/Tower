@@ -8,6 +8,7 @@ public static class PlannedUpdateLogic
 {
     public static void Update(GameTime gameTime)
     {
+        
         GameManager.EnemyManager.SpawnEnemy(
             GameManager.DifficultyManager.GetEnemyCount());
         GameManager.GameStateManager.ChangeState(GameStateEnum.Playing);

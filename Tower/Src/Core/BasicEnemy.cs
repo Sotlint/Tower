@@ -26,11 +26,13 @@ public partial class BasicEnemy : IEnemy
         SpriteScale = this.GetSpriteScale();
         HealthBar = healthBar;
         Bounds = GetBounds();
+        Reward = 10;
     }
 
     public float SpriteScale { get; init; }
     public Texture2D Sprite { get; private set; }
     public EnemyTypeEnum Type { get; private set; }
+    public int Reward { get; init; }
     public Guid Id { get; private set; }
     public Vector2 Position { get; private set; }
     public int MaxHealth { get; init; }
