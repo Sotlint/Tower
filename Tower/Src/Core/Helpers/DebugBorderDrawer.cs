@@ -30,7 +30,7 @@ public class DebugBorderDrawer
             new Rectangle(bounds.X + bounds.Width - 1, bounds.Y, 1, bounds.Height), Color.White);
     }
 
-    public static void DrawAttackRange(SpriteBatch spriteBatch, float attackRange, Vector2 position)
+    private static void DrawAttackRange(SpriteBatch spriteBatch, float attackRange, Vector2 position)
     {
         var segments = 128;
         float angleIncrement = MathF.PI * 2 / segments;
@@ -47,7 +47,7 @@ public class DebugBorderDrawer
         }
     }
 
-    public static void DrawLine(SpriteBatch spriteBatch, Texture2D texture, Vector2 start, Vector2 end, Color color,
+    private static void DrawLine(SpriteBatch spriteBatch, Texture2D texture, Vector2 start, Vector2 end, Color color,
         float thickness = 1f)
     {
         Vector2 edge = end - start;
