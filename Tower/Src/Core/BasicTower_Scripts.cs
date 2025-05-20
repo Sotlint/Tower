@@ -21,17 +21,7 @@ public partial class BasicTower : ITower
         {
             DebugBorderDrawer.DrawDebug(spriteBatch, Bounds, AttackRange, Position);
         }
-        spriteBatch.Draw(
-            Sprite, // текстура
-            Position, // позиция
-            null, // исходный прямоугольник (null = вся текстура)
-            Color.White, // цвет (без изменений)
-            0f, // поворот
-            new Vector2(Sprite.Width/2, Sprite.Height/2), // точка привязки (верхний левый угол)
-            SpriteScale, // масштаб
-            SpriteEffects.None, // эффекты (например, зеркальное отражение)
-            1f // слой (глубина)
-        );
+        spriteBatch.DrawSprite(Sprite, Position, SpriteScale);
         spriteBatch.End();
     }
 
