@@ -33,7 +33,7 @@ public partial class Citadel : IBuilding
         {
             DebugBorderDrawer.DrawDebug(spriteBatch, Bounds, AttackRange, Position);
         }
-        spriteBatch.DrawSprite(Sprite, Position, SpriteScale);
+        spriteBatch.DrawSprite(Sprite, Position, scale);
         HealthBar.Draw(spriteBatch, gameTime, this);
         spriteBatch.End();
     }
