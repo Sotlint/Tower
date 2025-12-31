@@ -24,25 +24,48 @@ public static class MainRenderer
         {
             GameManager.TowerManager.DrawTowers(spriteBatch, gameTime);
             GameManager.CitadelManager.Draw(spriteBatch, gameTime);
+            
+            // Отрисовка перетаскиваемой башни
+            LogicUpdaters.PlannedUpdateLogic.DrawDraggedTower(spriteBatch, gameTime);
+            
+            // Отрисовка UI
             GameManager.UIManager.TowerSelectionMenu.Draw(spriteBatch);
+            GameManager.UIManager.DrawStartWaveButton(spriteBatch);
             return;
         }
 
         if (state is GameStateEnum.Menu)
         {
-            graphics.GraphicsDevice.Clear(Color.Black);
+            var menu = GameManager.UIManager.GetActiveMenu();
+            menu?.Draw(spriteBatch, gameTime);
             return;
         }
 
         if (state is GameStateEnum.Paused)
         {
-            graphics.GraphicsDevice.Clear(Color.Gold);
+            // Отрисовываем игру под меню паузы
+            GameManager.TowerManager.DrawTowers(spriteBatch, gameTime);
+            GameManager.ProjectileManager.DrawProjectiles(spriteBatch, gameTime);
+            GameManager.CitadelManager.Draw(spriteBatch, gameTime);
+            GameManager.EnemyManager.DrawEnemies(spriteBatch, gameTime);
+            
+            // Отрисовываем меню паузы поверх
+            var menu = GameManager.UIManager.GetActiveMenu();
+            menu?.Draw(spriteBatch, gameTime);
             return;
         }
 
         if (state == GameStateEnum.GameOver)
         {
-            graphics.GraphicsDevice.Clear(Color.Red);
+            // Отрисовываем последний кадр игры под меню
+            GameManager.TowerManager.DrawTowers(spriteBatch, gameTime);
+            GameManager.ProjectileManager.DrawProjectiles(spriteBatch, gameTime);
+            GameManager.CitadelManager.Draw(spriteBatch, gameTime);
+            GameManager.EnemyManager.DrawEnemies(spriteBatch, gameTime);
+            
+            // Отрисовываем меню окончания игры поверх
+            var menu = GameManager.UIManager.GetActiveMenu();
+            menu?.Draw(spriteBatch, gameTime);
             return;
         }
     }

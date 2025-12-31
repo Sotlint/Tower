@@ -18,6 +18,7 @@ public static class SpriteManager
     public static Texture2D OrbProjectileSprite { get; private set; }
     public static Texture2D ButtonBackgroundTexture { get; private set; }
     public static Texture2D GreenDebugPen { get; private set; }
+    public static SpriteFont DefaultFont { get; private set; }
 
     public static void LoadSprites(ContentManager contentManager, GraphicsDevice graphicsDevice)
     {
@@ -29,6 +30,7 @@ public static class SpriteManager
         OrbProjectileSprite = CreateCircularTexture(graphicsDevice, 8, Color.Blue);
         ButtonBackgroundTexture = CreateButtonBackgroundTexture(graphicsDevice);
         GreenDebugPen = CreateGreenDebugPenTexture(graphicsDevice);
+        DefaultFont = contentManager.Load<SpriteFont>("DefaultFont");
     }
 
     private static Texture2D CreateGreenDebugPenTexture(GraphicsDevice graphicsDevice)

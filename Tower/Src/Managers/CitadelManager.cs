@@ -21,4 +21,12 @@ public class CitadelManager
 
     public Citadel GetCitadel()
         => Citadel;
+    
+    /// <summary>
+    /// Восстанавливает здоровье цитадели до максимума
+    /// </summary>
+    public void RestoreHealth()
+    {
+        Citadel.RestoreHealth();
+    }
 }

@@ -26,7 +26,7 @@ public class GameTower : Game
         _spriteBatch = new SpriteBatch(GraphicsDevice);
         SpriteManager.LoadSprites(Content, GraphicsDevice);
         GameManager.Init(_graphics.GraphicsDevice);
-        GameManager.TestConfig(GameManager.CitadelManager.GetCitadel().Position);
+        // Игра начинается с главного меню
         base.Initialize();
     }
 

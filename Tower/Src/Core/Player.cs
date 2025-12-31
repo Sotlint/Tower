@@ -6,6 +6,7 @@ public partial class Player
 
     public Player(int initialMoney)
     {
+        Money = initialMoney;
     }
 
     public void EarnMoney(int amount)

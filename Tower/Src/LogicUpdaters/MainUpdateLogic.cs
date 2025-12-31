@@ -1,4 +1,3 @@
-using System;
 using Microsoft.Xna.Framework;
 using Tower.Core.Abstractions.Enums;
 using Tower.Managers;
@@ -23,17 +22,36 @@ public static class MainUpdateLogic
         }
         if (state is GameStateEnum.Menu)
         {
+            var menu = GameManager.UIManager.GetActiveMenu();
+            menu?.Update(gameTime, GameManager.InputManager.MousePosition);
+            
+            if (GameManager.InputManager.LeftClick)
+            {
+                menu?.HandleClick(GameManager.InputManager.MousePosition);
+            }
             return;
         }
         if (state is GameStateEnum.Paused)
         {
-            //ignore
+            var menu = GameManager.UIManager.GetActiveMenu();
+            menu?.Update(gameTime, GameManager.InputManager.MousePosition);
+            
+            if (GameManager.InputManager.LeftClick)
+            {
+                menu?.HandleClick(GameManager.InputManager.MousePosition);
+            }
             return;
         }
         if (state == GameStateEnum.GameOver)
         {
-            Console.WriteLine("Game over!");
-            GameManager.GameStateManager.ChangeState(GameStateEnum.Menu);
+            var menu = GameManager.UIManager.GetActiveMenu();
+            menu?.Update(gameTime, GameManager.InputManager.MousePosition);
+            
+            if (GameManager.InputManager.LeftClick)
+            {
+                menu?.HandleClick(GameManager.InputManager.MousePosition);
+            }
+            return;
         }
     }
 }

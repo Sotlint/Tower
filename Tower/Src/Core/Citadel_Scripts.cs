@@ -21,6 +21,14 @@ public partial class Citadel : IBuilding
     {
         Health -= damage;
     }
+    
+    /// <summary>
+    /// Восстанавливает здоровье до максимума
+    /// </summary>
+    public void RestoreHealth()
+    {
+        Health = MaxHealth;
+    }
 
     public bool IsDie()
         => Health <= 0;
@@ -47,6 +55,10 @@ public partial class Citadel : IBuilding
     {
         if (IsDie())
         {
+            // Устанавливаем статистику перед переходом в GameOver
+            var score = GameManager.GetScore();
+            var wave = GameManager.DifficultyManager.GetDifficultyLevel();
+            GameManager.UIManager.GameOverMenu.SetGameStats(score, wave);
             GameManager.GameStateManager.ChangeState(GameStateEnum.GameOver);
         }
     }

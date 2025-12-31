@@ -15,10 +15,11 @@ public static class WaveUpdateLogic
         GameManager.ProjectileManager.UpdateProjectiles(gameTime);
         GameManager.EnemyManager.UpdateEnemies(gameTime);
 
-        //проврека окончания волны
+        //проверка окончания волны
         if (GameManager.EnemyManager.GetEnemies().Count == 0)
         {
             GameManager.DifficultyManager.IncreaseDifficulty();
+            PlannedUpdateLogic.Reset(); // Сбрасываем состояние планирования
             GameManager.GameStateManager.ChangeState(GameStateEnum.Planning);
         }
     }

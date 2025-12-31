@@ -29,11 +29,13 @@ public static class GameManager
         Score += points;
     }
 
+    public static int GetScore() => Score;
+
     public static void Init(GraphicsDevice graphicsDevice)
     {
         Score = 0;
         TowerManager = new TowerManager();
-        GameStateManager = new GameStateManager();
+        GameStateManager = new GameStateManager(); // Начинаем с Menu
         EnemyManager = new EnemyManager();
         InputManager = new InputManager();
         DifficultyManager = new DifficultyManager();
@@ -47,6 +49,28 @@ public static class GameManager
         var citadel = new Citadel(Guid.NewGuid(), citadelPosition, 1000, 0, 0, TimeSpan.Zero,
             new HealthBar(citadelHealBarSprite));
         CitadelManager = new CitadelManager(citadel);
+    }
+    
+    /// <summary>
+    /// Инициализация новой игры (вызывается при нажатии "Начать игру")
+    /// </summary>
+    public static void StartNewGame()
+    {
+        Score = 0;
+        TowerManager = new TowerManager();
+        DifficultyManager = new DifficultyManager();
+        EnemyManager = new EnemyManager();
+        ProjectileManager = new ProjectileManager();
+        Player = new Player(100);
+        
+        // Восстанавливаем здоровье цитадели
+        CitadelManager.RestoreHealth();
+        
+        // Сбрасываем состояние планирования
+        LogicUpdaters.PlannedUpdateLogic.Reset();
+        
+        // Начинаем с фазы планирования, чтобы игрок мог расставить башни
+        GameStateManager.ChangeState(GameStateEnum.Planning);
     }
 
     public static void TestConfig(Vector2 citadelPos)

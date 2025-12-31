@@ -10,6 +10,19 @@ namespace Tower.Factories;
 
 public static class TowerFactory
 {
+    /// <summary>
+    /// Получить стоимость башни
+    /// </summary>
+    public static int GetTowerCost(TowerTypeEnum type)
+        => type switch
+        {
+            TowerTypeEnum.Basic => 1, // Тестовая цена: 1 монета
+            TowerTypeEnum.Fire => throw new NotImplementedException(),
+            TowerTypeEnum.Frost => throw new NotImplementedException(),
+            TowerTypeEnum.Bomber => throw new NotImplementedException(),
+            _ => throw new ArgumentOutOfRangeException(nameof(type), type, null)
+        };
+
     public static ITower CreateTower(TowerTypeEnum type, Vector2 position)
         => type switch
         {
