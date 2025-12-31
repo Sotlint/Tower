@@ -46,6 +46,8 @@ public class EnemyManager
             {
                 // Начисляем игроку деньги за убийство врага
                 GameManager.Player.EarnMoney(Enemies[i].Reward);
+                // Начисляем очки за убийство врага (1 очко за каждого врага)
+                GameManager.UpdateScore(1);
                 // Удаляем мертвого врага
                 RemoveEnemy(Enemies[i]);
             }

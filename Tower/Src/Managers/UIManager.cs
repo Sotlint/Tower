@@ -27,6 +27,9 @@ public class UIManager
     /// <summary>Кнопка начала волны врагов</summary>
     public UIButton StartWaveButton { get; private set; }
     
+    /// <summary>HUD игры (отображение счета, денег и другой информации)</summary>
+    public GameHUD GameHUD { get; private set; }
+    
     /// <summary>Флаг инициализации кнопки начала волны (ленивая инициализация)</summary>
     private bool _startWaveButtonInitialized = false;
 
@@ -39,6 +42,7 @@ public class UIManager
         MainMenu = new MainMenu();
         PauseMenu = new PauseMenu();
         GameOverMenu = new GameOverMenu();
+        GameHUD = new GameHUD();
     }
     
     /// <summary>

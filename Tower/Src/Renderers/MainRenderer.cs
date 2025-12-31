@@ -34,6 +34,9 @@ public static class MainRenderer
             GameManager.ProjectileManager.DrawProjectiles(spriteBatch, gameTime); // Снаряды
             GameManager.CitadelManager.Draw(spriteBatch, gameTime); // Цитадель
             GameManager.EnemyManager.DrawEnemies(spriteBatch, gameTime); // Враги
+            
+            // Отрисовка HUD (счет, деньги, номер волны)
+            GameManager.UIManager.GameHUD.Draw(spriteBatch, gameTime);
             return;
         }
 
@@ -50,6 +53,9 @@ public static class MainRenderer
             // Отрисовка UI элементов фазы планирования
             GameManager.UIManager.TowerSelectionMenu.Draw(spriteBatch); // Меню выбора башен
             GameManager.UIManager.DrawStartWaveButton(spriteBatch); // Кнопка начала волны
+            
+            // Отрисовка HUD (счет, деньги, номер волны)
+            GameManager.UIManager.GameHUD.Draw(spriteBatch, gameTime);
             return;
         }
 
@@ -70,6 +76,9 @@ public static class MainRenderer
             GameManager.ProjectileManager.DrawProjectiles(spriteBatch, gameTime);
             GameManager.CitadelManager.Draw(spriteBatch, gameTime);
             GameManager.EnemyManager.DrawEnemies(spriteBatch, gameTime);
+            
+            // Отрисовка HUD (счет, деньги, номер волны)
+            GameManager.UIManager.GameHUD.Draw(spriteBatch, gameTime);
             
             // Отрисовываем меню паузы поверх игры (полупрозрачное)
             var menu = GameManager.UIManager.GetActiveMenu();
