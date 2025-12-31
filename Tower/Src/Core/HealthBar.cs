@@ -49,21 +49,29 @@ public class HealthBar
         var backColor = Color.DarkRed; // Фон полосы (показывает максимальное здоровье)
         var frontColor = Color.LimeGreen; // Заполнитель (показывает текущее здоровье)
 
-        // Позиция полосы: над врагом с отступом 20px вверх
-        var barPosition = enemy.Position + new Vector2(0, -20);
+        // Получаем границы спрайта врага
+        var bounds = enemy.Bounds;
+        
+        // Параметры полосы здоровья
+        var barWidth = (int)(bounds.Width * 0.8f); // Ширина полосы (80% от ширины спрайта)
+        var barHeight = 4; // Высота полосы (уменьшена для более аккуратного вида)
+        var barOffset = 3; // Отступ от верхней границы спрайта (в пикселях)
+        
+        // Позиция полосы: над верхней границей спрайта, центрирована по горизонтали
+        var barX = bounds.X + bounds.Width / 2 - barWidth / 2; // Центрирование по X
+        var barY = bounds.Y - barHeight - barOffset; // Над верхней границей спрайта
 
         // Отрисовка фона полосы (темно-красный прямоугольник)
         spriteBatch.Draw(
             texture: Sprite,
-            destinationRectangle: new Rectangle((int)barPosition.X, (int)barPosition.Y, (int)40, (int)10),
+            destinationRectangle: new Rectangle((int)barX, (int)barY, barWidth, barHeight),
             color: backColor
         );
 
         // Отрисовка заполнителя полосы (зеленый прямоугольник, ширина зависит от здоровья)
         spriteBatch.Draw(
             texture: Sprite,
-            destinationRectangle: new Rectangle((int)barPosition.X, (int)barPosition.Y, (int)(40 * healthPercent),
-                (int)10),
+            destinationRectangle: new Rectangle((int)barX, (int)barY, (int)(barWidth * healthPercent), barHeight),
             color: frontColor
         );
     }
@@ -88,21 +96,29 @@ public class HealthBar
         var backColor = Color.DarkRed; // Фон полосы (показывает максимальное здоровье)
         var frontColor = Color.LimeGreen; // Заполнитель (показывает текущее здоровье)
 
-        // Позиция полосы: над зданием с отступом 20px вверх
-        var barPosition = building.Position + new Vector2(0, -20);
+        // Получаем границы спрайта здания
+        var bounds = building.Bounds;
+        
+        // Параметры полосы здоровья
+        var barWidth = (int)(bounds.Width * 0.8f); // Ширина полосы (80% от ширины спрайта)
+        var barHeight = 4; // Высота полосы (уменьшена для более аккуратного вида)
+        var barOffset = 3; // Отступ от верхней границы спрайта (в пикселях)
+        
+        // Позиция полосы: над верхней границей спрайта, центрирована по горизонтали
+        var barX = bounds.X + bounds.Width / 2 - barWidth / 2; // Центрирование по X
+        var barY = bounds.Y - barHeight - barOffset; // Над верхней границей спрайта
 
         // Отрисовка фона полосы (темно-красный прямоугольник)
         spriteBatch.Draw(
             texture: Sprite,
-            destinationRectangle: new Rectangle((int)barPosition.X, (int)barPosition.Y, (int)40, (int)10),
+            destinationRectangle: new Rectangle((int)barX, (int)barY, barWidth, barHeight),
             color: backColor
         );
 
         // Отрисовка заполнителя полосы (зеленый прямоугольник, ширина зависит от здоровья)
         spriteBatch.Draw(
             texture: Sprite,
-            destinationRectangle: new Rectangle((int)barPosition.X, (int)barPosition.Y, (int)(40 * healthPercent),
-                (int)10),
+            destinationRectangle: new Rectangle((int)barX, (int)barY, (int)(barWidth * healthPercent), barHeight),
             color: frontColor
         );
     }
