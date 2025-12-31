@@ -17,48 +17,83 @@ public partial class Citadel : IBuilding
         throw new NotImplementedException();
     }
 
+    /// <summary>
+    /// Получение урона цитаделью. Уменьшает здоровье на указанное количество.
+    /// </summary>
+    /// <param name="damage">Количество урона</param>
     public void TakeDamage(int damage)
     {
         Health -= damage;
     }
     
     /// <summary>
-    /// Восстанавливает здоровье до максимума
+    /// Восстанавливает здоровье цитадели до максимума.
+    /// Вызывается при начале новой игры.
     /// </summary>
     public void RestoreHealth()
     {
         Health = MaxHealth;
     }
 
+    /// <summary>
+    /// Проверка, уничтожена ли цитадель (здоровье <= 0).
+    /// </summary>
+    /// <returns>true, если цитадель уничтожена, false - иначе</returns>
     public bool IsDie()
         => Health <= 0;
 
+    /// <summary>
+    /// Отрисовка цитадели. Отрисовывает спрайт цитадели и полосу здоровья.
+    /// В режиме отладки также отрисовывает границы и радиус атаки.
+    /// </summary>
+    /// <param name="spriteBatch">SpriteBatch для отрисовки</param>
+    /// <param name="gameTime">Время игры</param>
     public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
     {
         spriteBatch.Begin();
-        var scale = 0.1f;
+        var scale = 0.1f; // Масштаб спрайта цитадели (10% от исходного размера)
+        
+        // Отрисовка отладочной информации (границы и радиус атаки) в режиме отладки
         if (GameManager.InputManager.IsDebugMode)
         {
             DebugBorderDrawer.DrawDebug(spriteBatch, Bounds, AttackRange, Position);
         }
+        
+        // Отрисовка спрайта цитадели
         spriteBatch.DrawSprite(Sprite, Position, scale);
+        
+        // Отрисовка полосы здоровья над цитаделью
         HealthBar.Draw(spriteBatch, gameTime, this);
         spriteBatch.End();
     }
 
+    /// <summary>
+    /// Атака цитадели (не реализована, цитадель не атакует).
+    /// </summary>
+    /// <param name="target">Цель для атаки</param>
     public void Attack(ICanDie target)
     {
         throw new NotImplementedException();
     }
 
+    /// <summary>
+    /// Обновление цитадели. Вызывается каждый кадр.
+    /// Проверяет, уничтожена ли цитадель, и если да - переводит игру в состояние GameOver.
+    /// </summary>
+    /// <param name="gameTime">Время игры</param>
     public void Update( GameTime gameTime)
     {
+        // Проверяем, уничтожена ли цитадель
         if (IsDie())
         {
-            // Устанавливаем статистику перед переходом в GameOver
-            var score = GameManager.GetScore();
-            var wave = GameManager.DifficultyManager.GetDifficultyLevel();
+            // Устанавливаем финальную статистику перед переходом в GameOver
+            var score = GameManager.GetScore(); // Финальный счет
+            var wave = GameManager.DifficultyManager.GetDifficultyLevel(); // Номер последней волны
+            
+            // Передаем статистику в меню окончания игры
             GameManager.UIManager.GameOverMenu.SetGameStats(score, wave);
+            
+            // Переводим игру в состояние окончания игры
             GameManager.GameStateManager.ChangeState(GameStateEnum.GameOver);
         }
     }
