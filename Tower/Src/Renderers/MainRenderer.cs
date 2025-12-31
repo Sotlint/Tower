@@ -47,7 +47,10 @@ public static class MainRenderer
             GameManager.TowerManager.DrawTowers(spriteBatch, gameTime);
             GameManager.CitadelManager.Draw(spriteBatch, gameTime);
             
-            // Отрисовка перетаскиваемой башни (следует за курсором)
+            // Отрисовка радиуса атаки для башни, на которую наведена мышь
+            LogicUpdaters.PlannedUpdateLogic.DrawHoveredTowerRange(spriteBatch, gameTime);
+            
+            // Отрисовка перетаскиваемой башни (следует за курсором) и её радиуса атаки
             LogicUpdaters.PlannedUpdateLogic.DrawDraggedTower(spriteBatch, gameTime);
             
             // Отрисовка UI элементов фазы планирования

@@ -30,6 +30,9 @@ public static class PlannedUpdateLogic
     
     /// <summary>Флаг, указывающий, происходит ли в данный момент перетаскивание башни</summary>
     private static bool _isDragging = false;
+    
+    /// <summary>Башня, на которую наведена мышь (для отображения радиуса атаки)</summary>
+    private static ITower _hoveredTower = null;
 
     /// <summary>
     /// Обновление логики планирования. Обрабатывает перетаскивание башен,
@@ -71,6 +74,25 @@ public static class PlannedUpdateLogic
         {
             _draggedTower.SetPosition(mousePos);
             _draggedTower.UpdateBounds(); // Обновляем границы для проверки коллизий
+        }
+        
+        // Проверка наведения мыши на поставленные башни (только если не перетаскиваем)
+        if (!_isDragging)
+        {
+            _hoveredTower = null;
+            var towers = GameManager.TowerManager.GetTowers();
+            foreach (var tower in towers)
+            {
+                if (tower.Bounds.Contains(mousePos))
+                {
+                    _hoveredTower = tower;
+                    break;
+                }
+            }
+        }
+        else
+        {
+            _hoveredTower = null; // Не показываем радиус при перетаскивании
         }
         
         // Обработка отпускания кнопки мыши (размещение башни)
@@ -162,6 +184,7 @@ public static class PlannedUpdateLogic
     /// <summary>
     /// Отрисовка перетаскиваемой башни. Башня следует за курсором мыши
     /// и меняет цвет в зависимости от возможности размещения.
+    /// Также отрисовывает радиус атаки перетаскиваемой башни.
     /// </summary>
     /// <param name="spriteBatch">SpriteBatch для отрисовки</param>
     /// <param name="gameTime">Время игры (не используется, но требуется для совместимости)</param>
@@ -176,6 +199,11 @@ public static class PlannedUpdateLogic
             var color = canPlace ? Color.White : Color.Red * 0.7f;
             
             spriteBatch.Begin();
+            
+            // Отрисовываем радиус атаки башни (полупрозрачный синий круг)
+            var rangeColor = canPlace ? new Color(0, 100, 255, 150) : new Color(255, 0, 0, 150); // Синий если можно разместить, красный если нет
+            Core.Helpers.DebugBorderDrawer.DrawAttackRange(spriteBatch, _draggedTower.AttackRange, _draggedTower.Position, rangeColor);
+            
             // Отрисовываем башню с центрированием по точке привязки
             spriteBatch.Draw(
                 _draggedTower.Sprite, // Текстура башни
@@ -188,6 +216,27 @@ public static class PlannedUpdateLogic
                 SpriteEffects.None, // Эффекты отображения
                 0f // Глубина слоя
             );
+            spriteBatch.End();
+        }
+    }
+    
+    /// <summary>
+    /// Отрисовка радиуса атаки для башни, на которую наведена мышь.
+    /// Вызывается в режиме планирования для отображения радиуса атаки поставленных башен.
+    /// </summary>
+    /// <param name="spriteBatch">SpriteBatch для отрисовки</param>
+    /// <param name="gameTime">Время игры (не используется, но требуется для совместимости)</param>
+    public static void DrawHoveredTowerRange(SpriteBatch spriteBatch, GameTime gameTime)
+    {
+        // Отрисовываем радиус атаки только если наведена мышь на башню и не происходит перетаскивание
+        if (_hoveredTower != null && !_isDragging)
+        {
+            spriteBatch.Begin();
+            
+            // Отрисовываем радиус атаки башни (полупрозрачный синий круг)
+            var rangeColor = new Color(0, 150, 255, 180); // Полупрозрачный синий
+            Core.Helpers.DebugBorderDrawer.DrawAttackRange(spriteBatch, _hoveredTower.AttackRange, _hoveredTower.Position, rangeColor);
+            
             spriteBatch.End();
         }
     }
@@ -215,5 +264,6 @@ public static class PlannedUpdateLogic
         _selectedTowerType = null; // Сбрасываем выбранный тип башни
         _isDragging = false; // Сбрасываем флаг перетаскивания
         _draggedTower = null; // Удаляем временную башню
+        _hoveredTower = null; // Сбрасываем башню, на которую наведена мышь
     }
 }

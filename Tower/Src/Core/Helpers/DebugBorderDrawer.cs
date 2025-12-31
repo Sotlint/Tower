@@ -53,13 +53,17 @@ public class DebugBorderDrawer
 
     /// <summary>
     /// Отрисовка радиуса атаки объекта (круг).
-    /// Отрисовывает зеленый круг вокруг объекта, показывающий радиус атаки.
+    /// Отрисовывает круг вокруг объекта, показывающий радиус атаки.
     /// </summary>
     /// <param name="spriteBatch">SpriteBatch для отрисовки</param>
     /// <param name="attackRange">Радиус атаки</param>
     /// <param name="position">Позиция объекта (центр круга)</param>
-    private static void DrawAttackRange(SpriteBatch spriteBatch, float attackRange, Vector2 position)
+    /// <param name="color">Цвет круга (по умолчанию белый)</param>
+    public static void DrawAttackRange(SpriteBatch spriteBatch, float attackRange, Vector2 position, Color? color = null)
     {
+        // Используем переданный цвет или белый по умолчанию
+        var circleColor = color ?? Color.White;
+        
         // Количество сегментов для аппроксимации круга (больше = более гладкий круг)
         var segments = 128;
         // Угол между сегментами
@@ -77,7 +81,7 @@ public class DebugBorderDrawer
             Vector2 nextPoint = position + new Vector2(MathF.Cos(angle), MathF.Sin(angle)) * attackRange;
 
             // Отрисовываем линию от предыдущей точки к следующей
-            DrawLine(spriteBatch, SpriteManager.GreenDebugPen, prevPoint, nextPoint, Color.White);
+            DrawLine(spriteBatch, SpriteManager.GreenDebugPen, prevPoint, nextPoint, circleColor);
             prevPoint = nextPoint;
         }
     }
