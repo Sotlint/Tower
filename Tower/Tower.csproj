@@ -40,6 +40,15 @@
       <Compile Update="Src\Core\OrbProjectile_Scripts.cs">
         <DependentUpon>OrbProjectile.cs</DependentUpon>
       </Compile>
+      <Compile Update="Src\Core\IceTower_Scripts.cs">
+        <DependentUpon>IceTower.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Src\Core\LightTower_Scripts.cs">
+        <DependentUpon>LightTower.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Src\Core\PoisonTower_Scripts.cs">
+        <DependentUpon>PoisonTower.cs</DependentUpon>
+      </Compile>
     </ItemGroup>
     <Target Name="RestoreDotnetTools" BeforeTargets="Restore">
         <Message Text="Restoring dotnet tools" Importance="High"/>

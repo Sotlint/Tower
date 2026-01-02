@@ -125,7 +125,7 @@ public static class GameManager
     {
         // Создаем тестовую башню рядом с цитаделью
         var testTower =
-            TowerFactory.CreateTower(TowerTypeEnum.Basic, citadelPos + new Vector2(-50, -50));
+            TowerFactory.CreateTower(TowerTypeEnum.Stone, citadelPos + new Vector2(-50, -50));
         TowerManager.AddTower(testTower);
     }
 }

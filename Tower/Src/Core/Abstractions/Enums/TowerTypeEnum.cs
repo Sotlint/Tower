@@ -6,14 +6,15 @@ namespace Tower.Core.Abstractions.Enums;
 public enum TowerTypeEnum
 {
     /// <summary>Базовая башня - стандартная башня с обычной атакой</summary>
-    Basic,
+    Stone,
     
     /// <summary>Огненная башня - наносит огненный урон (не реализована)</summary>
     Fire,
     
     /// <summary>Ледяная башня - замедляет врагов (не реализована)</summary>
-    Frost,
+    Ice,
     
-    /// <summary>Бомбардировщик - наносит урон по области (не реализована)</summary>
-    Bomber,
+    Light,
+    
+    Poison
 }

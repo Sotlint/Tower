@@ -18,7 +18,17 @@ public static class SpriteManager
     public static Texture2D CitadelSprite { get; private set; }
     
     /// <summary>Спрайт башни (загружается из Content/tower.png)</summary>
-    public static Texture2D TowerSprite { get; private set; }
+    public static Texture2D OldTowerSprite { get; private set; }
+    
+    public static Texture2D StoneTowerSprite { get; private set; }
+    
+    public static Texture2D FireTowerSprite { get; private set; }
+    
+    public static Texture2D LightTowerSprite { get; private set; }
+    
+    public static Texture2D PoisonTowerSprite { get; private set; }
+    
+    public static Texture2D IceTowerSprite { get; private set; }
     
     /// <summary>Спрайт стены (загружается из Content/wall.png, пока не используется)</summary>
     public static Texture2D WallSprite { get; private set; }
@@ -49,7 +59,12 @@ public static class SpriteManager
         // Загрузка текстур из файлов Content
         BaseEnemySprite = contentManager.Load<Texture2D>("monster");
         CitadelSprite = contentManager.Load<Texture2D>("citadel");
-        TowerSprite = contentManager.Load<Texture2D>("tower");
+        OldTowerSprite = contentManager.Load<Texture2D>("tower");
+        FireTowerSprite = contentManager.Load<Texture2D>("fire_tower");
+        IceTowerSprite = contentManager.Load<Texture2D>("ice-tower");
+        LightTowerSprite = contentManager.Load<Texture2D>("light_tower");
+        StoneTowerSprite = contentManager.Load<Texture2D>("stone_tower");
+        PoisonTowerSprite = contentManager.Load<Texture2D>("poison_tower");
         WallSprite = contentManager.Load<Texture2D>("wall");
         
         // Создание программных текстур

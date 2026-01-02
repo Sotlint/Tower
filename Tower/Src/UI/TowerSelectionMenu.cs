@@ -53,7 +53,15 @@ public class TowerSelectionMenu
         var buttonSize = 64; // Размер кнопки башни (64x64 пикселей)
         var padding = 10; // Отступ между кнопками и от краев
         var borderThickness = 4; // Толщина окантовки
-        var types = new[] { TowerTypeEnum.Basic /*, TowerTypeEnum.Fire, etc. */ };
+        // Все доступные типы башен
+        var types = new[] 
+        { 
+            TowerTypeEnum.Stone,
+            TowerTypeEnum.Fire,
+            TowerTypeEnum.Ice,
+            TowerTypeEnum.Light,
+            TowerTypeEnum.Poison
+        };
         
         // Получаем размеры экрана
         var screenWidth = graphicsDevice.Viewport.Width;
@@ -85,10 +93,21 @@ public class TowerSelectionMenu
             var y = menuY + padding; // Все кнопки на одной высоте
             var bounds = new Rectangle(x, y, buttonSize, buttonSize);
 
+            // Получаем спрайт для данного типа башни
+            Texture2D iconTexture = type switch
+            {
+                TowerTypeEnum.Stone => SpriteManager.StoneTowerSprite,
+                TowerTypeEnum.Fire => SpriteManager.FireTowerSprite,
+                TowerTypeEnum.Ice => SpriteManager.IceTowerSprite,
+                TowerTypeEnum.Light => SpriteManager.LightTowerSprite,
+                TowerTypeEnum.Poison => SpriteManager.PoisonTowerSprite,
+                _ => SpriteManager.OldTowerSprite // Резервный спрайт
+            };
+            
             // Создаем кнопку с типом башни и иконкой
             var button = new UIButton<TowerTypeEnum>(bounds, type)
             {
-                IconTexture = SpriteManager.TowerSprite, // Иконка башни на кнопке
+                IconTexture = iconTexture, // Иконка башни на кнопке
             };
 
             _towerButtons.Add(button);
