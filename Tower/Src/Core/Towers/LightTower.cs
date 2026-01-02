@@ -5,16 +5,16 @@ using Tower.Core.Abstractions;
 using Tower.Core.Abstractions.Enums;
 using Tower.Core.Helpers;
 
-namespace Tower.Core;
+namespace Tower.Core.Towers;
 
 /// <summary>
-/// Базовая башня. Реализует интерфейс ITower и предоставляет базовую функциональность
-/// для всех типов башен: атака врагов, отрисовка, обновление.
+/// Башня света. Реализует интерфейс ITower и предоставляет функциональность
+/// башни света: атака врагов световым уроном, отрисовка, обновление.
 /// </summary>
-public partial class StoneTower : ITower
+public partial class LightTower : ITower
 {
     /// <summary>
-    /// Конструктор базовой башни. Инициализирует все свойства башни.
+    /// Конструктор башни света. Инициализирует все свойства башни.
     /// </summary>
     /// <param name="id">Уникальный идентификатор башни</param>
     /// <param name="sprite">Текстура спрайта башни</param>
@@ -24,7 +24,7 @@ public partial class StoneTower : ITower
     /// <param name="attackPower">Сила атаки (урон)</param>
     /// <param name="attackRange">Радиус атаки</param>
     /// <param name="attackDelay">Задержка между атаками</param>
-    public StoneTower(Guid id, Texture2D sprite, Vector2 position, TowerTypeEnum type, int health, int attackPower,
+    public LightTower(Guid id, Texture2D sprite, Vector2 position, TowerTypeEnum type, int health, int attackPower,
         float attackRange, TimeSpan attackDelay)
     {
         Id = id;
@@ -77,3 +77,4 @@ public partial class StoneTower : ITower
     /// <summary>Границы башни для проверки коллизий</summary>
     public Rectangle Bounds { get; private set;}
 }
+

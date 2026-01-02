@@ -3,9 +3,10 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Tower.Core.Abstractions;
 using Tower.Core.Abstractions.Enums;
+using Tower.Core.Common;
 using Tower.Core.Helpers;
 
-namespace Tower.Core;
+namespace Tower.Core.Enemies;
 
 /// <summary>
 /// Базовый враг. Реализует интерфейс IEnemy и предоставляет базовую функциональность

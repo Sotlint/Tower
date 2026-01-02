@@ -5,6 +5,8 @@ using Microsoft.Xna.Framework.Graphics;
 using Tower.Core;
 using Tower.Core.Abstractions;
 using Tower.Core.Abstractions.Enums;
+using Tower.Core.Common;
+using Tower.Core.Enemies;
 using Tower.Managers;
 
 namespace Tower.Factories;

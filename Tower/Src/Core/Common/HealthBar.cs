@@ -2,7 +2,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Tower.Core.Abstractions;
 
-namespace Tower.Core;
+namespace Tower.Core.Common;
 
 /// <summary>
 /// Полоса здоровья. Отрисовывает визуальное представление здоровья объекта

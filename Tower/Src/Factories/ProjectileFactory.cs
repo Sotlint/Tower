@@ -5,6 +5,7 @@ using Tower.Core;
 using Tower.Core.Abstractions;
 using Tower.Core.Abstractions.Base;
 using Tower.Core.Abstractions.Enums;
+using Tower.Core.Projectiles;
 using Tower.Managers;
 
 namespace Tower.Factories;

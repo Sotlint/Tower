@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Tower.Core.Abstractions;
 using Tower.Core.Abstractions.Base;
 
-namespace Tower.Core;
+namespace Tower.Core.Projectiles;
 
 /// <summary>
 /// Снаряд типа "Orb" (сфера). Реализует интерфейс IProjectile.

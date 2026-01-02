@@ -2,6 +2,7 @@ using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Tower.Core.Abstractions;
+using Tower.Core.Common;
 using Tower.Core.Helpers;
 using Tower.Managers;
 

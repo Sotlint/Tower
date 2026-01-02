@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Tower.Core;
 using Tower.Core.Abstractions;
 using Tower.Core.Abstractions.Enums;
+using Tower.Core.Towers;
 using Tower.Managers;
 
 namespace Tower.Factories;

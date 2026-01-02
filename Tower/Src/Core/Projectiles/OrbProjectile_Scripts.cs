@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Tower.Core.Abstractions.Base;
 
-namespace Tower.Core;
+namespace Tower.Core.Projectiles;
 
 /// <summary>
 /// Скрипты для снаряда типа "Orb" (сфера). Реализует логику движения, атаки и отрисовки снаряда.

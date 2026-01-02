@@ -10,12 +10,12 @@ using Tower.Core.Helpers;
 using Tower.Factories;
 using Tower.Managers;
 
-namespace Tower.Core;
+namespace Tower.Core.Towers;
 
 /// <summary>
-/// Скрипты базовой башни. Реализует логику отрисовки, обновления, атаки и управления границами.
+/// Скрипты огненной башни. Реализует логику отрисовки, обновления, атаки и управления границами.
 /// </summary>
-public partial class StoneTower : ITower
+public partial class FireTower : ITower
 {
     /// <summary>
     /// Отрисовка башни. Отрисовывает спрайт башни и отладочную информацию в режиме отладки.
@@ -129,3 +129,4 @@ public partial class StoneTower : ITower
         );
     }
 }
+

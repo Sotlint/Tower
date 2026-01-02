@@ -5,16 +5,16 @@ using Tower.Core.Abstractions;
 using Tower.Core.Abstractions.Enums;
 using Tower.Core.Helpers;
 
-namespace Tower.Core;
+namespace Tower.Core.Towers;
 
 /// <summary>
-/// Огненная башня. Реализует интерфейс ITower и предоставляет функциональность
-/// огненной башни: атака врагов с огненным уроном, отрисовка, обновление.
+/// Ядовитая башня. Реализует интерфейс ITower и предоставляет функциональность
+/// ядовитой башни: атака врагов ядовитым уроном, отрисовка, обновление.
 /// </summary>
-public partial class FireTower : ITower
+public partial class PoisonTower : ITower
 {
     /// <summary>
-    /// Конструктор огненной башни. Инициализирует все свойства башни.
+    /// Конструктор ядовитой башни. Инициализирует все свойства башни.
     /// </summary>
     /// <param name="id">Уникальный идентификатор башни</param>
     /// <param name="sprite">Текстура спрайта башни</param>
@@ -24,7 +24,7 @@ public partial class FireTower : ITower
     /// <param name="attackPower">Сила атаки (урон)</param>
     /// <param name="attackRange">Радиус атаки</param>
     /// <param name="attackDelay">Задержка между атаками</param>
-    public FireTower(Guid id, Texture2D sprite, Vector2 position, TowerTypeEnum type, int health, int attackPower,
+    public PoisonTower(Guid id, Texture2D sprite, Vector2 position, TowerTypeEnum type, int health, int attackPower,
         float attackRange, TimeSpan attackDelay)
     {
         Id = id;

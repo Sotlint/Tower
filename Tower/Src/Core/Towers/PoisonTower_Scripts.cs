@@ -10,7 +10,7 @@ using Tower.Core.Helpers;
 using Tower.Factories;
 using Tower.Managers;
 
-namespace Tower.Core;
+namespace Tower.Core.Towers;
 
 /// <summary>
 /// Скрипты ядовитой башни. Реализует логику отрисовки, обновления, атаки и управления границами.

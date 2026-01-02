@@ -8,7 +8,7 @@ using Tower.Core.Abstractions.Base;
 using Tower.Core.Helpers;
 using Tower.Managers;
 
-namespace Tower.Core;
+namespace Tower.Core.Enemies;
 
 public partial class BasicEnemy : IEnemy
 {

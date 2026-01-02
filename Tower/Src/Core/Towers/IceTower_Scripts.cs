@@ -10,12 +10,12 @@ using Tower.Core.Helpers;
 using Tower.Factories;
 using Tower.Managers;
 
-namespace Tower.Core;
+namespace Tower.Core.Towers;
 
 /// <summary>
-/// Скрипты башни света. Реализует логику отрисовки, обновления, атаки и управления границами.
+/// Скрипты ледяной башни. Реализует логику отрисовки, обновления, атаки и управления границами.
 /// </summary>
-public partial class LightTower : ITower
+public partial class IceTower : ITower
 {
     /// <summary>
     /// Отрисовка башни. Отрисовывает спрайт башни и отладочную информацию в режиме отладки.
