@@ -41,11 +41,11 @@ public static class SpriteScaleHelper
         var type = tower.Type;
         return type switch
         {
-            TowerTypeEnum.Stone => 0.1f, // 10% от исходного размера
-            TowerTypeEnum.Fire => 0.1f, // 10% от исходного размера
-            TowerTypeEnum.Ice => 0.1f, // 10% от исходного размера
-            TowerTypeEnum.Light => 0.1f, // 10% от исходного размера
-            TowerTypeEnum.Poison => 0.1f, // 10% от исходного размера
+            TowerTypeEnum.Stone => 0.05f, // 5% от исходного размера
+            TowerTypeEnum.Fire => 0.05f, // 5% от исходного размера
+            TowerTypeEnum.Ice => 0.05f, // 5% от исходного размера
+            TowerTypeEnum.Light => 0.05f, // 5% от исходного размера
+            TowerTypeEnum.Poison => 0.05f, // 5% от исходного размера
             _ => throw new ArgumentOutOfRangeException()
         };
     }
