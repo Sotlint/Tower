@@ -59,11 +59,11 @@ public class UIManager
         var screenWidth = graphicsDevice.Viewport.Width;
         var screenHeight = graphicsDevice.Viewport.Height;
         
-        // Параметры кнопки
-        var buttonWidth = 150; // Ширина кнопки
-        var buttonHeight = 50; // Высота кнопки
-        var buttonX = screenWidth - buttonWidth - 20; // Справа с отступом 20px
-        var buttonY = screenHeight - 100; // Снизу, выше меню башен (отступ 100px)
+        // Параметры кнопки (уменьшенные размеры)
+        var buttonWidth = 120; // Ширина кнопки (уменьшено с 150)
+        var buttonHeight = 40; // Высота кнопки (уменьшено с 50)
+        var buttonX = screenWidth / 2 - buttonWidth / 2; // По центру горизонтально
+        var buttonY = 20; // Сверху с отступом 20px
         
         // Создаем кнопку с текстом и обработчиком клика
         StartWaveButton = new UIButton(new Rectangle(buttonX, buttonY, buttonWidth, buttonHeight), "Начать волну")

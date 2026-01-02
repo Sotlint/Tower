@@ -265,5 +265,9 @@ public static class PlannedUpdateLogic
         _isDragging = false; // Сбрасываем флаг перетаскивания
         _draggedTower = null; // Удаляем временную башню
         _hoveredTower = null; // Сбрасываем башню, на которую наведена мышь
+        
+        // Планируем следующую волну: распределяем врагов по точкам спавна
+        var enemyCount = GameManager.DifficultyManager.GetEnemyCount();
+        GameManager.SpawnPointManager?.PlanNextWave(enemyCount);
     }
 }

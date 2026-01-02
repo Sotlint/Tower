@@ -1,3 +1,5 @@
+using System;
+
 namespace Tower.Managers;
 
 /// <summary>
@@ -8,6 +10,9 @@ public class DifficultyManager
 {
     /// <summary>Текущий уровень сложности (начинается с 1, увеличивается после каждой волны)</summary>
     private int DifficultyLevel { get; set; } = 1;
+    
+    /// <summary>Генератор случайных чисел для вариации количества врагов</summary>
+    private Random _random = new Random();
 
     /// <summary>
     /// Увеличить уровень сложности. Вызывается после завершения волны.
@@ -24,9 +29,23 @@ public class DifficultyManager
 
     /// <summary>
     /// Получить количество врагов для следующей волны.
-    /// В текущей реализации количество врагов равно уровню сложности.
+    /// Базовое количество равно уровню сложности, с добавлением случайной вариации ±30%.
+    /// Минимальное количество врагов - 1.
     /// </summary>
-    /// <returns>Количество врагов для спавна</returns>
+    /// <returns>Количество врагов для спавна (с вариацией)</returns>
     public int GetEnemyCount()
-        => DifficultyLevel;
+    {
+        // Базовое количество врагов равно уровню сложности
+        var baseCount = DifficultyLevel;
+        
+        // Добавляем случайную вариацию ±30% от базового количества
+        var variation = (int)(baseCount * 0.3f);
+        var randomVariation = _random.Next(-variation, variation + 1);
+        
+        // Вычисляем итоговое количество с учетом вариации
+        var finalCount = baseCount + randomVariation;
+        
+        // Минимальное количество врагов - 1
+        return Math.Max(1, finalCount);
+    }
 }

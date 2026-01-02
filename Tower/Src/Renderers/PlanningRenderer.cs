@@ -33,6 +33,9 @@ public static class PlanningRenderer
         // Отрисовка перетаскиваемой башни (следует за курсором) и её радиуса атаки
         PlannedUpdateLogic.DrawDraggedTower(spriteBatch, gameTime);
         
+        // Отрисовка точек спавна врагов с пульсирующим эффектом и количеством врагов
+        SpawnPointRenderer.DrawSpawnPoints(spriteBatch, gameTime);
+        
         // Отрисовка UI элементов фазы планирования
         GameManager.UIManager.TowerSelectionMenu.Draw(spriteBatch); // Меню выбора башен
         GameManager.UIManager.DrawStartWaveButton(spriteBatch); // Кнопка начала волны

@@ -42,11 +42,17 @@ public static class GameManager
     /// <summary>Менеджер UI (меню, кнопки, интерфейс)</summary>
     public static UIManager UIManager { get; private set; }
     
+    /// <summary>Менеджер точек спавна врагов (управление точками появления врагов)</summary>
+    public static SpawnPointManager SpawnPointManager { get; private set; }
+    
     /// <summary>Текущий счет игрока (начисляется за убийство врагов)</summary>
     private static int Score { get; set; }
     
     /// <summary>Ссылка на главный класс игры для закрытия приложения</summary>
     private static Game GameInstance { get; set; }
+    
+    /// <summary>Графическое устройство для получения размеров экрана</summary>
+    private static GraphicsDevice GraphicsDeviceInstance { get; set; }
 
     /// <summary>
     /// Обновление счета игрока. Добавляет очки к текущему счету.
@@ -74,6 +80,9 @@ public static class GameManager
         // Сохраняем ссылку на главный класс игры для закрытия приложения
         GameInstance = game;
         
+        // Сохраняем ссылку на графическое устройство для использования в других методах
+        GraphicsDeviceInstance = graphicsDevice;
+        
         // Инициализация счета
         Score = 0;
         
@@ -85,7 +94,11 @@ public static class GameManager
         DifficultyManager = new DifficultyManager();
         ProjectileManager = new ProjectileManager();
         UIManager = new UIManager();
+        SpawnPointManager = new SpawnPointManager(); // Менеджер точек спавна врагов
         Player = new Player(100); // Начальные деньги: 100 монет
+        
+        // Инициализация точек спавна по краям экрана
+        SpawnPointManager.Initialize(graphicsDevice.Viewport.Width, graphicsDevice.Viewport.Height);
         
         // Создание спрайта для полосы здоровья цитадели
         var citadelHealBarSprite = new Texture2D(graphicsDevice, 1, 1);
@@ -95,7 +108,7 @@ public static class GameManager
         var citadelPosition = new Vector2(graphicsDevice.Viewport.Width / 2, graphicsDevice.Viewport.Height / 2);
         
         // Создание цитадели: здоровье 1000, без атаки
-        var citadel = new Citadel(Guid.NewGuid(), citadelPosition, 1000, 0, 0, TimeSpan.Zero,
+        var citadel = new Citadel(Guid.NewGuid(), citadelPosition, 100, 0, 0, TimeSpan.Zero,
             new HealthBar(citadelHealBarSprite));
         CitadelManager = new CitadelManager(citadel);
     }
@@ -114,11 +127,21 @@ public static class GameManager
         ProjectileManager = new ProjectileManager(); // Очищаем все снаряды
         Player = new Player(100); // Даем игроку 100 монет на начало
         
+        // Обновляем точки спавна, если доступно графическое устройство
+        if (GraphicsDeviceInstance != null && SpawnPointManager != null)
+        {
+            SpawnPointManager.Initialize(GraphicsDeviceInstance.Viewport.Width, GraphicsDeviceInstance.Viewport.Height);
+        }
+        
         // Восстанавливаем здоровье цитадели до максимума
         CitadelManager.RestoreHealth();
         
-        // Сбрасываем состояние планирования (очищаем временные данные)
+        // Сбрасываем состояние планирования (очищаем временные данные и планируем первую волну)
         LogicUpdaters.PlannedUpdateLogic.Reset();
+        
+        // Планируем первую волну (если еще не запланирована в Reset)
+        var firstWaveEnemyCount = DifficultyManager.GetEnemyCount();
+        SpawnPointManager?.PlanNextWave(firstWaveEnemyCount);
         
         // Начинаем с фазы планирования, чтобы игрок мог расставить башни перед первой волной
         GameStateManager.ChangeState(GameStateEnum.Planning);

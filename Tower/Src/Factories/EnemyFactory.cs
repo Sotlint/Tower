@@ -13,12 +13,13 @@ namespace Tower.Factories;
 
 /// <summary>
 /// Фабрика для создания врагов. Предоставляет методы для создания врагов различных типов.
-/// Все враги спавнятся в одной точке (10, 10) - TODO: добавить систему точек спавна.
+/// Враги спавнятся в случайных точках по краям экрана.
 /// </summary>
 public static class EnemyFactory
 {
     /// <summary>
     /// Создать врагов указанного типа в указанном количестве.
+    /// Каждый враг спавнится в случайной точке по краям экрана.
     /// </summary>
     /// <param name="type">Тип врага для создания</param>
     /// <param name="count">Количество врагов для создания</param>
@@ -38,6 +39,7 @@ public static class EnemyFactory
     /// <summary>
     /// Создать базовых врагов. Базовый враг имеет стандартные характеристики:
     /// здоровье 50, скорость 2, урон 10, радиус атаки 50, задержка атаки 1000мс.
+    /// Враги спавнятся согласно плану следующей волны.
     /// </summary>
     /// <param name="count">Количество врагов для создания</param>
     /// <param name="sprite">Текстура спрайта врага</param>
@@ -46,24 +48,67 @@ public static class EnemyFactory
     {
         var enemies = new List<IEnemy>();
         
-        // Создаем указанное количество врагов
-        for (var i = 0; i < count; i++)
+        // Получаем менеджер точек спавна для использования плана
+        var spawnManager = GameManager.SpawnPointManager;
+        
+        if (spawnManager == null)
         {
-            // TODO: Добавить систему точек спавна вместо фиксированной позиции (10, 10)
-            enemies.Add(new BasicEnemy(
-                sprite, // Текстура спрайта
-                Guid.NewGuid(), // Уникальный идентификатор
-                new Vector2(10, 10), // Позиция спавна (TODO: использовать точки спавна)
-                50, // Здоровье
-                2, // Скорость движения
-                10, // Сила атаки
-                50, // Радиус атаки
-                EnemyTypeEnum.Basic, // Тип врага
-                TimeSpan.FromMilliseconds(1000), // Задержка между атаками (1000мс)
-                new HealthBar(SpriteManager.HealthBarSprite) // Полоса здоровья
-            ));
+            // Если менеджер недоступен, создаем врагов в точке по умолчанию
+            for (var i = 0; i < count; i++)
+            {
+                enemies.Add(CreateSingleEnemy(new Vector2(10, 10), sprite));
+            }
+            return enemies;
+        }
+        
+        // Получаем план спавна для следующей волны
+        var spawnPlan = spawnManager.GetNextWaveSpawnPlan();
+        
+        if (spawnPlan.Count == 0)
+        {
+            // Если план пуст, используем случайные точки
+            for (var i = 0; i < count; i++)
+            {
+                var spawnPosition = spawnManager.GetRandomSpawnPoint();
+                enemies.Add(CreateSingleEnemy(spawnPosition, sprite));
+            }
+            return enemies;
+        }
+        
+        // Создаем врагов согласно плану: для каждой точки создаем указанное количество врагов
+        foreach (var kvp in spawnPlan)
+        {
+            var spawnPoint = kvp.Key;
+            var enemyCount = kvp.Value;
+            
+            for (var i = 0; i < enemyCount; i++)
+            {
+                enemies.Add(CreateSingleEnemy(spawnPoint, sprite));
+            }
         }
 
         return enemies;
+    }
+    
+    /// <summary>
+    /// Создать одного врага в указанной позиции.
+    /// </summary>
+    /// <param name="spawnPosition">Позиция спавна врага</param>
+    /// <param name="sprite">Текстура спрайта врага</param>
+    /// <returns>Созданный враг</returns>
+    private static IEnemy CreateSingleEnemy(Vector2 spawnPosition, Texture2D sprite)
+    {
+        return new BasicEnemy(
+            sprite, // Текстура спрайта
+            Guid.NewGuid(), // Уникальный идентификатор
+            spawnPosition, // Позиция спавна
+            50, // Здоровье
+            3, // Скорость движения
+            10, // Сила атаки
+            70,// Радиус атаки
+            EnemyTypeEnum.Basic, // Тип врага
+            TimeSpan.FromMilliseconds(1000), // Задержка между атаками (1000мс)
+            new HealthBar(SpriteManager.HealthBarSprite) // Полоса здоровья
+        );
     }
 }
