@@ -28,6 +28,12 @@ public class GameTower : Game
         Content.RootDirectory = "Content"; // Папка с ресурсами (текстуры, шрифты)
         IsMouseVisible = true; // Показываем курсор мыши
         _graphics = new GraphicsDeviceManager(this); // Создаем менеджер графики
+        
+        // Настройка полноэкранного режима
+        _graphics.IsFullScreen = true; // Включаем полноэкранный режим
+        _graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width; // Ширина экрана
+        _graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height; // Высота экрана
+        _graphics.ApplyChanges(); // Применяем изменения
     }
 
     /// <summary>
@@ -43,7 +49,8 @@ public class GameTower : Game
         SpriteManager.LoadSprites(Content, GraphicsDevice);
         
         // Инициализируем все менеджеры и системы игры
-        GameManager.Init(_graphics.GraphicsDevice);
+        // Передаем ссылку на этот экземпляр Game для возможности закрытия игры
+        GameManager.Init(_graphics.GraphicsDevice, this);
         // Игра начинается с главного меню
         
         base.Initialize();

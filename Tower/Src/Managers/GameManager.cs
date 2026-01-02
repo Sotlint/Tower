@@ -44,6 +44,9 @@ public static class GameManager
     
     /// <summary>Текущий счет игрока (начисляется за убийство врагов)</summary>
     private static int Score { get; set; }
+    
+    /// <summary>Ссылка на главный класс игры для закрытия приложения</summary>
+    private static Game GameInstance { get; set; }
 
     /// <summary>
     /// Обновление счета игрока. Добавляет очки к текущему счету.
@@ -65,8 +68,12 @@ public static class GameManager
     /// Создает все менеджеры, инициализирует цитадель и устанавливает начальное состояние.
     /// </summary>
     /// <param name="graphicsDevice">Графическое устройство для создания текстур и получения размеров экрана</param>
-    public static void Init(GraphicsDevice graphicsDevice)
+    /// <param name="game">Ссылка на главный класс игры (для закрытия приложения)</param>
+    public static void Init(GraphicsDevice graphicsDevice, Game game = null)
     {
+        // Сохраняем ссылку на главный класс игры для закрытия приложения
+        GameInstance = game;
+        
         // Инициализация счета
         Score = 0;
         
@@ -117,6 +124,16 @@ public static class GameManager
         GameStateManager.ChangeState(GameStateEnum.Planning);
     }
 
+    /// <summary>
+    /// Закрытие игры. Вызывается при нажатии кнопки "Выход" в меню.
+    /// Корректно завершает работу приложения.
+    /// </summary>
+    public static void ExitGame()
+    {
+        // Закрываем игру через метод Exit() главного класса Game
+        GameInstance?.Exit();
+    }
+    
     /// <summary>
     /// Тестовая конфигурация. Создает тестовую башню для отладки.
     /// TODO: Удалить или сделать опциональной после завершения разработки.

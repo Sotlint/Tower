@@ -102,7 +102,8 @@ public class GameOverMenu : BaseMenu
         {
             OnClick = () =>
             {
-                // TODO: Реализовать выход из игры
+                // Закрываем игру
+                GameManager.ExitGame();
             }
         };
         _buttons.Add(exitButton);

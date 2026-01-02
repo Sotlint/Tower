@@ -96,7 +96,8 @@ public class PauseMenu : BaseMenu
         {
             OnClick = () =>
             {
-                // TODO: Реализовать выход из игры
+                // Закрываем игру
+                GameManager.ExitGame();
             }
         };
         _buttons.Add(exitButton);
