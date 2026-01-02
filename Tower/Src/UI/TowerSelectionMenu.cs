@@ -15,11 +15,8 @@ public class TowerSelectionMenu
     /// <summary>Список кнопок выбора башен</summary>
     private readonly List<UIButton<TowerTypeEnum>> _towerButtons = new();
     
-    /// <summary>Границы области меню (без окантовки)</summary>
+    /// <summary>Границы области меню</summary>
     private Rectangle _menuBounds;
-    
-    /// <summary>Границы окантовки меню (включая рамку)</summary>
-    private Rectangle _borderBounds;
     
     /// <summary>Флаг инициализации меню (ленивая инициализация при первом Draw)</summary>
     private bool _isInitialized = false;
@@ -52,7 +49,6 @@ public class TowerSelectionMenu
         // Параметры размеров элементов меню
         var buttonSize = 64; // Размер кнопки башни (64x64 пикселей)
         var padding = 10; // Отступ между кнопками и от краев
-        var borderThickness = 4; // Толщина окантовки
         // Все доступные типы башен
         var types = new[] 
         { 
@@ -67,29 +63,26 @@ public class TowerSelectionMenu
         var screenWidth = graphicsDevice.Viewport.Width;
         var screenHeight = graphicsDevice.Viewport.Height;
         
-        // Вычисляем размеры меню: ширина = количество кнопок * размер + отступы
-        var menuWidth = types.Length * buttonSize + (types.Length + 1) * padding;
+        // Отступ между кнопками (фиксированный 10 пикселей)
+        var spacingBetweenButtons = 10;
+        
+        // Вычисляем ширину меню: количество кнопок * размер + отступы между кнопками + отступы по краям
+        var menuWidth = types.Length * buttonSize + (types.Length - 1) * spacingBetweenButtons + padding * 2;
         var menuHeight = buttonSize + padding * 2; // Высота = размер кнопки + отступы сверху и снизу
         
         // Позиция меню: по центру горизонтально, снизу с отступом 20px
         var menuX = (screenWidth - menuWidth) / 2; // Центрируем по горизонтали
         var menuY = screenHeight - menuHeight - 20; // Снизу с отступом 20px
         
-        // Сохраняем границы меню и окантовки
+        // Сохраняем границы меню
         _menuBounds = new Rectangle(menuX, menuY, menuWidth, menuHeight);
-        _borderBounds = new Rectangle(
-            menuX - borderThickness, // Смещаем влево на толщину рамки
-            menuY - borderThickness, // Смещаем вверх на толщину рамки
-            menuWidth + borderThickness * 2, // Ширина + рамка с двух сторон
-            menuHeight + borderThickness * 2 // Высота + рамка с двух сторон
-        );
-
+        
         // Создаем кнопки выбора башен в горизонтальном расположении
         for (var i = 0; i < types.Length; i++)
         {
             var type = types[i];
-            // Вычисляем позицию кнопки: начало меню + отступ + индекс * (размер + отступ)
-            var x = menuX + padding + i * (buttonSize + padding);
+            // Вычисляем позицию кнопки: начало меню + отступ + индекс * (размер + отступ между кнопками)
+            var x = menuX + padding + i * (buttonSize + spacingBetweenButtons);
             var y = menuY + padding; // Все кнопки на одной высоте
             var bounds = new Rectangle(x, y, buttonSize, buttonSize);
 
@@ -132,7 +125,7 @@ public class TowerSelectionMenu
     }
 
     /// <summary>
-    /// Отрисовка меню выбора башен. Отрисовывает окантовку, фон и кнопки.
+    /// Отрисовка меню выбора башен. Отрисовывает фон и кнопки.
     /// </summary>
     /// <param name="spriteBatch">SpriteBatch для отрисовки</param>
     public void Draw(SpriteBatch spriteBatch)
@@ -142,24 +135,19 @@ public class TowerSelectionMenu
         
         spriteBatch.Begin();
         
-        // Отрисовка окантовки (рамки) вокруг меню
-        var borderColor = Color.DarkGray; // Цвет рамки
-        var borderTexture = new Texture2D(spriteBatch.GraphicsDevice, 1, 1);
-        borderTexture.SetData(new[] { borderColor });
-        
-        // Верхняя и нижняя линии рамки
-        spriteBatch.Draw(borderTexture, new Rectangle(_borderBounds.X, _borderBounds.Y, _borderBounds.Width, 4), borderColor);
-        spriteBatch.Draw(borderTexture, new Rectangle(_borderBounds.X, _borderBounds.Bottom - 4, _borderBounds.Width, 4), borderColor);
-        
-        // Левая и правая линии рамки
-        spriteBatch.Draw(borderTexture, new Rectangle(_borderBounds.X, _borderBounds.Y, 4, _borderBounds.Height), borderColor);
-        spriteBatch.Draw(borderTexture, new Rectangle(_borderBounds.Right - 4, _borderBounds.Y, 4, _borderBounds.Height), borderColor);
-        
-        // Отрисовка фона меню (полупрозрачный темный фон)
-        var backgroundColor = new Color(50, 50, 50, 200); // Полупрозрачный темный фон (альфа = 200)
-        var backgroundTexture = new Texture2D(spriteBatch.GraphicsDevice, 1, 1);
-        backgroundTexture.SetData(new[] { backgroundColor });
-        spriteBatch.Draw(backgroundTexture, _menuBounds, backgroundColor);
+        // Отрисовка фона меню (текстура paper-horiz, растянутая на всю ширину)
+        if (SpriteManager.PaperHorizTexture != null)
+        {
+            spriteBatch.Draw(SpriteManager.PaperHorizTexture, _menuBounds, Color.White);
+        }
+        else
+        {
+            // Резервный вариант: полупрозрачный темный фон, если текстура не загружена
+            var backgroundColor = new Color(50, 50, 50, 200);
+            var backgroundTexture = new Texture2D(spriteBatch.GraphicsDevice, 1, 1);
+            backgroundTexture.SetData(new[] { backgroundColor });
+            spriteBatch.Draw(backgroundTexture, _menuBounds, backgroundColor);
+        }
         
         // Отрисовка кнопок выбора башен
         foreach (var button in _towerButtons)

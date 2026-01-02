@@ -53,6 +53,9 @@ public static class SpriteManager
     /// <summary>Текстура кнопок меню (загружается из Content/menu_button.png)</summary>
     public static Texture2D MenuButtonTexture { get; private set; }
     
+    /// <summary>Текстура фона для меню выбора башен (загружается из Content/paper-horiz)</summary>
+    public static Texture2D PaperHorizTexture { get; private set; }
+    
     /// <summary>Шрифт по умолчанию для отрисовки текста (загружается из Content/DefaultFont.spritefont)</summary>
     public static SpriteFont DefaultFont { get; private set; }
 
@@ -77,6 +80,7 @@ public static class SpriteManager
         WallSprite = contentManager.Load<Texture2D>("wall");
         MainMenuBackground = contentManager.Load<Texture2D>("main_menu");
         MenuButtonTexture = contentManager.Load<Texture2D>("menu_button");
+        PaperHorizTexture = contentManager.Load<Texture2D>("paper-horiz");
         
         // Создание программных текстур
         HealthBarSprite = CreateHealthBarTexture(graphicsDevice); // Однопиксельная белая текстура
