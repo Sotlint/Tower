@@ -25,9 +25,6 @@
         <PackageReference Include="Myra" Version="1.5.9" />
     </ItemGroup>
     <ItemGroup>
-      <Folder Include="Src\Observers\" />
-    </ItemGroup>
-    <ItemGroup>
       <Compile Update="Src\Core\Citadel_Scripts.cs">
         <DependentUpon>Citadel.cs</DependentUpon>
       </Compile>
