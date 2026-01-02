@@ -31,8 +31,8 @@
       <Compile Update="Src\Core\BasicEnemy_Scripts.cs">
         <DependentUpon>BasicEnemy.cs</DependentUpon>
       </Compile>
-      <Compile Update="Src\Core\BasicTower_Scripts.cs">
-        <DependentUpon>BasicTower.cs</DependentUpon>
+      <Compile Update="Src\Core\StoneTower_Scripts.cs">
+        <DependentUpon>StoneTower.cs</DependentUpon>
       </Compile>
       <Compile Update="Src\Core\Citadel_Scripts.cs">
         <DependentUpon>Citadel.cs</DependentUpon>

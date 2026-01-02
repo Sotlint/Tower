@@ -57,7 +57,7 @@ public static class TowerFactory
     /// <param name="sprite">Текстура спрайта башни</param>
     /// <returns>Созданная каменная башня</returns>
     private static ITower CreateStoneTower(Vector2 position, Texture2D sprite) =>
-        new BasicTower(
+        new StoneTower(
             Guid.NewGuid(), // Уникальный идентификатор башни
             sprite, // Текстура спрайта
             position, // Позиция на карте

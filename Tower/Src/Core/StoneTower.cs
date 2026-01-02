@@ -11,7 +11,7 @@ namespace Tower.Core;
 /// Базовая башня. Реализует интерфейс ITower и предоставляет базовую функциональность
 /// для всех типов башен: атака врагов, отрисовка, обновление.
 /// </summary>
-public partial class BasicTower : ITower
+public partial class StoneTower : ITower
 {
     /// <summary>
     /// Конструктор базовой башни. Инициализирует все свойства башни.
@@ -24,7 +24,7 @@ public partial class BasicTower : ITower
     /// <param name="attackPower">Сила атаки (урон)</param>
     /// <param name="attackRange">Радиус атаки</param>
     /// <param name="attackDelay">Задержка между атаками</param>
-    public BasicTower(Guid id, Texture2D sprite, Vector2 position, TowerTypeEnum type, int health, int attackPower,
+    public StoneTower(Guid id, Texture2D sprite, Vector2 position, TowerTypeEnum type, int health, int attackPower,
         float attackRange, TimeSpan attackDelay)
     {
         Id = id;

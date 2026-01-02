@@ -15,7 +15,7 @@ namespace Tower.Core;
 /// <summary>
 /// Скрипты базовой башни. Реализует логику отрисовки, обновления, атаки и управления границами.
 /// </summary>
-public partial class BasicTower : ITower
+public partial class StoneTower : ITower
 {
     /// <summary>
     /// Отрисовка башни. Отрисовывает спрайт башни и отладочную информацию в режиме отладки.
