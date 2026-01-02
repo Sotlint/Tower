@@ -34,7 +34,7 @@ public partial class Citadel : IBuilding
         TimeSinceLastAttack = TimeSpan.Zero;
         AttackDelay = attackDelay;
         Sprite = SpriteManager.CitadelSprite; // Загружаем спрайт цитадели из SpriteManager
-        SpriteScale = 0.2f; // Получаем масштаб спрайта для зданий
+        SpriteScale = 0.1f; // Получаем масштаб спрайта для зданий
         MaxHealth = health;
         HealthBar = healthBar;
         UpdateBounds(); // Вычисляем границы коллизий
