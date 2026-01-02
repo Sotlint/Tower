@@ -59,15 +59,17 @@ public class UIManager
         var screenWidth = graphicsDevice.Viewport.Width;
         var screenHeight = graphicsDevice.Viewport.Height;
         
-        // Параметры кнопки (уменьшенные размеры)
-        var buttonWidth = 120; // Ширина кнопки (уменьшено с 150)
-        var buttonHeight = 40; // Высота кнопки (уменьшено с 50)
+        // Параметры кнопки (меньше, чем в главном меню)
+        var buttonWidth = 200; // Ширина кнопки (меньше главного меню)
+        var buttonHeight = 60; // Высота кнопки (меньше главного меню)
         var buttonX = screenWidth / 2 - buttonWidth / 2; // По центру горизонтально
         var buttonY = 20; // Сверху с отступом 20px
         
         // Создаем кнопку с текстом и обработчиком клика
         StartWaveButton = new UIButton(new Rectangle(buttonX, buttonY, buttonWidth, buttonHeight), "Начать волну")
         {
+            BackgroundTexture = SpriteManager.MenuButtonTexture, // Текстура фона кнопки
+            FontScale = 0.7f, // Уменьшенный шрифт для игровых кнопок
             OnClick = () => PlannedUpdateLogic.StartWave() // При клике начинаем волну
         };
         

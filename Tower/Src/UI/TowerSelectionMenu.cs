@@ -107,6 +107,7 @@ public class TowerSelectionMenu
             // Создаем кнопку с типом башни и иконкой
             var button = new UIButton<TowerTypeEnum>(bounds, type)
             {
+                BackgroundTexture = SpriteManager.MenuButtonTexture, // Текстура фона кнопки
                 IconTexture = iconTexture, // Иконка башни на кнопке
             };
 

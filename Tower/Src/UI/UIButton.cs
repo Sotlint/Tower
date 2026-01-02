@@ -17,7 +17,7 @@ public class UIButton
     public string Text { get; set; } = string.Empty;
     
     /// <summary>Текстура фона кнопки</summary>
-    private Texture2D BackgroundTexture { get; set; }
+    public Texture2D BackgroundTexture { get; set; }
     
     /// <summary>Текстура иконки кнопки (опционально)</summary>
     public Texture2D IconTexture { get; set; }
@@ -36,6 +36,9 @@ public class UIButton
     
     /// <summary>Цвет кнопки в отключенном состоянии</summary>
     public Color DisabledColor { get; set; } = Color.Gray;
+    
+    /// <summary>Масштаб шрифта для текста кнопки (по умолчанию 1.0)</summary>
+    public float FontScale { get; set; } = 1.0f;
     
     /// <summary>Callback функция, вызываемая при клике на кнопку</summary>
     public System.Action OnClick { get; set; }
@@ -117,14 +120,14 @@ public class UIButton
         // Отрисовка текста, если он задан и шрифт загружен
         if (!string.IsNullOrEmpty(Text) && SpriteManager.DefaultFont != null)
         {
-            // Вычисляем размер текста для центрирования
-            var textSize = SpriteManager.DefaultFont.MeasureString(Text);
+            // Вычисляем размер текста для центрирования с учетом масштаба
+            var textSize = SpriteManager.DefaultFont.MeasureString(Text) * FontScale;
             // Вычисляем позицию текста для центрирования в кнопке
             var textPosition = new Vector2(
                 Bounds.X + (Bounds.Width - textSize.X) / 2, // Центрирование по горизонтали
                 Bounds.Y + (Bounds.Height - textSize.Y) / 2 // Центрирование по вертикали
             );
-            spriteBatch.DrawString(SpriteManager.DefaultFont, Text, textPosition, currentColor);
+            spriteBatch.DrawString(SpriteManager.DefaultFont, Text, textPosition, currentColor, 0f, Vector2.Zero, FontScale, SpriteEffects.None, 0f);
         }
     }
 }

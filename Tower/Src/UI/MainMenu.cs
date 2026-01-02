@@ -24,7 +24,8 @@ public class MainMenu : BaseMenu
     public MainMenu()
     {
         Position = Vector2.Zero;
-        BackgroundColor = new Color(30, 30, 40); // Темно-синий фон
+        BackgroundColor = Color.Black; // Черный фон
+        BackgroundTexture = SpriteManager.MainMenuBackground; // Фоновая картинка главного меню
         Initialize();
     }
 
@@ -52,12 +53,12 @@ public class MainMenu : BaseMenu
         var screenHeight = graphicsDevice.Viewport.Height;
         
         // Параметры кнопок
-        var buttonWidth = 200; // Ширина кнопки
-        var buttonHeight = 50; // Высота кнопки
-        var buttonSpacing = 20; // Расстояние между кнопками
-        var startY = screenHeight / 2 - 100; // Начальная позиция по Y (центр экрана - 100px)
+        var buttonWidth = 300; // Ширина кнопки
+        var buttonHeight = 80; // Высота кнопки
+        var buttonSpacing = 30; // Расстояние между кнопками
+        var startY = 400; // Начальная позиция по Y 
 
-        // Создание кнопки "Начать игру"
+        // Создание кнопки "Начать игру" с текстурой фона
         var startButton = new UIButton(new Rectangle(
             screenWidth / 2 - buttonWidth / 2, // Центрирование по горизонтали
             startY,
@@ -65,6 +66,7 @@ public class MainMenu : BaseMenu
             buttonHeight
         ), "Начать игру")
         {
+            BackgroundTexture = SpriteManager.MenuButtonTexture, // Текстура фона кнопки
             OnClick = () =>
             {
                 // При клике начинаем новую игру
@@ -73,7 +75,7 @@ public class MainMenu : BaseMenu
         };
         _buttons.Add(startButton);
 
-        // Создание кнопки "Выход"
+        // Создание кнопки "Выход" с текстурой фона
         var exitButton = new UIButton(new Rectangle(
             screenWidth / 2 - buttonWidth / 2, // Центрирование по горизонтали
             startY + buttonHeight + buttonSpacing, // Позиция ниже первой кнопки
@@ -81,6 +83,7 @@ public class MainMenu : BaseMenu
             buttonHeight
         ), "Выход")
         {
+            BackgroundTexture = SpriteManager.MenuButtonTexture, // Текстура фона кнопки
             OnClick = () =>
             {
                 // Закрываем игру
@@ -121,7 +124,7 @@ public class MainMenu : BaseMenu
     }
 
     /// <summary>
-    /// Отрисовка содержимого главного меню. Отрисовывает кнопки.
+    /// Отрисовка содержимого главного меню. Отрисовывает фоновую картинку и кнопки.
     /// </summary>
     /// <param name="spriteBatch">SpriteBatch для отрисовки</param>
     /// <param name="gameTime">Время игры</param>
@@ -130,8 +133,20 @@ public class MainMenu : BaseMenu
         // Инициализируем кнопки при первом Draw, когда GraphicsDevice доступен
         InitializeButtons(spriteBatch.GraphicsDevice);
         
-        // Отрисовка заголовка (пока просто пустое место)
-        // TODO: Добавить текст "TOWER DEFENSE" или логотип
+        var graphicsDevice = spriteBatch.GraphicsDevice;
+        var screenWidth = graphicsDevice.Viewport.Width;
+        var screenHeight = graphicsDevice.Viewport.Height;
+        
+        // Отрисовка фоновой картинки главного меню (1024x1024, по центру)
+        if (BackgroundTexture != null)
+        {
+            const int imageSize = 1024; // Размер картинки после растяжения
+            var imageX = screenWidth / 2 - imageSize / 2; // Центрирование по горизонтали
+            var imageY = screenHeight / 2 - imageSize / 2; // Центрирование по вертикали
+            
+            var imageRect = new Rectangle(imageX, imageY, imageSize, imageSize);
+            spriteBatch.Draw(BackgroundTexture, imageRect, Color.White);
+        }
 
         // Отрисовка всех кнопок меню
         foreach (var button in _buttons)

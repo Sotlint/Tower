@@ -47,6 +47,12 @@ public static class SpriteManager
     /// <summary>Текстура для отладочной отрисовки (зеленый пиксель, создается программно)</summary>
     public static Texture2D GreenDebugPen { get; private set; }
     
+    /// <summary>Текстура главного меню (загружается из Content/main_menu.jpg)</summary>
+    public static Texture2D MainMenuBackground { get; private set; }
+    
+    /// <summary>Текстура кнопок меню (загружается из Content/menu_button.png)</summary>
+    public static Texture2D MenuButtonTexture { get; private set; }
+    
     /// <summary>Шрифт по умолчанию для отрисовки текста (загружается из Content/DefaultFont.spritefont)</summary>
     public static SpriteFont DefaultFont { get; private set; }
 
@@ -69,6 +75,8 @@ public static class SpriteManager
         PoisonTowerSprite = contentManager.Load<Texture2D>("poison_tower");
         GroundSprite = contentManager.Load<Texture2D>("ground");
         WallSprite = contentManager.Load<Texture2D>("wall");
+        MainMenuBackground = contentManager.Load<Texture2D>("main_menu");
+        MenuButtonTexture = contentManager.Load<Texture2D>("menu_button");
         
         // Создание программных текстур
         HealthBarSprite = CreateHealthBarTexture(graphicsDevice); // Однопиксельная белая текстура

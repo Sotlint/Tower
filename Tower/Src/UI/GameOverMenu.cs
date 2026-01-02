@@ -53,13 +53,13 @@ public class GameOverMenu : BaseMenu
         var screenWidth = graphicsDevice.Viewport.Width;
         var screenHeight = graphicsDevice.Viewport.Height;
         
-        // Параметры кнопок
-        var buttonWidth = 200; // Ширина кнопки
-        var buttonHeight = 50; // Высота кнопки
+        // Параметры кнопок (меньше, чем в главном меню)
+        var buttonWidth = 240; // Ширина кнопки (меньше главного меню)
+        var buttonHeight = 64; // Высота кнопки (меньше главного меню)
         var buttonSpacing = 20; // Расстояние между кнопками
         var startY = screenHeight / 2 + 50; // Начальная позиция по Y (центр экрана + 50px)
 
-        // Создание кнопки "Повторить"
+        // Создание кнопки "Повторить" с текстурой фона и уменьшенным шрифтом
         var restartButton = new UIButton(new Rectangle(
             screenWidth / 2 - buttonWidth / 2, // Центрирование по горизонтали
             startY,
@@ -67,6 +67,8 @@ public class GameOverMenu : BaseMenu
             buttonHeight
         ), "Повторить")
         {
+            BackgroundTexture = SpriteManager.MenuButtonTexture, // Текстура фона кнопки
+            FontScale = 0.7f, // Уменьшенный шрифт для игровых кнопок
             OnClick = () =>
             {
                 // TODO: Реализовать перезапуск игры
@@ -76,7 +78,7 @@ public class GameOverMenu : BaseMenu
         };
         _buttons.Add(restartButton);
 
-        // Создание кнопки "Главное меню"
+        // Создание кнопки "Главное меню" с текстурой фона и уменьшенным шрифтом
         var mainMenuButton = new UIButton(new Rectangle(
             screenWidth / 2 - buttonWidth / 2, // Центрирование по горизонтали
             startY + buttonHeight + buttonSpacing, // Позиция ниже первой кнопки
@@ -84,6 +86,8 @@ public class GameOverMenu : BaseMenu
             buttonHeight
         ), "Главное меню")
         {
+            BackgroundTexture = SpriteManager.MenuButtonTexture, // Текстура фона кнопки
+            FontScale = 0.7f, // Уменьшенный шрифт для игровых кнопок
             OnClick = () =>
             {
                 // Переходим в главное меню
@@ -92,7 +96,7 @@ public class GameOverMenu : BaseMenu
         };
         _buttons.Add(mainMenuButton);
 
-        // Создание кнопки "Выход"
+        // Создание кнопки "Выход" с текстурой фона и уменьшенным шрифтом
         var exitButton = new UIButton(new Rectangle(
             screenWidth / 2 - buttonWidth / 2, // Центрирование по горизонтали
             startY + (buttonHeight + buttonSpacing) * 2, // Позиция ниже второй кнопки
@@ -100,6 +104,8 @@ public class GameOverMenu : BaseMenu
             buttonHeight
         ), "Выход")
         {
+            BackgroundTexture = SpriteManager.MenuButtonTexture, // Текстура фона кнопки
+            FontScale = 0.7f, // Уменьшенный шрифт для игровых кнопок
             OnClick = () =>
             {
                 // Закрываем игру

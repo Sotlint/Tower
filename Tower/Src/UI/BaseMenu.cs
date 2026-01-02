@@ -38,14 +38,8 @@ public abstract class BaseMenu
     {
         spriteBatch.Begin();
         
-        // Отрисовка фона, если задана текстура
-        if (BackgroundTexture != null)
-        {
-            var screenBounds = spriteBatch.GraphicsDevice.Viewport.Bounds;
-            spriteBatch.Draw(BackgroundTexture, screenBounds, BackgroundColor);
-        }
-        // Или отрисовка фона цветом, если текстура не задана
-        else if (BackgroundColor != Color.Transparent)
+        // Отрисовка фона цветом, если задан цвет фона
+        if (BackgroundColor != Color.Transparent)
         {
             var screenBounds = spriteBatch.GraphicsDevice.Viewport.Bounds;
             // Создаем однопиксельную текстуру для заливки цветом
@@ -54,7 +48,7 @@ public abstract class BaseMenu
             spriteBatch.Draw(pixel, screenBounds, BackgroundColor);
         }
         
-        // Отрисовка содержимого меню (кнопки, текст и т.д.)
+        // Отрисовка содержимого меню (фоновая картинка, кнопки, текст и т.д.)
         DrawContent(spriteBatch, gameTime);
         
         spriteBatch.End();
