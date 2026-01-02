@@ -91,4 +91,13 @@ public partial class BasicEnemy : IEnemy
     
     /// <summary>Границы врага для проверки коллизий</summary>
     public Rectangle Bounds { get; private set; }
+    
+    /// <summary>Время начала последней атаки (для анимации атаки)</summary>
+    private TimeSpan _lastAttackTime = TimeSpan.Zero;
+    
+    /// <summary>Позиция цели последней атаки (для визуального эффекта)</summary>
+    private Vector2? _lastAttackTargetPosition = null;
+    
+    /// <summary>Длительность анимации атаки</summary>
+    private static readonly TimeSpan AttackAnimationDuration = TimeSpan.FromMilliseconds(200);
 }

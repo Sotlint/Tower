@@ -76,6 +76,9 @@ public partial class BasicEnemy : IEnemy
             // Атакуем цитадель
             Attack(new List<ICanDie>() { citadel });
             TimeSinceLastAttack = TimeSpan.Zero;
+            // Сохраняем время атаки и позицию цели для анимации
+            _lastAttackTime = gameTime.TotalGameTime;
+            _lastAttackTargetPosition = citadel.Position;
 
             return;
         }
@@ -103,8 +106,64 @@ public partial class BasicEnemy : IEnemy
             DebugBorderDrawer.DrawDebug(spriteBatch, Bounds, AttackRange, Position);
         }
         
-        // Отрисовка спрайта врага
-        spriteBatch.DrawSprite(Sprite, Position, SpriteScale);
+        // Вычисляем анимацию атаки (пульсация и изменение цвета)
+        var attackAnimationProgress = 0.0f;
+        var isAttacking = false;
+        Vector2? attackTargetPos = null;
+        if (_lastAttackTime != TimeSpan.Zero)
+        {
+            var timeSinceAttack = gameTime.TotalGameTime - _lastAttackTime;
+            if (timeSinceAttack < AttackAnimationDuration)
+            {
+                isAttacking = true;
+                // Прогресс анимации от 0 до 1
+                attackAnimationProgress = (float)(timeSinceAttack.TotalMilliseconds / AttackAnimationDuration.TotalMilliseconds);
+                attackTargetPos = _lastAttackTargetPosition;
+            }
+            else
+            {
+                _lastAttackTime = TimeSpan.Zero; // Сбрасываем после завершения анимации
+                _lastAttackTargetPosition = null;
+            }
+        }
+        
+        // Вычисляем эффекты анимации атаки
+        var attackScale = 1.0f;
+        var attackColor = Color.White;
+        if (isAttacking)
+        {
+            // Пульсация: масштаб от 1.0 до 1.3 и обратно (синусоида)
+            var pulse = (float)Math.Sin(attackAnimationProgress * Math.PI);
+            attackScale = 1.0f + pulse * 0.3f;
+            
+            // Изменение цвета: от белого к красному и обратно
+            var redIntensity = (float)Math.Sin(attackAnimationProgress * Math.PI);
+            attackColor = new Color(
+                (byte)255,
+                (byte)(255 - redIntensity * 100), // Уменьшаем зеленый
+                (byte)(255 - redIntensity * 100)  // Уменьшаем синий
+            );
+        }
+        
+        // Отрисовка спрайта врага с анимацией атаки
+        var finalScale = SpriteScale * attackScale;
+        spriteBatch.Draw(
+            Sprite,
+            Position,
+            null,
+            attackColor,
+            0f,
+            new Vector2((float)Sprite.Width / 2, (float)Sprite.Height / 2),
+            finalScale,
+            SpriteEffects.None,
+            0.5f
+        );
+        
+        // Отрисовка визуального эффекта атаки (луч от врага к цели)
+        if (isAttacking && attackTargetPos.HasValue)
+        {
+            DrawAttackEffect(spriteBatch, attackTargetPos.Value, attackAnimationProgress, gameTime);
+        }
         
         // Отрисовка полосы здоровья
         HealthBar.Draw(
@@ -113,6 +172,62 @@ public partial class BasicEnemy : IEnemy
             this
         );
         spriteBatch.End();
+    }
+    
+    /// <summary>
+    /// Отрисовка визуального эффекта атаки - луч от врага к цели.
+    /// </summary>
+    /// <param name="spriteBatch">SpriteBatch для отрисовки</param>
+    /// <param name="targetPosition">Позиция цели атаки</param>
+    /// <param name="animationProgress">Прогресс анимации (0.0 - 1.0)</param>
+    /// <param name="gameTime">Время игры для создания текстуры</param>
+    private void DrawAttackEffect(SpriteBatch spriteBatch, Vector2 targetPosition, float animationProgress, GameTime gameTime)
+    {
+        // Получаем или создаем текстуру для линии атаки
+        var lineTexture = GetAttackLineTexture();
+        if (lineTexture == null) return;
+        
+        // Вычисляем направление от врага к цели
+        var direction = targetPosition - Position;
+        var distance = direction.Length();
+        
+        if (distance <= 0) return;
+        
+        direction = Vector2.Normalize(direction);
+        
+        // Вычисляем угол поворота линии
+        var angle = (float)Math.Atan2(direction.Y, direction.X);
+        
+        // Вычисляем длину линии с учетом анимации (линия "выстреливает" от врага к цели)
+        var lineLength = distance * animationProgress;
+        
+        // Вычисляем цвет линии (ярко-красный, становится прозрачнее к концу анимации)
+        var alpha = (byte)(255 * (1.0f - animationProgress * 0.5f)); // От 255 до 127
+        var lineColor = new Color((byte)255, (byte)50, (byte)50, alpha);
+        
+        // Отрисовываем линию атаки
+        spriteBatch.Draw(
+            lineTexture,
+            Position, // Начальная позиция (позиция врага)
+            null,
+            lineColor,
+            angle, // Угол поворота
+            Vector2.Zero, // Точка привязки
+            new Vector2(lineLength, 3.0f), // Масштаб (длина и толщина линии)
+            SpriteEffects.None,
+            0.6f // Глубина слоя (между врагами и снарядами)
+        );
+    }
+    
+    /// <summary>
+    /// Получить или создать текстуру для линии атаки.
+    /// Использует HealthBarSprite как однопиксельную текстуру.
+    /// </summary>
+    /// <returns>Текстура для линии атаки</returns>
+    private Texture2D GetAttackLineTexture()
+    {
+        // Используем существующую однопиксельную текстуру из SpriteManager
+        return SpriteManager.HealthBarSprite;
     }
 
     /// <summary>
