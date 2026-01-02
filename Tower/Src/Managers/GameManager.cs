@@ -4,7 +4,6 @@ using Microsoft.Xna.Framework.Graphics;
 using Tower.Core;
 using Tower.Core.Abstractions.Enums;
 using Tower.Core.Common;
-using Tower.Factories;
 
 namespace Tower.Managers;
 
@@ -155,18 +154,5 @@ public static class GameManager
     {
         // Закрываем игру через метод Exit() главного класса Game
         GameInstance?.Exit();
-    }
-    
-    /// <summary>
-    /// Тестовая конфигурация. Создает тестовую башню для отладки.
-    /// TODO: Удалить или сделать опциональной после завершения разработки.
-    /// </summary>
-    /// <param name="citadelPos">Позиция цитадели (для размещения тестовой башни рядом)</param>
-    public static void TestConfig(Vector2 citadelPos)
-    {
-        // Создаем тестовую башню рядом с цитаделью
-        var testTower =
-            TowerFactory.CreateTower(TowerTypeEnum.Stone, citadelPos + new Vector2(-50, -50));
-        TowerManager.AddTower(testTower);
     }
 }
