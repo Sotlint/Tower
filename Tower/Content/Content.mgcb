@@ -44,7 +44,7 @@
 /processorParam:TextureFormat=Color
 /build:fire_tower.png
 
-#begin ice-tower.png
+#begin ground.jpg
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -54,7 +54,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:ice-tower.png
+/build:ground.jpg
 
 #begin ice-tower.png
 /importer:TextureImporter

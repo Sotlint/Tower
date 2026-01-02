@@ -30,6 +30,8 @@ public static class SpriteManager
     
     public static Texture2D IceTowerSprite { get; private set; }
     
+    public static Texture2D GroundSprite { get; private set; }
+    
     /// <summary>Спрайт стены (загружается из Content/wall.png, пока не используется)</summary>
     public static Texture2D WallSprite { get; private set; }
     
@@ -65,6 +67,7 @@ public static class SpriteManager
         LightTowerSprite = contentManager.Load<Texture2D>("light_tower");
         StoneTowerSprite = contentManager.Load<Texture2D>("stone_tower");
         PoisonTowerSprite = contentManager.Load<Texture2D>("poison_tower");
+        GroundSprite = contentManager.Load<Texture2D>("ground");
         WallSprite = contentManager.Load<Texture2D>("wall");
         
         // Создание программных текстур

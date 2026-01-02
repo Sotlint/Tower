@@ -64,7 +64,7 @@ public partial class OrbProjectile : IProjectile
         // Отрисовываем снаряд только если цель еще жива
         if (!Target.IsDie())
         {
-            spriteBatch.Begin();
+            spriteBatch.Begin(SpriteSortMode.BackToFront); // Используем сортировку по глубине
             spriteBatch.Draw(
                 Sprite, // Текстура снаряда
                 Position, // Позиция снаряда
@@ -74,7 +74,7 @@ public partial class OrbProjectile : IProjectile
                 Vector2.Zero, // Точка привязки (верхний левый угол)
                 SpriteScale, // Масштаб спрайта
                 SpriteEffects.None, // Эффекты отображения (без эффектов)
-                1f // Глубина слоя
+                Renderers.TileRenderer.LayerDepth.Projectiles // Глубина слоя (уровень 2)
             );
             spriteBatch.End();
         }

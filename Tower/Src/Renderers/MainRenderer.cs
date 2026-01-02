@@ -29,10 +29,13 @@ public static class MainRenderer
         // Обработка состояния "Игра" - активная волна врагов
         if (state is GameStateEnum.Playing)
         {
+            // Отрисовываем тайлы земли на уровне 0 (самый дальний слой)
+            TileRenderer.DrawGroundTiles(spriteBatch, graphics.GraphicsDevice);
+            
             // Отрисовываем все игровые объекты
-            GameManager.TowerManager.DrawTowers(spriteBatch, gameTime); // Башни
-            GameManager.ProjectileManager.DrawProjectiles(spriteBatch, gameTime); // Снаряды
-            GameManager.CitadelManager.Draw(spriteBatch, gameTime); // Цитадель
+            GameManager.TowerManager.DrawTowers(spriteBatch, gameTime); // Башни (уровень 1)
+            GameManager.ProjectileManager.DrawProjectiles(spriteBatch, gameTime); // Снаряды (уровень 2)
+            GameManager.CitadelManager.Draw(spriteBatch, gameTime); // Цитадель (уровень 1)
             GameManager.EnemyManager.DrawEnemies(spriteBatch, gameTime); // Враги
             
             // Отрисовка HUD (счет, деньги, номер волны)
@@ -43,9 +46,12 @@ public static class MainRenderer
         // Обработка состояния "Планирование" - размещение башен между волнами
         if (state is GameStateEnum.Planning)
         {
+            // Отрисовываем тайлы земли на уровне 0 (самый дальний слой)
+            TileRenderer.DrawGroundTiles(spriteBatch, graphics.GraphicsDevice);
+            
             // Отрисовываем игровое поле (башни и цитадель)
-            GameManager.TowerManager.DrawTowers(spriteBatch, gameTime);
-            GameManager.CitadelManager.Draw(spriteBatch, gameTime);
+            GameManager.TowerManager.DrawTowers(spriteBatch, gameTime); // Башни (уровень 1)
+            GameManager.CitadelManager.Draw(spriteBatch, gameTime); // Цитадель (уровень 1)
             
             // Отрисовка радиуса атаки для башни, на которую наведена мышь
             LogicUpdaters.PlannedUpdateLogic.DrawHoveredTowerRange(spriteBatch, gameTime);
@@ -74,11 +80,14 @@ public static class MainRenderer
         // Обработка состояния "Пауза"
         if (state is GameStateEnum.Paused)
         {
+            // Отрисовываем тайлы земли на уровне 0 (самый дальний слой)
+            TileRenderer.DrawGroundTiles(spriteBatch, graphics.GraphicsDevice);
+            
             // Отрисовываем игру под меню паузы (замороженное состояние)
-            GameManager.TowerManager.DrawTowers(spriteBatch, gameTime);
-            GameManager.ProjectileManager.DrawProjectiles(spriteBatch, gameTime);
-            GameManager.CitadelManager.Draw(spriteBatch, gameTime);
-            GameManager.EnemyManager.DrawEnemies(spriteBatch, gameTime);
+            GameManager.TowerManager.DrawTowers(spriteBatch, gameTime); // Башни (уровень 1)
+            GameManager.ProjectileManager.DrawProjectiles(spriteBatch, gameTime); // Снаряды (уровень 2)
+            GameManager.CitadelManager.Draw(spriteBatch, gameTime); // Цитадель (уровень 1)
+            GameManager.EnemyManager.DrawEnemies(spriteBatch, gameTime); // Враги
             
             // Отрисовка HUD (счет, деньги, номер волны)
             GameManager.UIManager.GameHUD.Draw(spriteBatch, gameTime);
@@ -92,11 +101,14 @@ public static class MainRenderer
         // Обработка состояния "Игра окончена"
         if (state == GameStateEnum.GameOver)
         {
+            // Отрисовываем тайлы земли на уровне 0 (самый дальний слой)
+            TileRenderer.DrawGroundTiles(spriteBatch, graphics.GraphicsDevice);
+            
             // Отрисовываем последний кадр игры под меню (финальное состояние)
-            GameManager.TowerManager.DrawTowers(spriteBatch, gameTime);
-            GameManager.ProjectileManager.DrawProjectiles(spriteBatch, gameTime);
-            GameManager.CitadelManager.Draw(spriteBatch, gameTime);
-            GameManager.EnemyManager.DrawEnemies(spriteBatch, gameTime);
+            GameManager.TowerManager.DrawTowers(spriteBatch, gameTime); // Башни (уровень 1)
+            GameManager.ProjectileManager.DrawProjectiles(spriteBatch, gameTime); // Снаряды (уровень 2)
+            GameManager.CitadelManager.Draw(spriteBatch, gameTime); // Цитадель (уровень 1)
+            GameManager.EnemyManager.DrawEnemies(spriteBatch, gameTime); // Враги
             
             // Отрисовываем меню окончания игры поверх (полупрозрачное)
             var menu = GameManager.UIManager.GetActiveMenu();

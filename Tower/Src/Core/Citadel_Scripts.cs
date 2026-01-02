@@ -50,7 +50,7 @@ public partial class Citadel : IBuilding
     /// <param name="gameTime">Время игры</param>
     public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
     {
-        spriteBatch.Begin();
+        spriteBatch.Begin(SpriteSortMode.BackToFront); // Используем сортировку по глубине
         var scale = 0.1f; // Масштаб спрайта цитадели (10% от исходного размера)
         
         // Отрисовка отладочной информации (границы и радиус атаки) в режиме отладки
@@ -59,8 +59,8 @@ public partial class Citadel : IBuilding
             DebugBorderDrawer.DrawDebug(spriteBatch, Bounds, AttackRange, Position);
         }
         
-        // Отрисовка спрайта цитадели
-        spriteBatch.DrawSprite(Sprite, Position, scale);
+        // Отрисовка спрайта цитадели на уровне 1
+        spriteBatch.DrawSprite(Sprite, Position, scale, Renderers.TileRenderer.LayerDepth.Buildings);
         
         // Отрисовка полосы здоровья над цитаделью
         HealthBar.Draw(spriteBatch, gameTime, this);

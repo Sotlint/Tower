@@ -17,9 +17,9 @@ public static class SpriteDrawHelper
     /// <param name="sprite">Текстура спрайта для отрисовки</param>
     /// <param name="position">Позиция спрайта на экране (центр спрайта)</param>
     /// <param name="scale">Масштаб спрайта (1.0 = исходный размер)</param>
-    /// <param name="layerDepth">Глубина слоя для сортировки (не используется, всегда 1f)</param>
+    /// <param name="layerDepth">Глубина слоя для сортировки (0.0 = дальний план, 1.0 = ближний план)</param>
     public static void DrawSprite(this SpriteBatch spriteBatch, Texture2D sprite, Vector2 position, float scale = 1f,
-        float layerDepth = 1f)
+        float layerDepth = 0.5f)
     {
         spriteBatch.Draw(
             sprite, // Текстура спрайта
@@ -30,7 +30,7 @@ public static class SpriteDrawHelper
             new Vector2((float)sprite.Width / 2, (float)sprite.Height / 2), // Точка привязки (центр спрайта)
             scale, // Масштаб
             SpriteEffects.None, // Эффекты отображения (без эффектов)
-            1f // Глубина слоя
+            layerDepth // Глубина слоя
         );
     }
 }

@@ -198,13 +198,13 @@ public static class PlannedUpdateLogic
             // Белый цвет - можно разместить, красный - нельзя
             var color = canPlace ? Color.White : Color.Red * 0.7f;
             
-            spriteBatch.Begin();
+            spriteBatch.Begin(SpriteSortMode.BackToFront); // Используем сортировку по глубине
             
             // Отрисовываем радиус атаки башни (полупрозрачный синий круг)
             var rangeColor = canPlace ? new Color(0, 100, 255, 150) : new Color(255, 0, 0, 150); // Синий если можно разместить, красный если нет
             Core.Helpers.DebugBorderDrawer.DrawAttackRange(spriteBatch, _draggedTower.AttackRange, _draggedTower.Position, rangeColor);
             
-            // Отрисовываем башню с центрированием по точке привязки
+            // Отрисовываем башню с центрированием по точке привязки на уровне 1
             spriteBatch.Draw(
                 _draggedTower.Sprite, // Текстура башни
                 _draggedTower.Position, // Позиция (следует за курсором)
@@ -214,7 +214,7 @@ public static class PlannedUpdateLogic
                 new Vector2(_draggedTower.Sprite.Width / 2f, _draggedTower.Sprite.Height / 2f), // Точка привязки (центр)
                 _draggedTower.SpriteScale, // Масштаб
                 SpriteEffects.None, // Эффекты отображения
-                0f // Глубина слоя
+                Renderers.TileRenderer.LayerDepth.Buildings // Глубина слоя (уровень 1)
             );
             spriteBatch.End();
         }
@@ -231,7 +231,7 @@ public static class PlannedUpdateLogic
         // Отрисовываем радиус атаки только если наведена мышь на башню и не происходит перетаскивание
         if (_hoveredTower != null && !_isDragging)
         {
-            spriteBatch.Begin();
+            spriteBatch.Begin(SpriteSortMode.BackToFront); // Используем сортировку по глубине
             
             // Отрисовываем радиус атаки башни (полупрозрачный синий круг)
             var rangeColor = new Color(0, 150, 255, 180); // Полупрозрачный синий

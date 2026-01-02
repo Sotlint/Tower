@@ -45,9 +45,20 @@ public class HealthBar
         // Вычисляем процент здоровья (от 0 до 1)
         var healthPercent = MathHelper.Clamp((float)enemy.Health / enemy.MaxHealth, 0, 1);
 
-        // Цвета полосы: темно-красный фон, зеленый заполнитель
-        var backColor = Color.DarkRed; // Фон полосы (показывает максимальное здоровье)
-        var frontColor = Color.LimeGreen; // Заполнитель (показывает текущее здоровье)
+        // Цвета полосы: темный фон, яркий заполнитель с градиентом в зависимости от здоровья
+        var backColor = new Color(40, 40, 40); // Темно-серый фон (показывает максимальное здоровье)
+        // Градиент цвета в зависимости от здоровья: красный -> оранжевый -> желтый -> зеленый
+        Color frontColor;
+        if (healthPercent < 0.25f)
+            frontColor = Color.Red; // Красный при низком здоровье (< 25%)
+        else if (healthPercent < 0.5f)
+            frontColor = Color.Orange; // Оранжевый при среднем здоровье (25-50%)
+        else if (healthPercent < 0.75f)
+            frontColor = Color.Yellow; // Желтый при хорошем здоровье (50-75%)
+        else
+            frontColor = new Color(0, 200, 0); // Ярко-зеленый при полном здоровье (> 75%)
+        
+        var borderColor = Color.Black; // Черная рамка для контраста
 
         // Получаем границы спрайта врага
         var bounds = enemy.Bounds;
@@ -56,19 +67,28 @@ public class HealthBar
         var barWidth = (int)(bounds.Width * 0.8f); // Ширина полосы (80% от ширины спрайта)
         var barHeight = 4; // Высота полосы (уменьшена для более аккуратного вида)
         var barOffset = 3; // Отступ от верхней границы спрайта (в пикселях)
+        const int borderThickness = 1; // Толщина рамки
         
         // Позиция полосы: над верхней границей спрайта, центрирована по горизонтали
         var barX = bounds.X + bounds.Width / 2 - barWidth / 2; // Центрирование по X
         var barY = bounds.Y - barHeight - barOffset; // Над верхней границей спрайта
 
-        // Отрисовка фона полосы (темно-красный прямоугольник)
+        // Отрисовка рамки (черный прямоугольник, немного больше основного)
+        spriteBatch.Draw(
+            texture: Sprite,
+            destinationRectangle: new Rectangle((int)barX - borderThickness, (int)barY - borderThickness, 
+                barWidth + borderThickness * 2, barHeight + borderThickness * 2),
+            color: borderColor
+        );
+
+        // Отрисовка фона полосы (темно-серый прямоугольник)
         spriteBatch.Draw(
             texture: Sprite,
             destinationRectangle: new Rectangle((int)barX, (int)barY, barWidth, barHeight),
             color: backColor
         );
 
-        // Отрисовка заполнителя полосы (зеленый прямоугольник, ширина зависит от здоровья)
+        // Отрисовка заполнителя полосы (цветной прямоугольник, ширина зависит от здоровья)
         spriteBatch.Draw(
             texture: Sprite,
             destinationRectangle: new Rectangle((int)barX, (int)barY, (int)(barWidth * healthPercent), barHeight),
@@ -92,9 +112,20 @@ public class HealthBar
         // Вычисляем процент здоровья (от 0 до 1)
         var healthPercent = MathHelper.Clamp((float)building.Health / building.MaxHealth, 0, 1);
 
-        // Цвета полосы: темно-красный фон, зеленый заполнитель
-        var backColor = Color.DarkRed; // Фон полосы (показывает максимальное здоровье)
-        var frontColor = Color.LimeGreen; // Заполнитель (показывает текущее здоровье)
+        // Цвета полосы: темный фон, яркий заполнитель с градиентом в зависимости от здоровья
+        var backColor = new Color(40, 40, 40); // Темно-серый фон (показывает максимальное здоровье)
+        // Градиент цвета в зависимости от здоровья: красный -> оранжевый -> желтый -> зеленый
+        Color frontColor;
+        if (healthPercent < 0.25f)
+            frontColor = Color.Red; // Красный при низком здоровье (< 25%)
+        else if (healthPercent < 0.5f)
+            frontColor = Color.Orange; // Оранжевый при среднем здоровье (25-50%)
+        else if (healthPercent < 0.75f)
+            frontColor = Color.Yellow; // Желтый при хорошем здоровье (50-75%)
+        else
+            frontColor = new Color(0, 200, 0); // Ярко-зеленый при полном здоровье (> 75%)
+        
+        var borderColor = Color.Black; // Черная рамка для контраста
 
         // Получаем границы спрайта здания
         var bounds = building.Bounds;
@@ -103,19 +134,28 @@ public class HealthBar
         var barWidth = (int)(bounds.Width * 0.8f); // Ширина полосы (80% от ширины спрайта)
         var barHeight = 4; // Высота полосы (уменьшена для более аккуратного вида)
         var barOffset = 3; // Отступ от верхней границы спрайта (в пикселях)
+        const int borderThickness = 1; // Толщина рамки
         
         // Позиция полосы: над верхней границей спрайта, центрирована по горизонтали
         var barX = bounds.X + bounds.Width / 2 - barWidth / 2; // Центрирование по X
         var barY = bounds.Y - barHeight - barOffset; // Над верхней границей спрайта
 
-        // Отрисовка фона полосы (темно-красный прямоугольник)
+        // Отрисовка рамки (черный прямоугольник, немного больше основного)
+        spriteBatch.Draw(
+            texture: Sprite,
+            destinationRectangle: new Rectangle((int)barX - borderThickness, (int)barY - borderThickness, 
+                barWidth + borderThickness * 2, barHeight + borderThickness * 2),
+            color: borderColor
+        );
+
+        // Отрисовка фона полосы (темно-серый прямоугольник)
         spriteBatch.Draw(
             texture: Sprite,
             destinationRectangle: new Rectangle((int)barX, (int)barY, barWidth, barHeight),
             color: backColor
         );
 
-        // Отрисовка заполнителя полосы (зеленый прямоугольник, ширина зависит от здоровья)
+        // Отрисовка заполнителя полосы (цветной прямоугольник, ширина зависит от здоровья)
         spriteBatch.Draw(
             texture: Sprite,
             destinationRectangle: new Rectangle((int)barX, (int)barY, (int)(barWidth * healthPercent), barHeight),

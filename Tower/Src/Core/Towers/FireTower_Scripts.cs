@@ -24,16 +24,16 @@ public partial class FireTower : ITower
     /// <param name="gameTime">Время игры</param>
     public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
     {
-        spriteBatch.Begin();
+        spriteBatch.Begin(SpriteSortMode.BackToFront); // Используем сортировку по глубине
         
-        // Отрисовка отладочной информации (границы и радиус атаки) в режиме отладки
+        // Отрисовка отладочной информации (границы в режиме отладки)
         if (GameManager.InputManager.IsDebugMode)
         {
             DebugBorderDrawer.DrawDebug(spriteBatch, Bounds, AttackRange, Position);
         }
         
-        // Отрисовка спрайта башни
-        spriteBatch.DrawSprite(Sprite, Position, SpriteScale);
+        // Отрисовка спрайта башни на уровне 1
+        spriteBatch.DrawSprite(Sprite, Position, SpriteScale, Renderers.TileRenderer.LayerDepth.Buildings);
         spriteBatch.End();
     }
 
