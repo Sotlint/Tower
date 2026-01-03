@@ -24,31 +24,31 @@ public static class UpdateLogic
         // Обработка состояния "Игра" - активная волна врагов
         if (state is GameStateEnum.Playing)
         {
-  
+            engine.Update(gameTime);
         }
         
         // Обработка состояния "Планирование" - размещение башен между волнами
         if (state is GameStateEnum.Planning)
         {
-
+            engine.Update(gameTime);
         }
         
         // Обработка состояния "Главное меню"
         if (state is GameStateEnum.Menu)
         {
-           
+           engine.Update(gameTime);
         }
         
         // Обработка состояния "Пауза"
         if (state is GameStateEnum.Paused)
         {
-         
+            engine.Update(gameTime);
         }
         
         // Обработка состояния "Игра окончена"
         if (state == GameStateEnum.GameOver)
         {
-            
+            engine.Update(gameTime);
         }
     }
 }
