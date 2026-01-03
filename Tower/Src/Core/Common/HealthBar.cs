@@ -43,7 +43,7 @@ public class HealthBar
             return;
 
         // Вычисляем процент здоровья (от 0 до 1)
-        var healthPercent = MathHelper.Clamp((float)enemy.Health / enemy.MaxHealth, 0, 1);
+        var healthPercent = MathHelper.Clamp((float)enemy.Health / (float)enemy.MaxHealth, 0, 1);
 
         // Цвета полосы: темный фон, яркий заполнитель с градиентом в зависимости от здоровья
         var backColor = new Color(40, 40, 40); // Темно-серый фон (показывает максимальное здоровье)
@@ -110,7 +110,7 @@ public class HealthBar
             return;
 
         // Вычисляем процент здоровья (от 0 до 1)
-        var healthPercent = MathHelper.Clamp((float)building.Health / building.MaxHealth, 0, 1);
+        var healthPercent = MathHelper.Clamp((float)building.Health / (float)building.MaxHealth, 0, 1);
 
         // Цвета полосы: темный фон, яркий заполнитель с градиентом в зависимости от здоровья
         var backColor = new Color(40, 40, 40); // Темно-серый фон (показывает максимальное здоровье)

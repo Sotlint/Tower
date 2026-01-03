@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Tower.Core.Abstractions.Base;
+using GameKit2D.Abstractions.Interfaces.GameObjects;
 
 namespace Tower.Core.Projectiles;
 
@@ -26,17 +26,25 @@ public partial class OrbProjectile : IProjectile
             // Нормализуем направление (получаем единичный вектор)
             direction = Vector2.Normalize(direction);
             // Перемещаем снаряд в направлении цели со скоростью Speed
-            SetPosition(direction * Speed);
+            AddPosition(direction * Speed);
         }
     }
 
     /// <summary>
-    /// Установка позиции снаряда. Добавляет смещение к текущей позиции.
+    /// Установка позиции снаряда. Устанавливает абсолютную позицию (для GameKit2D).
     /// </summary>
-    /// <param name="direction">Направление и расстояние для перемещения</param>
+    /// <param name="direction">Новая позиция</param>
     public void SetPosition(Vector2 direction)
     {
-        Position += direction;
+        Position = direction;
+    }
+    
+    /// <summary>
+    /// Движение снаряда с добавлением смещения (для внутреннего использования в Move).
+    /// </summary>
+    private void AddPosition(Vector2 offset)
+    {
+        Position += offset;
     }
 
     /// <summary>
@@ -87,8 +95,14 @@ public partial class OrbProjectile : IProjectile
     /// <param name="gameTime">Время игры для синхронизации</param>
     public void Update(GameTime gameTime)
     {
+        // Обновляем позицию цели (для GameKit2D.IProjectile)
+        if (Target != null)
+        {
+            TargetPosition = Target.Position;
+        }
+        
         // Обновляем снаряд только если цель жива и снаряд еще не попал
-        if (!Target.IsDie() && !IsAttacked)
+        if (Target != null && !Target.IsDie() && !IsAttacked)
         {
             // Проверяем, достиг ли снаряд цели (в пределах радиуса атаки)
             if (Vector2.Distance(Position, Target.Position) <= AttackRange)

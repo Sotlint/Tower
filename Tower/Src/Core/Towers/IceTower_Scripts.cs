@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using GameKit2D.Abstractions.Interfaces.GameObjects;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Tower.Core.Abstractions;
-using Tower.Core.Abstractions.Base;
 using Tower.Core.Abstractions.Enums;
 using Tower.Core.Helpers;
 using Tower.Factories;
@@ -52,7 +52,8 @@ public partial class IceTower : ITower
             return;
 
         // Ищем ближайшего врага в радиусе атаки
-        var target = GameManager.EnemyManager.GetEnemies()
+        var enemies = GameManager.GameEngine?.GetObjectsWithInterface<Tower.Core.Abstractions.IEnemy>() ?? new System.Collections.Generic.List<Tower.Core.Abstractions.IEnemy>();
+        var target = enemies
             .Where(e => Vector2.Distance(Position, e.Position) <= AttackRange) // Враги в радиусе атаки
             .MinBy(e => Vector2.Distance(Position, e.Position)); // Ближайший враг
 
@@ -76,8 +77,8 @@ public partial class IceTower : ITower
         // Если есть цели - создаем снаряд для атаки первой цели
         if (canDie.Any())
         {
-            GameManager.ProjectileManager.AddProjectile(
-                ProjectileFactory.CreateProjectile(ProjectileTypeEnum.Orb, Position, (IEnemy)canDie.First()));
+            var projectile = ProjectileFactory.CreateProjectile(ProjectileTypeEnum.Orb, Position, (IEnemy)canDie.First(), AttackPower);
+            GameManager.AddObject((IHaveIdentity)projectile);
         }
     }
 
@@ -85,7 +86,7 @@ public partial class IceTower : ITower
     /// Получение урона башней. Уменьшает здоровье на указанное количество.
     /// </summary>
     /// <param name="damage">Количество урона</param>
-    public void TakeDamage(int damage)
+    public void TakeDamage(decimal damage)
         => Health -= damage;
 
     /// <summary>

@@ -26,6 +26,8 @@ public static class MainUpdateLogic
         // Обработка состояния "Игра" - активная волна врагов
         if (state is GameStateEnum.Playing)
         {
+            // Обновляем GameEngine для автоматического обновления всех объектов
+            GameManager.GameEngine?.Update(gameTime);
             WaveUpdateLogic.Update(gameTime);
             return;
         }

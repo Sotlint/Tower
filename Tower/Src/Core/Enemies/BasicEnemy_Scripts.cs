@@ -4,7 +4,7 @@ using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Tower.Core.Abstractions;
-using Tower.Core.Abstractions.Base;
+using GameKit2D.Abstractions.Interfaces.GameObjects;
 using Tower.Core.Helpers;
 using Tower.Managers;
 
@@ -16,7 +16,7 @@ public partial class BasicEnemy : IEnemy
     /// Получение урона врагом. Уменьшает здоровье на указанное количество.
     /// </summary>
     /// <param name="damage">Количество урона</param>
-    public void TakeDamage(int damage)
+    public void TakeDamage(decimal damage)
         => Health -= damage;
 
     /// <summary>
@@ -261,7 +261,7 @@ public partial class BasicEnemy : IEnemy
     private void ResolveBuildingsCollision()
     {
         // Получаем все башни и цитадель
-        var towers = GameManager.TowerManager.GetTowers().Select(x => (IBuilding)x).ToList();
+        var towers = (GameManager.GameEngine?.GetObjectsOfType<ITower>() ?? new System.Collections.Generic.List<ITower>()).Select(x => (IBuilding)x).ToList();
         var citadel = (IBuilding)GameManager.CitadelManager.GetCitadel();
 
         // Проверяем коллизии с каждым зданием
@@ -302,7 +302,7 @@ public partial class BasicEnemy : IEnemy
     private void ResolveEnemyCollision()
     {
         // Получаем всех других врагов (исключая текущего)
-        var enemies = GameManager.EnemyManager.GetEnemies().Where(x => x.Id != Id).ToList();
+        var enemies = (GameManager.GameEngine?.GetObjectsWithInterface<IEnemy>() ?? new System.Collections.Generic.List<IEnemy>()).Where(x => x.Id != Id).ToList();
         
         // Проверяем коллизии с каждым врагом
         foreach (var enemy in enemies)

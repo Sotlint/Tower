@@ -102,9 +102,9 @@ public static class EnemyFactory
             sprite, // Текстура спрайта
             Guid.NewGuid(), // Уникальный идентификатор
             spawnPosition, // Позиция спавна
-            50, // Здоровье
+            50m, // Здоровье
             3, // Скорость движения
-            10, // Сила атаки
+            10m, // Сила атаки
             70,// Радиус атаки
             EnemyTypeEnum.Basic, // Тип врага
             TimeSpan.FromMilliseconds(1000), // Задержка между атаками (1000мс)

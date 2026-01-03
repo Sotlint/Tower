@@ -22,11 +22,8 @@ public static class PlayingRenderer
         // Отрисовываем тайлы земли на уровне 0 (самый дальний слой)
         TileRenderer.DrawGroundTiles(spriteBatch, graphicsDevice);
         
-        // Отрисовываем все игровые объекты
-        GameManager.TowerManager.DrawTowers(spriteBatch, gameTime); // Башни (уровень 1)
-        GameManager.ProjectileManager.DrawProjectiles(spriteBatch, gameTime); // Снаряды (уровень 2)
-        GameManager.CitadelManager.Draw(spriteBatch, gameTime); // Цитадель (уровень 1)
-        GameManager.EnemyManager.DrawEnemies(spriteBatch, gameTime); // Враги
+        // Отрисовываем все игровые объекты через GameEngine (автоматически отрисовывает объекты с IHaveDrawLogic)
+        GameManager.GameEngine?.Draw(gameTime);
         
         // Отрисовка HUD (счет, деньги, номер волны)
         GameManager.UIManager.GameHUD.Draw(spriteBatch, gameTime);

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Tower.Core.Abstractions;
-using Tower.Core.Abstractions.Base;
+using GameKit2D.Abstractions.Interfaces.GameObjects;
 using Tower.Core.Abstractions.Enums;
 using Tower.Core.Helpers;
 using Tower.Managers;
@@ -21,7 +21,7 @@ public partial class Citadel : IBuilding
     /// Получение урона цитаделью. Уменьшает здоровье на указанное количество.
     /// </summary>
     /// <param name="damage">Количество урона</param>
-    public void TakeDamage(int damage)
+    public void TakeDamage(decimal damage)
     {
         Health -= damage;
     }

@@ -50,7 +50,7 @@ public class GameTower : Game
         
         // Инициализируем все менеджеры и системы игры
         // Передаем ссылку на этот экземпляр Game для возможности закрытия игры
-        GameManager.Init(_graphics.GraphicsDevice, this);
+        GameManager.Init(_graphics.GraphicsDevice, _spriteBatch, this);
         // Игра начинается с главного меню
         
         base.Initialize();

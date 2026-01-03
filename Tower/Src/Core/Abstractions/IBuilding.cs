@@ -1,4 +1,4 @@
-using Tower.Core.Abstractions.Base;
+using GameKit2D.Abstractions.Interfaces.GameObjects;
 
 namespace Tower.Core.Abstractions;
 

@@ -24,7 +24,7 @@ public partial class Citadel : IBuilding
     /// <param name="attackRange">Радиус атаки (не используется, цитадель не атакует)</param>
     /// <param name="attackDelay">Задержка между атаками (не используется, цитадель не атакует)</param>
     /// <param name="healthBar">Полоса здоровья для отрисовки</param>
-    public Citadel(Guid id, Vector2 position, int health, int attackPower, float attackRange, TimeSpan attackDelay,
+    public Citadel(Guid id, Vector2 position, decimal health, decimal attackPower, float attackRange, TimeSpan attackDelay,
         HealthBar healthBar)
     {
         Id = id;
@@ -57,13 +57,13 @@ public partial class Citadel : IBuilding
     public Vector2 Position { get; private set; }
     
     /// <summary>Максимальное здоровье цитадели</summary>
-    public int MaxHealth { get; init; }
+    public decimal MaxHealth { get; init; }
     
     /// <summary>Текущее здоровье цитадели</summary>
-    public int Health { get; private set; }
+    public decimal Health { get; private set; }
     
     /// <summary>Сила атаки цитадели (не используется, цитадель не атакует)</summary>
-    public int AttackPower { get; private set; }
+    public decimal AttackPower { get; private set; }
     
     /// <summary>Радиус атаки цитадели (не используется, цитадель не атакует)</summary>
     public float AttackRange { get; private set; }

@@ -23,9 +23,8 @@ public static class PlanningRenderer
         // Отрисовываем тайлы земли на уровне 0 (самый дальний слой)
         TileRenderer.DrawGroundTiles(spriteBatch, graphicsDevice);
         
-        // Отрисовываем игровое поле (башни и цитадель)
-        GameManager.TowerManager.DrawTowers(spriteBatch, gameTime); // Башни (уровень 1)
-        GameManager.CitadelManager.Draw(spriteBatch, gameTime); // Цитадель (уровень 1)
+        // Отрисовываем игровое поле (башни и цитадель) через GameEngine
+        GameManager.GameEngine?.Draw(gameTime);
         
         // Отрисовка радиуса атаки для башни, на которую наведена мышь
         PlannedUpdateLogic.DrawHoveredTowerRange(spriteBatch, gameTime);

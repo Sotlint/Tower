@@ -1,14 +1,13 @@
+using GameKit2D.Abstractions.Interfaces.GameObjects;
+
 namespace Tower.Core.Abstractions.Base;
 
 /// <summary>
-/// Интерфейс снаряда. Объединяет функциональность движения, атаки, отрисовки и игровой логики.
+/// Интерфейс снаряда. Использует интерфейс из GameKit2D.
 /// Снаряды создаются башнями при атаке врагов и летят к цели.
 /// </summary>
-public interface IProjectile : IMovable, ICanAttack, IHaveDrawLogic, IHaveGameLogic
+public interface IProjectile : GameKit2D.Abstractions.Interfaces.GameObjects.IProjectile, IHaveIdentity
 {
-    /// <summary>Цель снаряда (враг, в которого стреляют)</summary>
-    IEnemy Target { get; }
-    
     /// <summary>Флаг, указывающий, попал ли снаряд в цель</summary>
-    bool IsAttacked { get; }
+    new bool IsAttacked { get; }
 }

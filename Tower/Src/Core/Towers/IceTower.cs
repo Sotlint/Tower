@@ -24,7 +24,7 @@ public partial class IceTower : ITower
     /// <param name="attackPower">Сила атаки (урон)</param>
     /// <param name="attackRange">Радиус атаки</param>
     /// <param name="attackDelay">Задержка между атаками</param>
-    public IceTower(Guid id, Texture2D sprite, Vector2 position, TowerTypeEnum type, int health, int attackPower,
+    public IceTower(Guid id, Texture2D sprite, Vector2 position, TowerTypeEnum type, decimal health, decimal attackPower,
         float attackRange, TimeSpan attackDelay)
     {
         Id = id;
@@ -57,13 +57,13 @@ public partial class IceTower : ITower
     public TowerTypeEnum Type { get; private set; }
     
     /// <summary>Максимальное здоровье башни</summary>
-    public int MaxHealth { get; init; }
+    public decimal MaxHealth { get; init; }
     
     /// <summary>Текущее здоровье башни</summary>
-    public int Health { get; private set; }
+    public decimal Health { get; private set; }
     
     /// <summary>Сила атаки башни (урон, наносимый врагам)</summary>
-    public int AttackPower { get; private set; }
+    public decimal AttackPower { get; private set; }
     
     /// <summary>Радиус атаки башни (максимальное расстояние до цели)</summary>
     public float AttackRange { get; private set; }

@@ -80,7 +80,7 @@ public static class PlannedUpdateLogic
         if (!_isDragging)
         {
             _hoveredTower = null;
-            var towers = GameManager.TowerManager.GetTowers();
+            var towers = GameManager.GameEngine?.GetObjectsOfType<ITower>() ?? new System.Collections.Generic.List<ITower>();
             foreach (var tower in towers)
             {
                 if (tower.Bounds.Contains(mousePos))
@@ -106,7 +106,7 @@ public static class PlannedUpdateLogic
                 var cost = TowerFactory.GetTowerCost(_selectedTowerType.Value);
                 if (GameManager.Player.SpendMoney(cost))
                 {
-                    GameManager.TowerManager.AddTower(_draggedTower);
+                    GameManager.AddObject(_draggedTower);
                     _draggedTower = null; // Башня добавлена, временная больше не нужна
                 }
             }
@@ -154,7 +154,7 @@ public static class PlannedUpdateLogic
     private static bool CanPlaceTower(ITower tower, Vector2 position)
     {
         // Проверка коллизий с другими башнями на карте
-        var existingTowers = GameManager.TowerManager.GetTowers();
+        var existingTowers = GameManager.GameEngine?.GetObjectsOfType<ITower>() ?? new System.Collections.Generic.List<ITower>();
         foreach (var existingTower in existingTowers)
         {
             if (tower.Bounds.Intersects(existingTower.Bounds))
@@ -248,8 +248,15 @@ public static class PlannedUpdateLogic
     {
         _waveStarted = true;
         // Спавним врагов в количестве, соответствующем текущему уровню сложности
-        GameManager.EnemyManager.SpawnEnemy(
-            GameManager.DifficultyManager.GetEnemyCount());
+        var enemyCount = GameManager.DifficultyManager.GetEnemyCount();
+        var enemies = Tower.Factories.EnemyFactory.CreateEnemy(Tower.Core.Abstractions.Enums.EnemyTypeEnum.Basic, enemyCount);
+        
+        // Добавляем врагов в GameEngine с правильными слоями
+        foreach (var enemy in enemies)
+        {
+            GameManager.AddObject(enemy);
+        }
+        
         // Переводим игру в состояние активной волны
         GameManager.GameStateManager.ChangeState(GameStateEnum.Playing);
     }

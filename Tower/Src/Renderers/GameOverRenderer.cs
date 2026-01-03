@@ -22,11 +22,8 @@ public static class GameOverRenderer
         // Отрисовываем тайлы земли на уровне 0 (самый дальний слой)
         TileRenderer.DrawGroundTiles(spriteBatch, graphicsDevice);
         
-        // Отрисовываем последний кадр игры под меню (финальное состояние)
-        GameManager.TowerManager.DrawTowers(spriteBatch, gameTime); // Башни (уровень 1)
-        GameManager.ProjectileManager.DrawProjectiles(spriteBatch, gameTime); // Снаряды (уровень 2)
-        GameManager.CitadelManager.Draw(spriteBatch, gameTime); // Цитадель (уровень 1)
-        GameManager.EnemyManager.DrawEnemies(spriteBatch, gameTime); // Враги
+        // Отрисовываем последний кадр игры под меню (финальное состояние) через GameEngine
+        GameManager.GameEngine?.Draw(gameTime);
         
         // Отрисовываем меню окончания игры поверх (полупрозрачное)
         var menu = GameManager.UIManager.GetActiveMenu();

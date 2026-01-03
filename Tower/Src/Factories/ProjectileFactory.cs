@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Tower.Core;
 using Tower.Core.Abstractions;
-using Tower.Core.Abstractions.Base;
+using GameKit2D.Abstractions.Interfaces.GameObjects;
 using Tower.Core.Abstractions.Enums;
 using Tower.Core.Projectiles;
 using Tower.Managers;
@@ -22,27 +22,29 @@ public static class ProjectileFactory
     /// <param name="type">Тип снаряда для создания</param>
     /// <param name="position">Начальная позиция снаряда (позиция башни, которая стреляет)</param>
     /// <param name="target">Цель снаряда (враг, в которого стреляют)</param>
-    /// <returns>Созданный снаряд, реализующий интерфейс IProjectile</returns>
+    /// <param name="attackPower">Сила атаки снаряда (урон, наносимый врагу)</param>
+    /// <returns>Созданный снаряд, реализующий интерфейс IProjectile из GameKit2D</returns>
     /// <exception cref="ArgumentOutOfRangeException">Если передан неизвестный тип снаряда</exception>
-    public static IProjectile CreateProjectile(ProjectileTypeEnum type, Vector2 position, IEnemy target)
+    public static GameKit2D.Abstractions.Interfaces.GameObjects.IProjectile CreateProjectile(ProjectileTypeEnum type, Vector2 position, IEnemy target, decimal attackPower)
         => type switch
         {
-            ProjectileTypeEnum.Orb => CreateOrb(position, SpriteManager.OrbProjectileSprite, target),
+            ProjectileTypeEnum.Orb => CreateOrb(position, SpriteManager.OrbProjectileSprite, target, attackPower),
             _ => throw new ArgumentOutOfRangeException(nameof(type), type, null)
         };
 
     /// <summary>
     /// Создать снаряд типа "Orb" (сфера). Снаряд летит к цели и наносит урон при достижении.
-    /// Характеристики: урон 10, радиус атаки 10, скорость 10, масштаб 1.
+    /// Характеристики: радиус атаки 10, скорость 10, масштаб 1.
     /// </summary>
     /// <param name="position">Начальная позиция снаряда</param>
     /// <param name="sprite">Текстура спрайта снаряда</param>
     /// <param name="target">Цель снаряда (враг)</param>
+    /// <param name="attackPower">Сила атаки снаряда (урон, наносимый врагу)</param>
     /// <returns>Созданный снаряд типа Orb</returns>
-    private static IProjectile CreateOrb(Vector2 position, Texture2D sprite, IEnemy target)
+    private static GameKit2D.Abstractions.Interfaces.GameObjects.IProjectile CreateOrb(Vector2 position, Texture2D sprite, IEnemy target, decimal attackPower)
         => new OrbProjectile(
             position, // Начальная позиция (позиция башни)
-            10, // Сила атаки (урон)
+            attackPower, // Сила атаки (урон) - передается от башни
             10, // Радиус атаки (расстояние для попадания)
             TimeSpan.FromSeconds(1), // Задержка атаки (не используется для снарядов)
             10, // Скорость движения

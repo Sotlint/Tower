@@ -22,11 +22,8 @@ public static class PausedRenderer
         // Отрисовываем тайлы земли на уровне 0 (самый дальний слой)
         TileRenderer.DrawGroundTiles(spriteBatch, graphicsDevice);
         
-        // Отрисовываем игру под меню паузы (замороженное состояние)
-        GameManager.TowerManager.DrawTowers(spriteBatch, gameTime); // Башни (уровень 1)
-        GameManager.ProjectileManager.DrawProjectiles(spriteBatch, gameTime); // Снаряды (уровень 2)
-        GameManager.CitadelManager.Draw(spriteBatch, gameTime); // Цитадель (уровень 1)
-        GameManager.EnemyManager.DrawEnemies(spriteBatch, gameTime); // Враги
+        // Отрисовываем игру под меню паузы (замороженное состояние) через GameEngine
+        GameManager.GameEngine?.Draw(gameTime);
         
         // Отрисовка HUD (счет, деньги, номер волны)
         GameManager.UIManager.GameHUD.Draw(spriteBatch, gameTime);

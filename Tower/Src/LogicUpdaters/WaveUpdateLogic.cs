@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using Tower.Core.Abstractions.Enums;
 using Tower.Managers;
@@ -18,14 +19,15 @@ public static class WaveUpdateLogic
     /// <param name="gameTime">Время игры для синхронизации обновлений</param>
     public static void Update(GameTime gameTime)
     {
-        // Обновление всех игровых объектов во время волны
-        GameManager.CitadelManager.UpdateCitadel(gameTime); // Обновление цитадели (проверка здоровья)
-        GameManager.TowerManager.UpdateTowers(gameTime); // Обновление башен (поиск целей, атака)
-        GameManager.ProjectileManager.UpdateProjectiles(gameTime); // Обновление снарядов (движение, попадание)
-        GameManager.EnemyManager.UpdateEnemies(gameTime); // Обновление врагов (движение, атака цитадели)
+        // Обновление цитадели (проверка здоровья)
+        GameManager.CitadelManager.UpdateCitadel(gameTime);
+        
+        // Обновление всех игровых объектов происходит автоматически через GameEngine.Update()
+        // (вызывается в MainUpdateLogic перед вызовом WaveUpdateLogic.Update())
 
         // Проверка окончания волны: все враги уничтожены
-        if (GameManager.EnemyManager.GetEnemies().Count == 0)
+        var enemies = GameManager.GameEngine?.GetObjectsWithInterface<Tower.Core.Abstractions.IEnemy>() ?? new System.Collections.Generic.List<Tower.Core.Abstractions.IEnemy>();
+        if (!enemies.Any())
         {
             // Увеличиваем сложность для следующей волны
             GameManager.DifficultyManager.IncreaseDifficulty();

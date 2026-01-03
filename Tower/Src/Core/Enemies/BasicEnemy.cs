@@ -27,7 +27,7 @@ public partial class BasicEnemy : IEnemy
     /// <param name="type">Тип врага</param>
     /// <param name="attackDelay">Задержка между атаками</param>
     /// <param name="healthBar">Полоса здоровья для отрисовки</param>
-    public BasicEnemy(Texture2D sprite, Guid id, Vector2 position, int health, int speed, int attackPower,
+    public BasicEnemy(Texture2D sprite, Guid id, Vector2 position, decimal health, int speed, decimal attackPower,
         float attackRange, EnemyTypeEnum type, TimeSpan attackDelay, HealthBar healthBar)
     {
         Sprite = sprite;
@@ -66,16 +66,16 @@ public partial class BasicEnemy : IEnemy
     public Vector2 Position { get; private set; }
     
     /// <summary>Максимальное здоровье врага</summary>
-    public int MaxHealth { get; init; }
+    public decimal MaxHealth { get; init; }
     
     /// <summary>Текущее здоровье врага</summary>
-    public int Health { get; private set; }
+    public decimal Health { get; private set; }
     
     /// <summary>Скорость движения врага</summary>
     public int Speed { get; private set; }
     
     /// <summary>Сила атаки врага (урон по цитадели)</summary>
-    public int AttackPower { get; private set; }
+    public decimal AttackPower { get; private set; }
     
     /// <summary>Радиус атаки врага (расстояние для атаки цитадели)</summary>
     public float AttackRange { get; private set; }

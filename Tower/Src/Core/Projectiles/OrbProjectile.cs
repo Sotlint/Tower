@@ -1,13 +1,13 @@
 using System;
+using GameKit2D.Abstractions.Interfaces.GameObjects;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Tower.Core.Abstractions;
-using Tower.Core.Abstractions.Base;
 
 namespace Tower.Core.Projectiles;
 
 /// <summary>
-/// Снаряд типа "Orb" (сфера). Реализует интерфейс IProjectile.
+/// Снаряд типа "Orb" (сфера). Реализует интерфейс IProjectile из GameKit2D.
 /// Снаряд летит к цели (врагу) и наносит урон при достижении.
 /// </summary>
 public partial class OrbProjectile : IProjectile
@@ -23,9 +23,10 @@ public partial class OrbProjectile : IProjectile
     /// <param name="spriteScale">Масштаб спрайта снаряда</param>
     /// <param name="sprite">Текстура спрайта снаряда</param>
     /// <param name="target">Цель снаряда (враг, в которого стреляют)</param>
-    public OrbProjectile(Vector2 position, int attackPower, float attackRange, TimeSpan attackDelay, int speed,
+    public OrbProjectile(Vector2 position, decimal attackPower, float attackRange, TimeSpan attackDelay, int speed,
         float spriteScale, Texture2D sprite, IEnemy target)
     {
+        Id = Guid.NewGuid();
         Position = position;
         AttackPower = attackPower;
         AttackRange = attackRange;
@@ -34,12 +35,25 @@ public partial class OrbProjectile : IProjectile
         Speed = speed;
         SpriteScale = spriteScale;
         Sprite = sprite;
-        Target = target;
+        Target = target; // IEnemy наследуется от ICanDie, так что это работает
+        TargetPosition = target.Position; // IEnemy наследуется от IHavePosition
         IsAttacked = false; // Снаряд еще не попал в цель
     }
+    
+    /// <summary>Уникальный идентификатор снаряда</summary>
+    public Guid Id { get; private set; }
 
     /// <summary>Цель снаряда (враг, в которого стреляют)</summary>
     public IEnemy Target { get; init; }
+    
+    /// <summary>Цель снаряда (из GameKit2D.IProjectile) - ICanDie</summary>
+    ICanDie IProjectile.Target => Target;
+    
+    /// <summary>Позиция цели (из GameKit2D.IProjectile)</summary>
+    IHavePosition IProjectile.TargetPosition => Target;
+    
+    /// <summary>Позиция цели (для обновления)</summary>
+    private Vector2 TargetPosition { get; set; }
     
     /// <summary>Флаг, указывающий, попал ли снаряд в цель</summary>
     public bool IsAttacked { get; private set; }
@@ -48,7 +62,7 @@ public partial class OrbProjectile : IProjectile
     public Vector2 Position { get; private set; }
     
     /// <summary>Сила атаки снаряда (урон, наносимый врагу)</summary>
-    public int AttackPower { get; init; }
+    public decimal AttackPower { get; init; }
     
     /// <summary>Радиус атаки снаряда (расстояние для попадания в цель)</summary>
     public float AttackRange { get; init; }
