@@ -8,25 +8,25 @@ namespace Tower.Managers;
 /// Предоставляет функциональность для смены состояния игры и отслеживания переходов между состояниями.
 /// Используется для управления переходами между Menu, Playing, Planning, Paused и GameOver.
 /// </summary>
-public class GameStateManager
+public static class GameStateManager
 {
     /// <summary>
     /// Текущее состояние игры. Определяет, какая логика обновления и отрисовки должна выполняться.
     /// </summary>
-    public GameStateEnum CurrentState { get; private set; } = GameStateEnum.Menu;
+    public static GameStateEnum CurrentState { get; private set; } = GameStateEnum.Menu;
 
     /// <summary>
     /// Предыдущее состояние игры. Используется для возврата из паузы в предыдущее состояние.
     /// Может быть null, если предыдущего состояния нет.
     /// </summary>
-    public GameStateEnum? PreviousState { get; private set; } = null;
+    public static GameStateEnum? PreviousState { get; private set; } = null;
 
     /// <summary>
     /// Изменение состояния игры. Сохраняет текущее состояние как предыдущее
     /// и устанавливает новое состояние.
     /// </summary>
     /// <param name="newState">Новое состояние игры</param>
-    public void ChangeState(GameStateEnum newState)
+    public static void ChangeState(GameStateEnum newState)
     {
         PreviousState = CurrentState; // Сохраняем текущее состояние как предыдущее
         CurrentState = newState; // Устанавливаем новое состояние

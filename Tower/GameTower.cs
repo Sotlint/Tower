@@ -1,8 +1,10 @@
-﻿using Microsoft.Xna.Framework;
+﻿using GameKit2D.Core;
+using GameKit2D.Core.BaseSystems;
+using GameKit2D.Core.Helpers;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Tower.LogicUpdaters;
 using Tower.Managers;
-using Tower.Renderers;
+using Tower.Updaters;
 
 // ReSharper disable PossibleLossOfFraction
 
@@ -19,6 +21,8 @@ public class GameTower : Game
     
     /// <summary>SpriteBatch для отрисовки всех 2D элементов (спрайты, текст)</summary>
     private SpriteBatch _spriteBatch;
+    
+    private GameEngine _engine;
 
     /// <summary>
     /// Конструктор игры. Инициализирует базовые настройки MonoGame.
@@ -48,11 +52,24 @@ public class GameTower : Game
         // Загружаем все спрайты и шрифты
         SpriteManager.LoadSprites(Content, GraphicsDevice);
         
-        // Инициализируем все менеджеры и системы игры
-        // Передаем ссылку на этот экземпляр Game для возможности закрытия игры
-        GameManager.Init(_graphics.GraphicsDevice, _spriteBatch, this);
-        // Игра начинается с главного меню
-        
+        _engine = new GameEngine(
+            graphicsDevice: GraphicsDevice,
+            spriteBatch: _spriteBatch
+        );
+
+        // Регистрация систем
+        _engine.Systems.Register(new DebugHelper(GraphicsDevice)
+        {
+            IsEnabled = true,
+            PositionMarkerSize = 1,
+            CollisionColor = Color.SpringGreen,
+            LineThickness = 1
+        });
+        _engine.Systems.Register(new BaseUpdateSystem());
+        _engine.Systems.Register(new BaseRenderSystem());
+        _engine.Systems.Register(new BaseCollisionSystem());
+        _engine.Systems.Register(new BaseSpawnSystem());
+        _engine.Systems.Register(new BasePerformanceMonitorSystem());
         base.Initialize();
     }
 
@@ -73,7 +90,7 @@ public class GameTower : Game
     protected override void Update(GameTime gameTime)
     {
         // Обновляем логику игры (ввод, состояние, объекты)
-        MainUpdateLogic.Update(gameTime);
+        UpdateLogic.Update(_engine, gameTime);
         base.Update(gameTime);
     }
 
@@ -85,8 +102,7 @@ public class GameTower : Game
     /// <param name="gameTime">Время игры для синхронизации анимаций</param>
     protected override void Draw(GameTime gameTime)
     {
-        // Отрисовываем все элементы игры
-        MainRenderer.Render(_spriteBatch, _graphics, gameTime);
+        UpdateRender.Draw(_engine, gameTime);
         base.Draw(gameTime);
     }
 }
