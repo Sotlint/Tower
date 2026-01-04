@@ -1,3 +1,4 @@
+using GameKit2D.Core.Helpers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -82,101 +83,14 @@ public static class SpriteManager
         MenuButtonTexture = contentManager.Load<Texture2D>("menu_button");
         PaperHorizTexture = contentManager.Load<Texture2D>("paper-horiz");
         
-        // Создание программных текстур
-        HealthBarSprite = CreateHealthBarTexture(graphicsDevice); // Однопиксельная белая текстура
-        OrbProjectileSprite = CreateCircularTexture(graphicsDevice, 8, Color.Blue); // Синий круг радиусом 8
-        ButtonBackgroundTexture = CreateButtonBackgroundTexture(graphicsDevice); // Серый квадрат 64x64
-        GreenDebugPen = CreateGreenDebugPenTexture(graphicsDevice); // Зеленый пиксель для отладки
+        // Создание программных текстур с использованием TextureHelper из GameKit
+        HealthBarSprite = TextureHelper.CreatePixel(graphicsDevice, Color.White); // Однопиксельная белая текстура
+        OrbProjectileSprite = TextureHelper.CreateCircle(graphicsDevice, 16, 16, Color.Blue, Color.Transparent, filled: true); // Синий круг диаметром 16
+        ButtonBackgroundTexture = TextureHelper.CreateSolidColor(graphicsDevice, 64, 64, new Color(200, 200, 200)); // Серый квадрат 64x64
+        GreenDebugPen = TextureHelper.CreatePixel(graphicsDevice, Color.Green); // Зеленый пиксель для отладки
         
         // Загрузка шрифта
         DefaultFont = contentManager.Load<SpriteFont>("DefaultFont");
     }
 
-    /// <summary>
-    /// Создание текстуры для отладочной отрисовки (зеленый пиксель).
-    /// Используется для отрисовки границ и радиусов атаки в режиме отладки.
-    /// </summary>
-    /// <param name="graphicsDevice">Графическое устройство для создания текстуры</param>
-    /// <returns>Однопиксельная зеленая текстура</returns>
-    private static Texture2D CreateGreenDebugPenTexture(GraphicsDevice graphicsDevice)
-    {
-        var pixel = new Texture2D(graphicsDevice, 1, 1);
-        pixel.SetData(new[] { Color.Green });
-        return pixel;
-    }
-
-    /// <summary>
-    /// Создание текстуры фона кнопок (серый квадрат 64x64).
-    /// Используется как фон для всех кнопок UI.
-    /// </summary>
-    /// <param name="graphicsDevice">Графическое устройство для создания текстуры</param>
-    /// <returns>Серая текстура 64x64 пикселей</returns>
-    private static Texture2D CreateButtonBackgroundTexture(GraphicsDevice graphicsDevice)
-    {
-        var texture = new Texture2D(graphicsDevice, 64, 64);
-        var data = new Color[64 * 64];
-
-        // Заполняем все пиксели серым цветом
-        for (var i = 0; i < data.Length; i++)
-        {
-            data[i] = new Color(200, 200, 200); // Светло-серый цвет
-        }
-
-        texture.SetData(data);
-        return texture;
-    }
-
-    /// <summary>
-    /// Создание текстуры для полосы здоровья (однопиксельная белая текстура).
-    /// Используется для отрисовки полос здоровья врагов и зданий.
-    /// </summary>
-    /// <param name="graphicsDevice">Графическое устройство для создания текстуры</param>
-    /// <returns>Однопиксельная белая текстура</returns>
-    private static Texture2D CreateHealthBarTexture(GraphicsDevice graphicsDevice)
-    {
-        var texture = new Texture2D(graphicsDevice, 1, 1);
-        texture.SetData(new[] { Color.White });
-        return texture;
-    }
-
-    /// <summary>
-    /// Создание круглой текстуры указанного радиуса и цвета.
-    /// Используется для создания спрайтов снарядов и других круглых объектов.
-    /// </summary>
-    /// <param name="graphicsDevice">Графическое устройство для создания текстуры</param>
-    /// <param name="radius">Радиус круга в пикселях</param>
-    /// <param name="color">Цвет круга</param>
-    /// <returns>Круглая текстура с прозрачным фоном</returns>
-    private static Texture2D CreateCircularTexture(GraphicsDevice graphicsDevice, int radius, Color color)
-    {
-        var diameter = radius * 2; // Диаметр = радиус * 2
-        var texture = new Texture2D(graphicsDevice, diameter, diameter);
-        var data = new Color[diameter * diameter];
-
-        // Заполняем текстуру: пиксели внутри круга - указанным цветом, остальные - прозрачные
-        for (var y = 0; y < diameter; y++)
-        {
-            for (var x = 0; x < diameter; x++)
-            {
-                // Вычисляем расстояние от центра
-                var dx = x - radius;
-                var dy = y - radius;
-                float distanceSquared = dx * dx + dy * dy;
-
-                // Если пиксель внутри круга - красим в указанный цвет
-                if (distanceSquared <= radius * radius)
-                {
-                    data[y * diameter + x] = color;
-                }
-                else
-                {
-                    // Иначе - прозрачный
-                    data[y * diameter + x] = Color.Transparent;
-                }
-            }
-        }
-
-        texture.SetData(data);
-        return texture;
-    }
 }

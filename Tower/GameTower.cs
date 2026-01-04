@@ -1,4 +1,5 @@
-﻿using GameKit2D.Core;
+﻿#nullable enable
+using GameKit2D.Core;
 using GameKit2D.Core.BaseSystems;
 using GameKit2D.Core.Helpers;
 using Microsoft.Xna.Framework;
@@ -89,8 +90,11 @@ public class GameTower : Game
     /// <param name="gameTime">Время игры для синхронизации обновлений</param>
     protected override void Update(GameTime gameTime)
     {
+        // Обновляем состояние ввода
+        InputHelper.Update();
+        
         // Обновляем логику игры (ввод, состояние, объекты)
-        UpdateLogic.Update(_engine, gameTime);
+        UpdateLogic.Update(_engine, _spriteBatch, GraphicsDevice, gameTime);
         base.Update(gameTime);
     }
 
@@ -102,7 +106,8 @@ public class GameTower : Game
     /// <param name="gameTime">Время игры для синхронизации анимаций</param>
     protected override void Draw(GameTime gameTime)
     {
-        UpdateRender.Draw(_engine, gameTime);
+        GraphicsDevice.Clear(Color.Black);
+        UpdateRender.Draw(_engine, _spriteBatch, GraphicsDevice, gameTime);
         base.Draw(gameTime);
     }
 }

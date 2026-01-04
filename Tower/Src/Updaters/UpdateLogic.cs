@@ -1,5 +1,7 @@
+#nullable enable
 using GameKit2D.Core;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Tower.Core.Abstractions.Enums;
 using Tower.Managers;
 
@@ -15,12 +17,21 @@ public static class UpdateLogic
     /// Главный метод обновления игры. Вызывается каждый кадр.
     /// Определяет текущее состояние игры и вызывает соответствующую логику обновления.
     /// </summary>
+    /// <param name="engine">Игровой движок</param>
+    /// <param name="spriteBatch">SpriteBatch для создания меню</param>
+    /// <param name="graphicsDevice">GraphicsDevice для создания меню</param>
     /// <param name="gameTime">Время игры, используется для синхронизации обновлений</param>
-    public static void Update(GameEngine engine, GameTime gameTime)
+    public static void Update(GameEngine engine, SpriteBatch spriteBatch, GraphicsDevice graphicsDevice, GameTime gameTime)
     {
         // Получаем текущее состояние игры
         var state = GameStateManager.CurrentState;
  
+        // Обработка состояния "Главное меню"
+        if (state is GameStateEnum.Menu)
+        {
+           
+        }
+        
         // Обработка состояния "Игра" - активная волна врагов
         if (state is GameStateEnum.Playing)
         {
@@ -30,13 +41,7 @@ public static class UpdateLogic
         // Обработка состояния "Планирование" - размещение башен между волнами
         if (state is GameStateEnum.Planning)
         {
-            engine.Update(gameTime);
-        }
-        
-        // Обработка состояния "Главное меню"
-        if (state is GameStateEnum.Menu)
-        {
-           engine.Update(gameTime);
+            
         }
         
         // Обработка состояния "Пауза"
